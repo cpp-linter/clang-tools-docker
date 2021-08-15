@@ -1,4 +1,4 @@
-# clang-checker
+# clang-tool
 
 This Docker image can let you check your code format with clang-format. 
 
