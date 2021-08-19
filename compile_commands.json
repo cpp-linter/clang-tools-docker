@@ -1,0 +1,7 @@
+[
+    {
+      "directory": ".",
+      "command": "/usr/bin/g++ -Wall -Werror helloworld.cpp",
+      "file": "/helloworld.cpp"
+    }
+]
