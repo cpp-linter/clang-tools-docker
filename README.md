@@ -18,8 +18,8 @@
 Git clone this repository then just run as bellow:
 
 ```bash
-docker run -v $PWD:/src xianpengshen/clang-tools:11 clang-format -i helloworld.c
-docker run -v $PWD:/src xianpengshen/clang-tools:11 clang-tidy helloworld.c \
+docker run -v $PWD:/src xianpengshen/clang-tools clang-format -i helloworld.c
+docker run -v $PWD:/src xianpengshen/clang-tools clang-tidy helloworld.c \
 -checks=boost-*,bugprone-*,performance-*,readability-*,portability-*,modernize-*,clang-analyzer-cplusplus-*,clang-analyzer-*,cppcoreguidelines-*
 ```
 
