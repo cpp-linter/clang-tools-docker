@@ -3,7 +3,7 @@
 `xianpengshen/clang-tools` Docker image includes clang-format and clang-tidy.
 
 ## Supported tags
-
+* [clang-tools:latest](https://github.com/shenxianpeng/clang-tools/blob/master/12/Dockerfile)
 * [clang-tools:11](https://github.com/shenxianpeng/clang-tools/blob/master/11/Dockerfile)
 * [clang-tools:10](https://github.com/shenxianpeng/clang-tools/blob/master/10/Dockerfile)
 * [clang-tools:9](https://github.com/shenxianpeng/clang-tools/blob/master/9/Dockerfile)
@@ -37,3 +37,8 @@ LLVM (http://llvm.org/):
   Default target: x86_64-pc-linux-gnu
   Host CPU: cascadelake
 ```
+
+## Quick reference
+
+* Where to file issues: \
+  https://github.com/shenxianpeng/clang-tools/issues
