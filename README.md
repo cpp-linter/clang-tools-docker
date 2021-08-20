@@ -26,12 +26,12 @@ docker run -v $PWD:/src xianpengshen/clang-tools:11 clang-tidy helloworld.c \
 ### Output version
 
 ```bash
-$ docker run xianpengshen/clang-tools:11 clang-format --version
-Ubuntu clang-format version 11.0.0-2~ubuntu20.04.1
+$ docker run xianpengshen/clang-tools clang-format --version
+Ubuntu clang-format version 12.0.0-3ubuntu1~20.04.3
 
-$ docker run xianpengshen/clang-tools:11 clang-tidy --version
+$ docker run xianpengshen/clang-tools clang-tidy --version
 LLVM (http://llvm.org/):
-  LLVM version 11.0.0
+  LLVM version 12.0.0
   
   Optimized build.
   Default target: x86_64-pc-linux-gnu
