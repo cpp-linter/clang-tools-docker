@@ -3,6 +3,7 @@
 `xianpengshen/clang-tools` Docker image includes clang-format and clang-tidy.
 
 ## Supported tags
+* [clang-tools:all](https://github.com/shenxianpeng/clang-tools/blob/master/12/Dockerfile) (supports all versions of the below tags)
 * [clang-tools:latest](https://github.com/shenxianpeng/clang-tools/blob/master/12/Dockerfile) (v12)
 * [clang-tools:11](https://github.com/shenxianpeng/clang-tools/blob/master/11/Dockerfile)
 * [clang-tools:10](https://github.com/shenxianpeng/clang-tools/blob/master/10/Dockerfile)
@@ -16,6 +17,7 @@
 * Where to file issues: \
   https://github.com/shenxianpeng/clang-tools/issues
 
+* Any suggestions or contributions are welcome.
 
 ## How to use this image
 
