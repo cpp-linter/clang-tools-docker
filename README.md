@@ -25,13 +25,6 @@
 * [clang-tools:7](https://github.com/shenxianpeng/clang-tools/blob/master/7/Dockerfile)
 * [clang-tools:6](https://github.com/shenxianpeng/clang-tools/blob/master/6/Dockerfile)
 
-## Quick reference
-
-* Where to file issues: \
-  https://github.com/shenxianpeng/clang-tools/issues
-
-* Any suggestions or contributions are welcome.
-
 ## How to use this image
 
 ### Create a `Dockerfile` in your project
@@ -112,3 +105,6 @@ Step 2/13 : FROM xianpengshen/clang-tools:$TAG
 11: Pulling from xianpengshen/clang-tools
 Status: Downloaded newer image for xianpengshen/clang-tools:11
 ```
+## Have question or feedback?
+
+To provide feedback (requesting a feature or reporting a bug) please post to [issues](https://github.com/shenxianpeng/clang-tools/issues)
