@@ -3,7 +3,7 @@
 ![GitHub](https://img.shields.io/github/license/shenxianpeng/clang-tools)
 ![Docker Pulls](https://img.shields.io/docker/pulls/xianpengshen/clang-tools)
 
-`xianpengshen/clang-tools` Docker image includes clang-format and clang-tidy.
+🐳 Docker image [`xianpengshen/clang-tools`](https://hub.docker.com/repository/docker/xianpengshen/clang-tools) includes clang-format and clang-tidy.
 
 ## Supported tags
 ![Docker Image Version (tag latest semver)](https://img.shields.io/docker/v/xianpengshen/clang-tools/all)
