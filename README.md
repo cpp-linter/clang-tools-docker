@@ -1,7 +1,7 @@
 # `xianpengshen/clang-tools`
 
-![GitHub](https://img.shields.io/github/license/shenxianpeng/clang-tools)
 ![Docker Pulls](https://img.shields.io/docker/pulls/xianpengshen/clang-tools)
+![Maintenance](https://img.shields.io/maintenance/yes/2021)
 
 🐳 Docker image [`xianpengshen/clang-tools`](https://hub.docker.com/repository/docker/xianpengshen/clang-tools) includes clang-format and clang-tidy.
 
