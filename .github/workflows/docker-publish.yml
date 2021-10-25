@@ -88,7 +88,8 @@ jobs:
           
       - name: Build and Push Docker matrix image(s)
         run: |
-          for i in ${{ steps.getfile.outputs.files }}
+          IFS=', ' read -r -a files <<< "${{ steps.getfile.outputs.files }}"
+          for i in "${files[@]}"
           do
             echo "$i"
             if [[ "Dockerfile" =~ $i ]]; then
