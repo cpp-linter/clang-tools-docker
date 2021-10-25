@@ -46,10 +46,19 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+
+      - name: Extract branch name
+        if: github.event_name != 'pull_request'
+        run: echo "::set-env name=BRANCH_NAME::$(echo ${GITHUB_REF#refs/heads/})"
+
+      - name: Extract PR branch name
+        if: github.event_name == 'pull_request'
+        run: echo "::set-env name=BRANCH_NAME::$(echo ${GITHUB_HEAD_REF})"
+
       - name: Get changed files
         id: getfile
         run: |
-          echo "::set-output name=files::$(git diff --name-only env.CHANGE_BRANCH master)"
+          echo "::set-output name=files::$(git diff --name-only $BRANCH_NAME master)"
         
       - name: Log into Docker Hub
         # if: ${{ github.ref == 'refs/heads/master' }}
