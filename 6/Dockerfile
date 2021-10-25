@@ -1,5 +1,6 @@
 FROM ubuntu:20.04
 
+# version is 6
 ENV VERSION 6.0
 
 RUN tools="clang-format-$VERSION clang-tidy-$VERSION" \
