@@ -61,7 +61,7 @@ jobs:
       - name: Get changed files
         id: getfile
         run: |
-          echo "::set-output name=files::$(git diff --name-only origin/${{ steps.extract.outputs.branch_name }} origin/master)"
+          echo "::set-output name=files::$(git diff --name-only refs/remotes/origin/${{ steps.extract.outputs.branch_name }} refs/remotes/origin/master)"
         
       - name: Log into Docker Hub
         # if: ${{ github.ref == 'refs/heads/master' }}
@@ -86,14 +86,13 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           
-      - name: Build Docker image matrix and push
+      - name: Build and Push Docker matrix image(s)
         run: |
           for i in ${{ steps.getfile.outputs.files }}
           do
+            echo "$i"
             if [[ "Dockerfile" =~ $i ]]; then
-              echo "$i"
               TAG=`basename $i`
-              
               docker buildx build -f $i
               docker tag ${DOCKER_HUB_BASE_NAME}:$TAG
               if [ ${{ github.ref }} == 'refs/heads/master' ]; then
