@@ -76,7 +76,7 @@ jobs:
           
       - name: Build Docker image matrix and push
         run: |
-          for i fin ${{ steps.getfile.outputs.files }}
+          for i in ${{ steps.getfile.outputs.files }}
           do
             if [[ "Dockerfile" =~ $i ]]; then
               echo "$i"
