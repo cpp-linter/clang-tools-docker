@@ -61,7 +61,7 @@ jobs:
       - name: Get changed files
         id: getfile
         run: |
-          echo "::set-output name=files::$(git diff --name-only ${{ steps.extract.outputs.branch_name }} master)"
+          echo "::set-output name=files::$(git diff --name-only origin/${{ steps.extract.outputs.branch_name }} origin/master)"
         
       - name: Log into Docker Hub
         # if: ${{ github.ref == 'refs/heads/master' }}
