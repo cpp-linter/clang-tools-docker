@@ -1,5 +1,6 @@
 FROM ubuntu:20.04
 
+# version is 7
 ENV VERSION 7
 
 RUN tools="clang-format-$VERSION clang-tidy-$VERSION" \
