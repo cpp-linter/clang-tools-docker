@@ -29,26 +29,27 @@ build-all-nc: ## Build all docker images without caching
 		docker build --no-cache -t $(APP_NAME):$$VERSION -f $$VERSION/Dockerfile .  ; \
 	done
 
-release: build-nc publish ## Release and publish a docker image to registory
+# release: build-nc publish ## Release and publish a docker image to registory
 
 release-all: build-all-nc publish-all ## Release and publish all docker images to registory
 
-publish-all: login publish-versions ## Publish all versions
+publish-all: docker-login docker-push-all ## Publish all versions
 
-publish-versions: tag-versions ## Publish all docker images to registory
+# Publish all docker images to registory
+docker-push-all: docker-tag-all 
 	for TAG in $(TAGS) ; do \
 		echo "docker push $(DOCKER_HUB)/$(APP_NAME):$$TAG ... " ; \
 		docker push $(DOCKER_HUB)/$(APP_NAME):$$TAG  ; \
 	done
 
-# Docker tagging
-tag-versions: ## Generate docker image tags
+# Generate docker image tags
+docker-tag-all: 
 	for TAG in $(TAGS) ; do \
 		docker tag $(APP_NAME):$$TAG $(DOCKER_HUB)/$(APP_NAME):$$TAG  ; \
 	done
 
-# Docker login
-login: ## Login to docker hub
+# Login to docker hub
+docker-login:
 	docker login
 
 test:
@@ -56,7 +57,5 @@ test:
 		echo "testing $$TAG"  ; \
 	done
 
-
 version: ## Output the all support versions
 	@echo $(TAGS)
-	
