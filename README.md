@@ -27,7 +27,7 @@
 
 ## How to use this image
 
-### Just following command directly
+### Run the following command directly
 
 ```bash
 # check clang-format version
@@ -49,9 +49,9 @@ docker run -v $PWD:/src xianpengshen/clang-tools:12 clang-tidy helloworld.c \
 -checks=boost-*,bugprone-*,performance-*,readability-*,portability-*,modernize-*,clang-analyzer-cplusplus-*,clang-analyzer-*,cppcoreguidelines-*
 ```
 
-### Use in [`Dockerfile`](https://github.com/shenxianpeng/clang-tools/blob/master/demo/Dockerfile)
+### Or refer the image in [`Dockerfile`](https://github.com/shenxianpeng/clang-tools/blob/master/demo/Dockerfile)
 
-You can also use this image [`xianpengshen/clang-tools`](https://hub.docker.com/repository/docker/xianpengshen/clang-tools) in `Dockerfile`. for example:
+You can also use this image [`xianpengshen/clang-tools`](https://hub.docker.com/repository/docker/xianpengshen/clang-tools) in `Dockerfile` as below.
 
 ```Dockerfile
 FROM xianpengshen/clang-tools:12
