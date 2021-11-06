@@ -20,6 +20,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Run Snyk to check Docker image for vulnerabilities
+      continue-on-error: true
       uses: snyk/actions/docker@master
       env:
         # In order to use the Snyk Action you will need to have a Snyk API token.
