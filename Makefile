@@ -4,8 +4,6 @@ dpl ?= deploy.env
 include $(dpl)
 export $(shell sed 's/=.*//' $(dpl))
 
-TAGS := all 12 11 10 9 8 7 6
-
 # HELP
 # This will output the help for each task
 # thanks to https://marmelab.com/blog/2016/02/29/auto-documented-makefile.html
@@ -18,44 +16,50 @@ help: ## This help.
 
 
 # DOCKER TASKS
-build: ## Build specific docker image
+build: ## Build a docker image
 	docker build -t $(APP_NAME) -f $(FILE) .
 
-build-nc: ## Build specific docker image without caching
+build-nc: ## Build a docker image without caching
 	docker build --no-cache -t $(APP_NAME) -f $(FILE) .
 
 build-all-nc: ## Build all docker images without caching
-	for VERSION in $(TAGS) ; do \
-		docker build --no-cache -t $(APP_NAME):$$VERSION -f $$VERSION/Dockerfile .  ; \
+	for TAG in $(APP_TAGS) ; do \
+		docker build --no-cache -t $(APP_NAME):$$TAG -f $$TAG/Dockerfile .  ; \
 	done
 
-# release: build-nc publish ## Release and publish a docker image to registory
+release: build-nc publish ## Release and publish a docker image to registry
 
-release-all: build-all-nc publish-all ## Release and publish all docker images to registory
+release-all: build-all-nc docker-login docker-tag-all docker-push-all ## Release and publish all images to registry
 
-publish-all: docker-login docker-push-all ## Publish all versions
+publish: docker-login docker-tag docker-push ## Publish a docker image to registry
 
-# Publish all docker images to registory
-docker-push-all: docker-tag-all 
-	for TAG in $(TAGS) ; do \
+publish-all: docker-login docker-tag-all docker-push-all ## Publish all docker images to registry
+
+docker-push: ## Docker push a docker image to registry
+	docker push $(DOCKER_HUB)/$(APP_NAME):$(TAG)
+
+docker-push-all: ## Docker push all docker images to registry
+	for TAG in $(APP_TAGS) ; do \
 		echo "docker push $(DOCKER_HUB)/$(APP_NAME):$$TAG ... " ; \
 		docker push $(DOCKER_HUB)/$(APP_NAME):$$TAG  ; \
 	done
 
-# Generate docker image tags
-docker-tag-all: 
-	for TAG in $(TAGS) ; do \
+docker-tag: ## Docker image create a tag
+	docker tag $(APP_NAME):$(TAG) $(DOCKER_HUB)/$(APP_NAME):$(TAG)
+
+docker-tag-all: ## Docker image create all tags
+	for TAG in $(APP_TAGS) ; do \
 		docker tag $(APP_NAME):$$TAG $(DOCKER_HUB)/$(APP_NAME):$$TAG  ; \
 	done
 
-# Login to docker hub
-docker-login:
+docker-login: ## Login to docker hub
 	docker login
 
-test:
-	for TAG in $(TAGS) ; do \
-		echo "testing $$TAG"  ; \
-	done
-
 version: ## Output the all support versions
-	@echo $(TAGS)
+	@echo $(APP_TAGS)
+
+# Test Makefile syntax.
+test:
+	for TAG in $(APP_TAGS) ; do \
+		echo "testing $$TAG" ; \
+	done
