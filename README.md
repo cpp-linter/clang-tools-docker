@@ -7,7 +7,7 @@
 
 ## Supported tags
 ![Docker Image Version (tag latest semver)](https://img.shields.io/docker/v/xianpengshen/clang-tools/all)
-![Docker Image Version (tag latest semver)](https://img.shields.io/docker/v/xianpengshen/clang-tools/latest)
+![Docker Image Version (tag latest semver)](https://img.shields.io/docker/v/xianpengshen/clang-tools/12)
 ![Docker Image Version (tag latest semver)](https://img.shields.io/docker/v/xianpengshen/clang-tools/11)
 ![Docker Image Version (tag latest semver)](https://img.shields.io/docker/v/xianpengshen/clang-tools/10)
 ![Docker Image Version (tag latest semver)](https://img.shields.io/docker/v/xianpengshen/clang-tools/9)
@@ -17,7 +17,7 @@
 
 
 * [clang-tools:all](https://github.com/shenxianpeng/clang-tools/blob/master/all/Dockerfile) (supports all versions of the below tags)
-* [clang-tools:latest](https://github.com/shenxianpeng/clang-tools/blob/master/12/Dockerfile) (v12)
+* [clang-tools:12](https://github.com/shenxianpeng/clang-tools/blob/master/12/Dockerfile)
 * [clang-tools:11](https://github.com/shenxianpeng/clang-tools/blob/master/11/Dockerfile)
 * [clang-tools:10](https://github.com/shenxianpeng/clang-tools/blob/master/10/Dockerfile)
 * [clang-tools:9](https://github.com/shenxianpeng/clang-tools/blob/master/9/Dockerfile)
@@ -27,10 +27,10 @@
 
 ## How to use this image
 
-### Create a `Dockerfile` in your project
+### Create a [`Dockerfile`](demo/Dockerfile) in your project
 
 ```Dockerfile
-FROM xianpengshen/clang-tools
+FROM xianpengshen/clang-tools:12
 
 WORKDIR /usr/src/app
 
@@ -64,17 +64,17 @@ $ docker run clang-tools clang-tidy helloworld.c \
 If a simple source code, you may find it inconvenient to write a complete `Dockerfile`. In such cases, you can run by using the Docker image directly.
 
 ```bash
-docker run -v $PWD:/src xianpengshen/clang-tools clang-format -i helloworld.c
-docker run -v $PWD:/src xianpengshen/clang-tools clang-tidy helloworld.c \
+docker run -v $PWD:/src xianpengshen/clang-tools:12 clang-format -i helloworld.c
+docker run -v $PWD:/src xianpengshen/clang-tools:12 clang-tidy helloworld.c \
 -checks=boost-*,bugprone-*,performance-*,readability-*,portability-*,modernize-*,clang-analyzer-cplusplus-*,clang-analyzer-*,cppcoreguidelines-*
 ```
 
-### Run `Dockerfile` with specific verion
+### Build `Dockerfile` with specific verion
 
 If you want to provide dynamic versions of clang-tools
 
 ```Dockerfile
-ARG TAG=latest
+ARG TAG=12
 FROM xianpengshen/clang-tools:$TAG
 
 WORKDIR /usr/src/app
@@ -82,17 +82,6 @@ WORKDIR /usr/src/app
 COPY . .
 
 CMD [ "" ]
-```
-
-Use the latest verion of clang-tools.
-
-```bash
-$ docker build -t mylinter .
-Sending build context to Docker daemon  157.7kB
-Step 1/13 : ARG TAG=latest
-Step 2/13 : FROM xianpengshen/clang-tools:$TAG
-latest: Pulling from xianpengshen/clang-tools
-Status: Downloaded newer image for xianpengshen/clang-tools:latest
 ```
 
 Use specific version of clang-tools by passing `--build-arg`
