@@ -27,12 +27,36 @@
 
 ## How to use this image
 
-### Create a [`Dockerfile`](demo/Dockerfile) in your project
+### Just following command directly
+
+```bash
+# check clang-format version
+docker run -v $PWD:/src xianpengshen/clang-tools:12 clang-format --version
+Ubuntu clang-format version 12.0.0-3ubuntu1~20.04.4
+# formatting code
+docker run -v $PWD:/src xianpengshen/clang-tools:12 clang-format --dry-run -i helloworld.c
+
+# check clang-tidy version
+docker run -v $PWD:/src xianpengshen/clang-tools:12 clang-tidy --version
+LLVM (http://llvm.org/):
+  LLVM version 12.0.0
+  
+  Optimized build.
+  Default target: x86_64-pc-linux-gnu
+  Host CPU: cascadelake
+# diagnosing code
+docker run -v $PWD:/src xianpengshen/clang-tools:12 clang-tidy helloworld.c \
+-checks=boost-*,bugprone-*,performance-*,readability-*,portability-*,modernize-*,clang-analyzer-cplusplus-*,clang-analyzer-*,cppcoreguidelines-*
+```
+
+### Use in [`Dockerfile`](https://github.com/shenxianpeng/clang-tools/blob/master/demo/Dockerfile)
+
+You can also use this image [`xianpengshen/clang-tools`](https://hub.docker.com/repository/docker/xianpengshen/clang-tools) in `Dockerfile`. for example:
 
 ```Dockerfile
 FROM xianpengshen/clang-tools:12
 
-WORKDIR /usr/src/app
+WORKDIR /src
 
 COPY . .
 
@@ -48,7 +72,7 @@ $ docker build -t clang-tools .
 $ docker run clang-tools clang-format --version
 Ubuntu clang-format version 12.0.0-3ubuntu1~20.04.3
 # formatting code
-$ docker run clang-tools clang-format -i helloworld.c
+$ docker run clang-tools clang-format --dry-run -i helloworld.c
 
 # check clang-tidy version
 $ docker run clang-tools clang-tidy --version
@@ -59,32 +83,20 @@ $ docker run clang-tools clang-tidy helloworld.c \
 -checks=boost-*,bugprone-*,performance-*,readability-*,portability-*,modernize-*,clang-analyzer-cplusplus-*,clang-analyzer-*,cppcoreguidelines-*
 ```
 
-### Run with a single c/c++ code
+### Specific version in `Dockerfile` 
 
-If a simple source code, you may find it inconvenient to write a complete `Dockerfile`. In such cases, you can run by using the Docker image directly.
-
-```bash
-docker run -v $PWD:/src xianpengshen/clang-tools:12 clang-format -i helloworld.c
-docker run -v $PWD:/src xianpengshen/clang-tools:12 clang-tidy helloworld.c \
--checks=boost-*,bugprone-*,performance-*,readability-*,portability-*,modernize-*,clang-analyzer-cplusplus-*,clang-analyzer-*,cppcoreguidelines-*
-```
-
-### Build `Dockerfile` with specific verion
-
-If you want to provide dynamic versions of clang-tools
+If you want to use a specific version of clang-tools, you can build the Dockerfile by passing `--build-arg`
 
 ```Dockerfile
 ARG TAG=12
 FROM xianpengshen/clang-tools:$TAG
 
-WORKDIR /usr/src/app
+WORKDIR /src
 
 COPY . .
 
 CMD [ "" ]
 ```
-
-Use specific version of clang-tools by passing `--build-arg`
 
 ```bash
 $ docker build -t mylinter --build-arg TAG=11 .
@@ -94,6 +106,7 @@ Step 2/13 : FROM xianpengshen/clang-tools:$TAG
 11: Pulling from xianpengshen/clang-tools
 Status: Downloaded newer image for xianpengshen/clang-tools:11
 ```
+
 ## Have question or feedback?
 
-To provide feedback (requesting a feature or reporting a bug) please post to [issues](https://github.com/shenxianpeng/clang-tools/issues)
+To provide feedback (requesting a feature or reporting a bug) please post to [issues](https://github.com/shenxianpeng/clang-tools/issues).
