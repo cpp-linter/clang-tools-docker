@@ -8,7 +8,9 @@
 
 ## Supported tags
 ![Docker Image Version (tag latest semver)](https://img.shields.io/docker/v/xianpengshen/clang-tools/all)
+![Docker Image Version (tag latest semver)](https://img.shields.io/docker/v/xianpengshen/clang-tools/12-alpine-edge)
 ![Docker Image Version (tag latest semver)](https://img.shields.io/docker/v/xianpengshen/clang-tools/12)
+![Docker Image Version (tag latest semver)](https://img.shields.io/docker/v/xianpengshen/clang-tools/11-alpine-3.14)
 ![Docker Image Version (tag latest semver)](https://img.shields.io/docker/v/xianpengshen/clang-tools/11)
 ![Docker Image Version (tag latest semver)](https://img.shields.io/docker/v/xianpengshen/clang-tools/11-alpine-3.14)
 ![Docker Image Version (tag latest semver)](https://img.shields.io/docker/v/xianpengshen/clang-tools/10)
@@ -19,7 +21,9 @@
 
 
 * [clang-tools:all](https://github.com/shenxianpeng/clang-tools/blob/master/all/Dockerfile) (supports all versions of the below tags)
+* [clang-tools:12-alpine-edge](https://github.com/shenxianpeng/clang-tools/blob/master/12/alpine-edge/Dockerfile)
 * [clang-tools:12](https://github.com/shenxianpeng/clang-tools/blob/master/12/Dockerfile)
+* [clang-tools:11-alpine-3.14](https://github.com/shenxianpeng/clang-tools/blob/master/11/alpine-3.14/Dockerfile)
 * [clang-tools:11](https://github.com/shenxianpeng/clang-tools/blob/master/11/Dockerfile)
 * [clang-tools:11-alpine-3.14](https://github.com/shenxianpeng/clang-tools/blob/master/11/alpine-3.14/Dockerfile)
 * [clang-tools:10](https://github.com/shenxianpeng/clang-tools/blob/master/10/Dockerfile)
