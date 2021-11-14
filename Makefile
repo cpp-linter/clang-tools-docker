@@ -17,10 +17,11 @@ help: ## This help.
 
 # DOCKER TASKS
 build: ## Build a docker image
-	docker build -t $(APP_NAME) -f $(FILE) .
+	docker build -t $(APP_NAME):$(TAG) -f $(FILE) .
 
 build-nc: ## Build a docker image without caching
-	docker build --no-cache -t $(APP_NAME) -f $(FILE) .
+# for example: make build-nc FILE=11/alpine-3.14/Dockerfile TAG=11-alpine-3.14
+	docker build --no-cache -t $(APP_NAME):$(TAG) -f $(FILE) .
 
 build-all-nc: ## Build all docker images without caching
 	for TAG in $(APP_TAGS) ; do \
@@ -32,6 +33,7 @@ release: build-nc publish ## Release and publish a docker image to registry
 release-all: build-all-nc docker-login docker-tag-all docker-push-all ## Release and publish all images to registry
 
 publish: docker-login docker-tag docker-push ## Publish a docker image to registry
+# for example: make publish FILE=11/alpine-3.14/Dockerfile TAG=11-alpine-3.14
 
 publish-all: docker-login docker-tag-all docker-push-all ## Publish all docker images to registry
 
