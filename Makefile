@@ -4,7 +4,6 @@ DIR_NAME := $(shell dirname $(FILE))
 TAG := $(shell basename `dirname $(FILE)`)
 IMAGE_NAME ?= $(APP_NAME):$(TAG)
 DOCKER_HUB=xianpengshen/$(IMAGE_NAME)
-DOCKER_PKG=ghcr.io/shenxianpeng/$(IMAGE_NAME)
 DOCKERFILE ?= $(DIR_NAME)/Dockerfile
 CONTAINER_BIN ?= docker
 
@@ -39,13 +38,11 @@ help: ## Show this Makefile's help
 	@echo ""
 	@echo 'Usage: make [EXTRA_ARGUMENTS]'
 	@echo ""
-	@echo "make build FILE=12/Dockerfile    	build image, see the example"
-	@echo "make deploy NAME=clang-tools:12              deploy image to Artifactory registry"
-	@echo "make publish FILE=12/Dockerfile  	build and deploy image to Artifactory registry"
-	@echo "make publish-all                     build and deploy all clang-tools images to Docker Hub and PKG"
-	@echo "make lint                            lint Dockerfile validate inline bash"
-	@echo "make clean                           clean all generate files"
-	@echo "make prune                           clean all images that are not actively used"
+	@echo "make build FILE=12/Dockerfile        Build image, see the example"
+	@echo "make publish FILE=12/Dockerfile      Build and deploy image to Docker Hub"
+	@echo "make lint                            Lint Dockerfile validate inline bash"
+	@echo "make clean                           Clean all generate files"
+	@echo "make prune                           Clean all images that are not actively used"
 	@echo ""
 
 .DEFAULT_GOAL := help
@@ -65,12 +62,21 @@ build: check-file ## ## Build the Docker Image $(NAME) from $(DOCKERFILE)
 	@echo "== Build ✅ image $(IMAGE_NAME) Succeeded."
 
 ## This steps expects that you are logged to the Docker registry to push image into
-deploy: check-name ## Tag and push the built image as specified by $(IMAGE_DEPLOY).
+publish: check-name check-file build login ## Tag and push the built image as specified by $(IMAGE_DEPLOY).
 	@echo "== Deploying $(IMAGE_NAME) to $(DOCKER_HUB)..."
 	$(CONTAINER_BIN) tag $(IMAGE_NAME) $(DOCKER_HUB)
-	$(CONTAINER_BIN) push $(DEPLOY_NAME)
-	@echo "== Deploy DOCKER_HUB ✅ Succeeded"
-	@echo "== Deploying $(IMAGE_NAME) to $(DOCKER_PKG)..."
-	$(CONTAINER_BIN) tag $(IMAGE_NAME) $(DOCKER_PKG)
-	$(CONTAINER_BIN) push $(DOCKER_PKG)
-	@echo "== Deploy DOCKER_PKG ✅ Succeeded"
+	$(CONTAINER_BIN) push $(DOCKER_HUB)
+	@echo "== Deploy ✅ $(DOCKER_HUB) Succeeded"
+
+login: ## Docker login
+	$(CONTAINER_BIN) login --username xianpengshen
+
+prune:  ## clean all that is not actively used
+	@docker system prune -af
+	@echo "== Clean ✅ all inactively used images Succeeded"
+
+lint: check-file ## Lint the $(DOCKERFILE) content
+	@echo "== Linting $(DOCKERFILE)..."
+	@echo "Output Lint results"
+	@docker run --rm -i hadolint/hadolint hadolint - < $(DOCKERFILE)
+	@echo "== Lint ✅ Succeeded"
