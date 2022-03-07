@@ -116,3 +116,7 @@ Status: Downloaded newer image for xianpengshen/clang-tools:11
 ## Have question or feedback?
 
 To provide feedback (requesting a feature or reporting a bug) please post to [issues](https://github.com/shenxianpeng/clang-tools/issues).
+
+## License
+
+[Apache License](https://github.com/shenxianpeng/clang-tools/blob/master/LICENSE)
