@@ -4,7 +4,7 @@
 ![Maintenance](https://img.shields.io/maintenance/yes/2022)
 [![Snyk Container](https://github.com/shenxianpeng/clang-tools/actions/workflows/snyk-container-analysis.yml/badge.svg)](https://github.com/shenxianpeng/clang-tools/actions/workflows/snyk-container-analysis.yml)
 
-🐳 [`xianpengshen/clang-tools`](https://hub.docker.com/repository/docker/xianpengshen/clang-tools) includes clang-format and clang-tidy.
+🐳 [`xianpengshen/clang-tools`](https://hub.docker.com/repository/docker/xianpengshen/clang-tools) Docker image includes the clang-format and clang-tidy tools.
 
 ## Supported tags
 ![Docker Image Version (tag latest semver)](https://img.shields.io/docker/v/xianpengshen/clang-tools/all)
@@ -36,22 +36,22 @@
 ### Run the following command directly
 
 ```bash
-# check clang-format version
-docker run -v $PWD:/src xianpengshen/clang-tools:12 clang-format --version
+# Check clang-format version
+$ docker run xianpengshen/clang-tools:12 clang-format --version
 Ubuntu clang-format version 12.0.0-3ubuntu1~20.04.4
-# formatting code
-docker run -v $PWD:/src xianpengshen/clang-tools:12 clang-format --dry-run -i helloworld.c
+# Format code (helloworld.c in the demo directory)
+$ docker run -v $PWD:/src xianpengshen/clang-tools:12 clang-format --dry-run -i helloworld.c
 
-# check clang-tidy version
-docker run -v $PWD:/src xianpengshen/clang-tools:12 clang-tidy --version
+# Check clang-tidy version
+$ docker run xianpengshen/clang-tools:12 clang-tidy --version
 LLVM (http://llvm.org/):
   LLVM version 12.0.0
   
   Optimized build.
   Default target: x86_64-pc-linux-gnu
   Host CPU: cascadelake
-# diagnosing code
-docker run -v $PWD:/src xianpengshen/clang-tools:12 clang-tidy helloworld.c \
+# Diagnostic code (helloworld.c in the demo directory)
+$ docker run -v $PWD:/src xianpengshen/clang-tools:12 clang-tidy helloworld.c \
 -checks=boost-*,bugprone-*,performance-*,readability-*,portability-*,modernize-*,clang-analyzer-cplusplus-*,clang-analyzer-*,cppcoreguidelines-*
 ```
 
@@ -69,22 +69,22 @@ COPY . .
 CMD [ "" ]
 ```
 
-You can then build and run the Docker image:
+Then build and run the Docker image:
 
 ```bash
 $ docker build -t clang-tools .
 
-# check clang-format version
+# Check clang-format version
 $ docker run clang-tools clang-format --version
 Ubuntu clang-format version 12.0.0-3ubuntu1~20.04.3
-# formatting code
+# Format code
 $ docker run clang-tools clang-format --dry-run -i helloworld.c
 
-# check clang-tidy version
+# Check clang-tidy version
 $ docker run clang-tools clang-tidy --version
 LLVM (http://llvm.org/):
   LLVM version 12.0.0
-# diagnosing code
+# Diagnostic code
 $ docker run clang-tools clang-tidy helloworld.c \
 -checks=boost-*,bugprone-*,performance-*,readability-*,portability-*,modernize-*,clang-analyzer-cplusplus-*,clang-analyzer-*,cppcoreguidelines-*
 ```
