@@ -7,17 +7,6 @@
 🐳 [`xianpengshen/clang-tools`](https://hub.docker.com/repository/docker/xianpengshen/clang-tools) Docker image includes the clang-format and clang-tidy tools.
 
 ## Supported tags
-![Docker Image Version (tag latest semver)](https://img.shields.io/docker/v/xianpengshen/clang-tools/all)
-![Docker Image Version (tag latest semver)](https://img.shields.io/docker/v/xianpengshen/clang-tools/13)
-![Docker Image Version (tag latest semver)](https://img.shields.io/docker/v/xianpengshen/clang-tools/12-alpine-edge)
-![Docker Image Version (tag latest semver)](https://img.shields.io/docker/v/xianpengshen/clang-tools/12)
-![Docker Image Version (tag latest semver)](https://img.shields.io/docker/v/xianpengshen/clang-tools/11-alpine-3.14)
-![Docker Image Version (tag latest semver)](https://img.shields.io/docker/v/xianpengshen/clang-tools/11)
-![Docker Image Version (tag latest semver)](https://img.shields.io/docker/v/xianpengshen/clang-tools/10)
-![Docker Image Version (tag latest semver)](https://img.shields.io/docker/v/xianpengshen/clang-tools/9)
-![Docker Image Version (tag latest semver)](https://img.shields.io/docker/v/xianpengshen/clang-tools/8)
-![Docker Image Version (tag latest semver)](https://img.shields.io/docker/v/xianpengshen/clang-tools/7)
-![Docker Image Version (tag latest semver)](https://img.shields.io/docker/v/xianpengshen/clang-tools/6)
 
 * [clang-tools:all](https://github.com/shenxianpeng/clang-tools/blob/master/all/Dockerfile) (supports all versions of the below tags)
 * [clang-tools:13](https://github.com/shenxianpeng/clang-tools/blob/master/13/Dockerfile)
