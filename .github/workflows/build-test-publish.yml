@@ -13,16 +13,14 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    name: build-test-publish
     steps:
       - uses: actions/checkout@v2
       - name: Get changed files
         id: changed-files
         uses: tj-actions/changed-files@v18.4
+      - name: build-test-publish
         run: |
           docker login -u=${{ secrets.DOCKER_USERNAME }} -p=${{ secrets.DOCKER_PASSWORD }}
-      - name: Build/Test/Push
-        run: |
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
             if [[ "$file" == *"Dockerfile" ]]; then
               make build FILE=$file
