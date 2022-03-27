@@ -3,6 +3,7 @@
 ![Docker Pulls](https://img.shields.io/docker/pulls/xianpengshen/clang-tools)
 ![Maintenance](https://img.shields.io/maintenance/yes/2022)
 [![Snyk Container](https://github.com/shenxianpeng/clang-tools/actions/workflows/snyk-container-analysis.yml/badge.svg)](https://github.com/shenxianpeng/clang-tools/actions/workflows/snyk-container-analysis.yml)
+[![CI](https://github.com/shenxianpeng/clang-tools/actions/workflows/build-test-publish.yml/badge.svg)](https://github.com/shenxianpeng/clang-tools/actions/workflows/build-test-publish.yml)
 
 🐳 [`xianpengshen/clang-tools`](https://hub.docker.com/repository/docker/xianpengshen/clang-tools) Docker image includes the clang-format and clang-tidy tools.
 
