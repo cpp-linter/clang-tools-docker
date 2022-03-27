@@ -29,12 +29,9 @@ endif
 # thanks to https://marmelab.com/blog/2016/02/29/auto-documented-makefile.html
 .PHONY: help
 
-# help: ## This help.
-# 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
-
 help: ## Show this Makefile's help
 	@echo ""
-	@echo "Make Docker images for Clang Tools"
+	@echo "Make clang tools Docker images"
 	@echo ""
 	@echo 'Usage: make [EXTRA_ARGUMENTS]'
 	@echo ""
@@ -46,7 +43,6 @@ help: ## Show this Makefile's help
 	@echo ""
 
 .DEFAULT_GOAL := help
-
 
 # DOCKER TASKS
 build: check-file ## ## Build the Docker Image $(NAME) from $(DOCKERFILE)
