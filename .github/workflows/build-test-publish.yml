@@ -1,0 +1,42 @@
+name: Build & Test & Publish
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - '**Dockerfile'
+  pull_request:
+    branches: [ master ]
+    paths:
+      - '**Dockerfile'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v18.4
+      - name: build-test-publish
+        run: |
+          docker login -u=${{ secrets.DOCKER_USERNAME }} -p=${{ secrets.DOCKER_PASSWORD }}
+          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+            if [[ "$file" == *"Dockerfile" ]]; then
+              set -e
+              make build FILE=$file
+              tag=`dirname $file`
+              if [ $tag == "all" ]; then
+                versions="14 13 12 11 10 9 8"
+                for version in ${versions}; do
+                  docker run clang-tools:$tag clang-format-$version --version | grep -E clang-format.*$version
+                  docker run clang-tools:$tag clang-tidy-$version --version | grep "LLVM version $version"
+                done
+              else
+                docker run clang-tools:$tag clang-format --version | grep -E clang-format.*$tag
+                docker run clang-tools:$tag clang-tidy --version | grep "LLVM version $tag"
+              fi
+              docker tag clang-tools:$tag xianpengshen/clang-tools:$tag
+              docker push xianpengshen/clang-tools:$tag
+            fi
+          done

@@ -2,9 +2,8 @@ FROM ubuntu:20.04
 
 ENV VERSION 12
 
-RUN tools="clang-format-$VERSION clang-tidy-$VERSION" \
-    && apt-get update \
-    && apt-get -y install $tools \
+RUN apt-get update \
+    && apt-get -y install clang-format-$VERSION clang-tidy-$VERSION \
     && rm -rf /var/lib/apt/lists/*
 
 RUN ln -s /usr/bin/clang-format-"$VERSION" /usr/bin/clang-format \
