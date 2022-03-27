@@ -36,7 +36,6 @@ jobs:
                 docker run clang-tools:$tag clang-format --version | grep -E clang-format.*$tag
                 docker run clang-tools:$tag clang-tidy --version | grep "LLVM version $tag"
               fi
-              docker tag clang-tools:$tag xianpengshen/clang-tools:$tag
-              docker push xianpengshen/clang-tools:$tag
+              make publish FILE=$file
             fi
           done
