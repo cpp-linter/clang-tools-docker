@@ -23,6 +23,6 @@ jobs:
         run: |
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
             tag=`basename $file`
-            docker run xianpengshen/clang-tools:$tag clang-format --version
-            docker run xianpengshen/clang-tools:$tag clang-tidy --version
+            docker run $GITHUB_REPOSITORY:$tag clang-format --version
+            docker run $GITHUB_REPOSITORY:$tag clang-tidy --version
           done
