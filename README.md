@@ -1,30 +1,36 @@
-# `xianpengshen/clang-tools`
+# Clang Tools Docker image
 
-![Docker Pulls](https://img.shields.io/docker/pulls/xianpengshen/clang-tools)
+[![Docker Pulls](https://img.shields.io/docker/pulls/xianpengshen/clang-tools)](https://hub.docker.com/r/xianpengshen/clang-tools)
 ![Maintenance](https://img.shields.io/maintenance/yes/2022)
-[![Snyk Container](https://github.com/shenxianpeng/clang-tools/actions/workflows/snyk-container-analysis.yml/badge.svg)](https://github.com/shenxianpeng/clang-tools/actions/workflows/snyk-container-analysis.yml)
 [![CI](https://github.com/shenxianpeng/clang-tools/actions/workflows/build-test-publish.yml/badge.svg)](https://github.com/shenxianpeng/clang-tools/actions/workflows/build-test-publish.yml)
+[![Snyk Container](https://github.com/shenxianpeng/clang-tools/actions/workflows/snyk-container-analysis.yml/badge.svg)](https://github.com/shenxianpeng/clang-tools/actions/workflows/snyk-container-analysis.yml)
 
-🐳 [`xianpengshen/clang-tools`](https://hub.docker.com/repository/docker/xianpengshen/clang-tools) Docker image includes the clang-format and clang-tidy tools.
+🐳 The Clang Tools Docker image includes the clang-format and clang-tidy.
 
-## Supported tags
+## Supported tags and respective `Dockerfile` links
 
-* [clang-tools:all](https://github.com/shenxianpeng/clang-tools/blob/master/all/Dockerfile) (Include tags `14`, `13`, **`12`**(default), `11`, `10`, `9`, `8`)
-* [clang-tools:14](https://github.com/shenxianpeng/clang-tools/blob/master/14/Dockerfile)
-* [clang-tools:13](https://github.com/shenxianpeng/clang-tools/blob/master/13/Dockerfile)
-* [clang-tools:12-alpine-edge](https://github.com/shenxianpeng/clang-tools/blob/master/12/alpine-edge/Dockerfile)
-* [clang-tools:12](https://github.com/shenxianpeng/clang-tools/blob/master/12/Dockerfile)
-* [clang-tools:11-alpine-3.14](https://github.com/shenxianpeng/clang-tools/blob/master/11/alpine-3.14/Dockerfile)
-* [clang-tools:11](https://github.com/shenxianpeng/clang-tools/blob/master/11/Dockerfile)
-* [clang-tools:10](https://github.com/shenxianpeng/clang-tools/blob/master/10/Dockerfile)
-* [clang-tools:9](https://github.com/shenxianpeng/clang-tools/blob/master/9/Dockerfile)
-* [clang-tools:8](https://github.com/shenxianpeng/clang-tools/blob/master/8/Dockerfile)
-* [clang-tools:7](https://github.com/shenxianpeng/clang-tools/blob/master/7/Dockerfile)
-* [clang-tools:6](https://github.com/shenxianpeng/clang-tools/blob/master/6/Dockerfile)
+Docker Hub [registry](https://hub.docker.com/r/xianpengshen/clang-tools)
+
+* [`all`](https://github.com/shenxianpeng/clang-tools/blob/master/all/Dockerfile) (include tags `14`, `13`, `12`(default), `11`, `10`, `9`, `8`)
+* [`14`](https://github.com/shenxianpeng/clang-tools/blob/master/14/Dockerfile)
+* [`13`](https://github.com/shenxianpeng/clang-tools/blob/master/13/Dockerfile)
+* [`12-alpine-edge`](https://github.com/shenxianpeng/clang-tools/blob/master/12/alpine-edge/Dockerfile)
+* [`12`](https://github.com/shenxianpeng/clang-tools/blob/master/12/Dockerfile)
+* [`11-alpine-3.14`](https://github.com/shenxianpeng/clang-tools/blob/master/11/alpine-3.14/Dockerfile)
+* [`11`](https://github.com/shenxianpeng/clang-tools/blob/master/11/Dockerfile)
+* [`10`](https://github.com/shenxianpeng/clang-tools/blob/master/10/Dockerfile)
+* [`9`](https://github.com/shenxianpeng/clang-tools/blob/master/9/Dockerfile)
+* [`8`](https://github.com/shenxianpeng/clang-tools/blob/master/8/Dockerfile)
+* [`7`](https://github.com/shenxianpeng/clang-tools/blob/master/7/Dockerfile)
+* [`6`](https://github.com/shenxianpeng/clang-tools/blob/master/6/Dockerfile)
+
+GitHub Packages [registry](https://github.com/shenxianpeng/clang-tools/pkgs/container/clang-tools)
+
+* [`all`](https://github.com/shenxianpeng/clang-tools/blob/master/all/Dockerfile) (include tags `14`, `13`, `12`(default), `11`, `10`, `9`, `8`)
 
 ## How to use this image
 
-### Run the following command directly
+### Docker run image
 
 ```bash
 # Check clang-format version
@@ -46,9 +52,7 @@ $ docker run -v $PWD:/src xianpengshen/clang-tools:12 clang-tidy helloworld.c \
 -checks=boost-*,bugprone-*,performance-*,readability-*,portability-*,modernize-*,clang-analyzer-cplusplus-*,clang-analyzer-*,cppcoreguidelines-*
 ```
 
-### Or refer the image in [`Dockerfile`](https://github.com/shenxianpeng/clang-tools/blob/master/demo/Dockerfile)
-
-You can also use this image [`xianpengshen/clang-tools`](https://hub.docker.com/repository/docker/xianpengshen/clang-tools) in `Dockerfile` as below.
+### As base image in [`Dockerfile`](https://github.com/shenxianpeng/clang-tools/blob/master/demo/Dockerfile)
 
 ```Dockerfile
 FROM xianpengshen/clang-tools:12
@@ -80,9 +84,9 @@ $ docker run clang-tools clang-tidy helloworld.c \
 -checks=boost-*,bugprone-*,performance-*,readability-*,portability-*,modernize-*,clang-analyzer-cplusplus-*,clang-analyzer-*,cppcoreguidelines-*
 ```
 
-### Specific version in `Dockerfile` 
+### Use specific tag in `Dockerfile` 
 
-If you want to use a specific version of clang-tools, you can build the Dockerfile by passing `--build-arg`
+If you want to use a specific tag of clang-tools, you can build image by passing `--build-arg`
 
 ```Dockerfile
 ARG TAG=12
