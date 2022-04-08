@@ -1,13 +1,15 @@
 # Clang Tools Docker image
 
-[![Docker Pulls](https://img.shields.io/docker/pulls/xianpengshen/clang-tools)](https://hub.docker.com/repository/docker/xianpengshen/clang-tools)
+[![Docker Pulls](https://img.shields.io/docker/pulls/xianpengshen/clang-tools)](https://hub.docker.com/r/xianpengshen/clang-tools)
 ![Maintenance](https://img.shields.io/maintenance/yes/2022)
 [![CI](https://github.com/shenxianpeng/clang-tools/actions/workflows/build-test-publish.yml/badge.svg)](https://github.com/shenxianpeng/clang-tools/actions/workflows/build-test-publish.yml)
 [![Snyk Container](https://github.com/shenxianpeng/clang-tools/actions/workflows/snyk-container-analysis.yml/badge.svg)](https://github.com/shenxianpeng/clang-tools/actions/workflows/snyk-container-analysis.yml)
 
-🐳 Clang Tools Docker image includes the clang-format and clang-tidy.
+🐳 The Clang Tools Docker image includes the clang-format and clang-tidy.
 
 ## Supported tags and respective `Dockerfile` links
+
+Docker Hub [registry](https://hub.docker.com/r/xianpengshen/clang-tools)
 
 * [`all`](https://github.com/shenxianpeng/clang-tools/blob/master/all/Dockerfile) (include tags `14`, `13`, `12`(default), `11`, `10`, `9`, `8`)
 * [`14`](https://github.com/shenxianpeng/clang-tools/blob/master/14/Dockerfile)
@@ -22,7 +24,9 @@
 * [`7`](https://github.com/shenxianpeng/clang-tools/blob/master/7/Dockerfile)
 * [`6`](https://github.com/shenxianpeng/clang-tools/blob/master/6/Dockerfile)
 
-Also support [`all`](https://github.com/shenxianpeng/clang-tools/blob/master/all/Dockerfile) tag on GitHub Packages registry, [more details](https://github.com/shenxianpeng/clang-tools/pkgs/container/clang-tools).
+GitHub Packages [registry](https://github.com/shenxianpeng/clang-tools/pkgs/container/clang-tools)
+
+* [`all`](https://github.com/shenxianpeng/clang-tools/blob/master/all/Dockerfile) (include tags `14`, `13`, `12`(default), `11`, `10`, `9`, `8`)
 
 ## How to use this image
 
