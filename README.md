@@ -1,6 +1,7 @@
 # Clang Tools Docker image
 
 [![Docker Pulls](https://img.shields.io/docker/pulls/xianpengshen/clang-tools)](https://hub.docker.com/r/xianpengshen/clang-tools)
+[![GitHub Repo](https://img.shields.io/badge/GitHub%20Repo-URL-blue?logo=github)](https://github.com/shenxianpeng/clang-tools)
 ![Maintenance](https://img.shields.io/maintenance/yes/2022)
 [![CI](https://github.com/shenxianpeng/clang-tools/actions/workflows/build-test-publish.yml/badge.svg)](https://github.com/shenxianpeng/clang-tools/actions/workflows/build-test-publish.yml)
 [![Snyk Container](https://github.com/shenxianpeng/clang-tools/actions/workflows/snyk-container-analysis.yml/badge.svg)](https://github.com/shenxianpeng/clang-tools/actions/workflows/snyk-container-analysis.yml)
