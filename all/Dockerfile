@@ -8,30 +8,29 @@ ENV CLANG14="clang+llvm-14.0.0-x86_64-linux-gnu-ubuntu-18.04"
 ENV CLANG14_URL="https://github.com/llvm/llvm-project/releases/download/llvmorg-14.0.0/${CLANG14}.tar.xz"
 
 RUN apt-get update \
-    && apt-get install -y xz-utils wget  \
     && for VERSION in ${VERSIONS}; do \
-        apt-get -y install clang-format-$VERSION clang-tidy-$VERSION; done \
+        apt-get --no-install-recommends -y install clang-format-$VERSION clang-tidy-$VERSION; done \
+    && apt-get install --no-install-recommends -y xz-utils \
+    && apt-get install -y wget \
     && wget --no-verbose $CLANG13_URL \
     && tar -xvf $CLANG13.tar.xz \
     && rm -rf $CLANG13.tar.xz \
-    && mv $CLANG13 /usr/lib/llvm-13 \
-    && cp /usr/lib/llvm-13/bin/clang-format /usr/bin/clang-format-13 \
-    && cp /usr/lib/llvm-13/bin/clang-tidy /usr/bin/clang-tidy-13 \
+    && cp $CLANG13/bin/clang-format /usr/bin/clang-format-13 \
+    && cp $CLANG13/bin/clang-tidy /usr/bin/clang-tidy-13 \
+    && cp $CLANG13/lib/clang/13.0.0/include/stddef.h /usr/include/ \
+    && cp $CLANG13/lib/clang/13.0.0/include/stdarg.h /usr/include/ \
     && wget --no-verbose $CLANG14_URL \
-    && tar -xvf $CLANG14.tar.xz --no-same-owner\
+    && tar -xvf $CLANG14.tar.xz --no-same-owner \
     && rm -rf $CLANG14.tar.xz \
-    && mv $CLANG14 /usr/lib/llvm-14 \
-    && cp /usr/lib/llvm-14/bin/clang-format /usr/bin/clang-format-14 \
-    && cp /usr/lib/llvm-14/bin/clang-tidy /usr/bin/clang-tidy-14 \
-    && cp /usr/lib/clang/12/include/stddef.h /usr/include/ \
-    && cp /usr/lib/clang/12/include/stdarg.h /usr/include/ \
-    && rm -rf /usr/lib/llvm-13 /usr/lib/llvm-14 \
+    && cp $CLANG14/bin/clang-format /usr/bin/clang-format-14 \
+    && cp $CLANG14/bin/clang-tidy /usr/bin/clang-tidy-14 \
+    && rm -rf $CLANG13 $CLANG13.tar.xz $CLANG14 $CLANG14.tar.xz \
     && rm -rf /var/lib/apt/lists/*
 
 RUN ln -s /usr/bin/clang-format-$DEFAULT_VERSION /usr/bin/clang-format \
+    && ln -s /usr/bin/clang-tidy-$DEFAULT_VERSION /usr/bin/clang-tidy \
     && echo "--- Clang-format version ---" \
     && clang-format --version \
-    && ln -s /usr/bin/clang-tidy-$DEFAULT_VERSION /usr/bin/clang-tidy \
     && echo "--- Clang-tidy version ---" \
     && clang-tidy --version
 
