@@ -13,13 +13,16 @@ RUN apt-get update \
         apt-get -y install clang-format-$VERSION clang-tidy-$VERSION; done \
     && wget --no-verbose $CLANG13_URL \
     && tar -xvf $CLANG13.tar.xz \
-    && cp $CLANG13/bin/clang-format /usr/bin/clang-format-13 \
-    && cp $CLANG13/bin/clang-tidy /usr/bin/clang-tidy-13 \
+    && rm -rf $CLANG13.tar.xz \
+    && mv $CLANG13 /usr/lib/llvm-13
+    && cp /usr/lib/llvm-13/bin/clang-format /usr/bin/clang-format-13 \
+    && cp /usr/lib/llvm-13/bin/clang-tidy /usr/bin/clang-tidy-13 \
     && wget --no-verbose $CLANG14_URL \
     && tar -xvf $CLANG14.tar.xz --no-same-owner\
-    && cp $CLANG14/bin/clang-format /usr/bin/clang-format-14 \
-    && cp $CLANG14/bin/clang-tidy /usr/bin/clang-tidy-14 \
-    && rm -rf $CLANG13 $CLANG13.tar.xz $CLANG14 $CLANG14.tar.xz \
+    && rm -rf $CLANG14.tar.xz \
+    && mv $CLANG14 /usr/lib/llvm-14
+    && cp /usr/lib/llvm-14/bin/clang-format /usr/bin/clang-format-14 \
+    && cp /usr/lib/llvm-14/bin/clang-tidy /usr/bin/clang-tidy-14 \
     && rm -rf /var/lib/apt/lists/*
 
 RUN ln -s /usr/bin/clang-format-$DEFAULT_VERSION /usr/bin/clang-format \

@@ -9,13 +9,14 @@ RUN apt-get update \
     && apt-get install -y xz-utils wget  \
     && wget --no-verbose ${PACKAGE_URL} \
     && tar -xvf $PACKAGE.tar.xz --no-same-owner \
-    && cp $PACKAGE/bin/clang-format /usr/bin/clang-format \
+    && rm -rf $PACKAGE.tar.xz \
+    && mv $PACKAGE /usr/lib/llvm-14
+    && cp /usr/lib/llvm-14/bin/clang-format /usr/bin/clang-format \
     && echo "--- Clang-format version ---" \
     && clang-format --version \
-    && cp $PACKAGE/bin/clang-tidy /usr/bin/clang-tidy \
+    && cp /usr/lib/llvm-14/bin/clang-tidy /usr/bin/clang-tidy \
     && echo "--- Clang-tidy version ---" \
     && clang-tidy --version \
-    && rm -rf $PACKAGE $PACKAGE.tar.xz \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /src
