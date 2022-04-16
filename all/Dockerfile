@@ -23,6 +23,9 @@ RUN apt-get update \
     && mv $CLANG14 /usr/lib/llvm-14 \
     && cp /usr/lib/llvm-14/bin/clang-format /usr/bin/clang-format-14 \
     && cp /usr/lib/llvm-14/bin/clang-tidy /usr/bin/clang-tidy-14 \
+    && cp /usr/lib/clang/12/include/stddef.h /usr/include/ \
+    && cp /usr/lib/clang/12/include/stdarg.h /usr/include/ \
+    && rm -rf /usr/lib/llvm-13 /usr/lib/llvm-14 \
     && rm -rf /var/lib/apt/lists/*
 
 RUN ln -s /usr/bin/clang-format-$DEFAULT_VERSION /usr/bin/clang-format \
