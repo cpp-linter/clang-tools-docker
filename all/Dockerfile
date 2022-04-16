@@ -24,7 +24,7 @@ RUN apt-get update \
     && rm -rf $CLANG14.tar.xz \
     && cp $CLANG14/bin/clang-format /usr/bin/clang-format-14 \
     && cp $CLANG14/bin/clang-tidy /usr/bin/clang-tidy-14 \
-    && rm -rf $CLANG13 $CLANG13.tar.xz $CLANG14 $CLANG14.tar.xz \
+    && rm -rf $CLANG13 $CLANG14 \
     && rm -rf /var/lib/apt/lists/*
 
 RUN ln -s /usr/bin/clang-format-$DEFAULT_VERSION /usr/bin/clang-format \
