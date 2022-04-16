@@ -36,6 +36,8 @@ jobs:
                 docker run clang-tools:$tag clang-format --version | grep -E clang-format.*$tag
                 docker run clang-tools:$tag clang-tidy --version | grep "LLVM version $tag"
               fi
-              make publish FILE=$file
+              if [[ $GITHUB_EVENT_NAME == 'push' ]]; then
+                make publish FILE=$file
+              fi
             fi
           done

@@ -30,7 +30,7 @@ RUN ln -s /usr/bin/clang-format-$DEFAULT_VERSION /usr/bin/clang-format \
     && clang-format --version \
     && ln -s /usr/bin/clang-tidy-$DEFAULT_VERSION /usr/bin/clang-tidy \
     && echo "--- Clang-tidy version ---" \
-    && clang-tidy --version \
+    && clang-tidy --version
 
 WORKDIR /src
 
