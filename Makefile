@@ -58,7 +58,7 @@ build: check-file ## ## Build the Docker Image $(NAME) from $(DOCKERFILE)
 	@echo "== Build ✅ image $(IMAGE_NAME) Succeeded."
 
 ## This steps expects that you are logged to the Docker registry to push image into
-publish: check-name check-file build login ## Tag and push the built image as specified by $(IMAGE_DEPLOY).
+publish: check-name check-file build ## Tag and push the built image as specified by $(IMAGE_DEPLOY).
 	@echo "== Deploying $(IMAGE_NAME) to $(DOCKER_HUB)..."
 	$(CONTAINER_BIN) tag $(IMAGE_NAME) $(DOCKER_HUB)
 	$(CONTAINER_BIN) push $(DOCKER_HUB)
