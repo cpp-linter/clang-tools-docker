@@ -10,7 +10,7 @@ RUN apt-get update \
     && wget --no-verbose ${PACKAGE_URL} \
     && tar -xvf $PACKAGE.tar.xz --no-same-owner \
     && rm -rf $PACKAGE.tar.xz \
-    && mv $PACKAGE /usr/lib/llvm-14
+    && mv $PACKAGE /usr/lib/llvm-14 \
     && cp /usr/lib/llvm-14/bin/clang-format /usr/bin/clang-format \
     && echo "--- Clang-format version ---" \
     && clang-format --version \
