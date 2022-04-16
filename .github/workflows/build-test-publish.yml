@@ -18,13 +18,17 @@ jobs:
       - name: Get changed files
         id: changed-files
         uses: tj-actions/changed-files@v18.4
-      - name: build-test-publish
+      - name: Build & Test (Publish)
         run: |
           docker login -u=${{ secrets.DOCKER_USERNAME }} -p=${{ secrets.DOCKER_PASSWORD }}
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
             if [[ "$file" == *"Dockerfile" ]]; then
               set -e
+              echo "start to build ..."
               make build FILE=$file
+              docker images
+
+              echo "start to test ..."
               tag=`dirname $file`
               if [ $tag == "all" ]; then
                 versions="14 13 12 11 10 9 8"
@@ -36,6 +40,10 @@ jobs:
                 docker run clang-tools:$tag clang-format --version | grep -E clang-format.*$tag
                 docker run clang-tools:$tag clang-tidy --version | grep "LLVM version $tag"
               fi
-              make publish FILE=$file
+
+              if [[ $GITHUB_EVENT_NAME == 'push' ]]; then
+                echo "start to publish ..."
+                make publish FILE=$file
+              fi
             fi
           done
