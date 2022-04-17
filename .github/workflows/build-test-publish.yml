@@ -25,6 +25,7 @@ jobs:
             if [[ "$file" == *"Dockerfile" ]]; then
               set -e
               echo "start to build ..."
+              make prune
               make build FILE=$file
               docker images
 
@@ -33,10 +34,13 @@ jobs:
               if [ $tag == "all" ]; then
                 versions="14 13 12 11 10 9 8"
                 for version in ${versions}; do
-                  docker run clang-tools:$tag clang-format-$version --version | grep -E clang-format.*$version
+                  docker run clang-tools:$tag clang-format-$version --version | grep -E "clang-format version $version"
                   docker run clang-tools:$tag clang-tidy-$version --version | grep "LLVM version $version"
                 done
-              else
+              elif [[ "$tag" == "*alpine*" ]]; then
+                  docker run clang-tools:$tag clang-format --version | grep -E "clang-format version"
+                  docker run clang-tools:$tag clang-tidy --version | grep "LLVM version"
+              else 
                 docker run clang-tools:$tag clang-format --version | grep -E "clang-format version $tag"
                 docker run clang-tools:$tag clang-tidy --version | grep "LLVM version $tag"
               fi
