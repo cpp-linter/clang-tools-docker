@@ -2,17 +2,15 @@ FROM ubuntu:20.04
 
 ENV VERSION 9
 
-RUN tools="clang-format-$VERSION clang-tidy-$VERSION" \
-    && apt-get update \
-    && apt-get -y install $tools \
-    && rm -rf /var/lib/apt/lists/*
-
-RUN ln -s /usr/bin/clang-format-"$VERSION" /usr/bin/clang-format \
+RUN apt-get update \
+    && apt-get --no-install-recommends -y install clang-format-$VERSION clang-tidy-$VERSION \
+    && ln -s /usr/bin/clang-format-$VERSION /usr/bin/clang-format \
+    && ln -s /usr/bin/clang-tidy-$VERSION /usr/bin/clang-tidy \
     && echo "--- Clang-format version ---" \
     && clang-format --version \
-    && ln -s /usr/bin/clang-tidy-"$VERSION" /usr/bin/clang-tidy \
     && echo "--- Clang-tidy version ---" \
-    && clang-tidy --version
+    && clang-tidy --version \
+    && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /src
 

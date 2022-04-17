@@ -38,14 +38,13 @@ help: ## Show this Makefile's help
 	@echo "make build FILE=12/Dockerfile        Build image, see the example"
 	@echo "make publish FILE=12/Dockerfile      Build and deploy image to Docker Hub"
 	@echo "make lint                            Lint Dockerfile validate inline bash"
-	@echo "make clean                           Clean all generate files"
 	@echo "make prune                           Clean all images that are not actively used"
 	@echo ""
 
 .DEFAULT_GOAL := help
 
 # DOCKER TASKS
-build: check-file ## ## Build the Docker Image $(NAME) from $(DOCKERFILE)
+build: check-file lint ## ## Build the Docker Image $(NAME) from $(DOCKERFILE)
 	@echo "== Building $(IMAGE_NAME) from $(DOCKERFILE)..."
 	@export DOCKER_BUILDKIT=1
 	@$(CONTAINER_BIN) build \
@@ -69,10 +68,10 @@ login: ## Docker login
 
 prune:  ## clean all that is not actively used
 	@docker system prune -af
-	@echo "== Clean ✅ all inactively used images Succeeded"
+	@echo "== Prune ✅ image(s) Succeeded"
 
 lint: check-file ## Lint the $(DOCKERFILE) content
 	@echo "== Linting $(DOCKERFILE)..."
 	@echo "Output Lint results"
-	@docker run --rm -i hadolint/hadolint hadolint - < $(DOCKERFILE)
+	@docker run --rm -i -v $$PWD/.hadolint.yaml:/.config/hadolint.yaml hadolint/hadolint hadolint - < $(DOCKERFILE)
 	@echo "== Lint ✅ Succeeded"
