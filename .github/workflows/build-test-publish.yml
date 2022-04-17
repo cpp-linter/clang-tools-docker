@@ -37,7 +37,7 @@ jobs:
                   docker run clang-tools:$tag clang-tidy-$version --version | grep "LLVM version $version"
                 done
               else
-                docker run clang-tools:$tag clang-format --version | grep -E clang-format.*$tag
+                docker run clang-tools:$tag clang-format --version | grep -E "clang-format version $tag"
                 docker run clang-tools:$tag clang-tidy --version | grep "LLVM version $tag"
               fi
 
