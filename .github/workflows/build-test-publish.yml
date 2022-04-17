@@ -25,6 +25,7 @@ jobs:
             if [[ "$file" == *"Dockerfile" ]]; then
               set -e
               echo "start to build ..."
+              make prune
               make build FILE=$file
               docker images
 
