@@ -20,7 +20,7 @@ jobs:
         uses: tj-actions/changed-files@v18.4
       - name: Build & Test (Publish)
         run: |
-          docker login -u=${{ secrets.DOCKER_USERNAME }} -p=${{ secrets.DOCKER_PASSWORD }}
+          docker login -u '${{ secrets.DOCKER_USERNAME }}' -p '${{ secrets.DOCKER_PASSWORD }}'
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
             if [[ "$file" == *"Dockerfile" ]]; then
               set -e
@@ -32,10 +32,10 @@ jobs:
               echo "start to test ..."
               tag=`dirname $file`
               if [ $tag == "all" ]; then
-                versions="14 13 12 11 10 9 8"
-                for version in ${versions}; do
-                  docker run clang-tools:$tag clang-format-$version --version | grep -E "clang-format version $version"
-                  docker run clang-tools:$tag clang-tidy-$version --version | grep "LLVM version $version"
+                clang_versions="14 13 12 11 10 9 8"
+                for clang_version in ${clang_versions}; do
+                  docker run clang-tools:$tag clang-format-$clang_version --version | grep -E "clang-format version $clang_version"
+                  docker run clang-tools:$tag clang-tidy-$clang_version --version | grep "LLVM version $clang_version"
                 done
               elif [[ "$tag" == *"alpine"* ]]; then
                   docker run clang-tools:$tag clang-format --version | grep -E "clang-format version"
