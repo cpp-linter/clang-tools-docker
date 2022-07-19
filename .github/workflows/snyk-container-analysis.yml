@@ -34,5 +34,3 @@ jobs:
       with:
         image: xianpengshen/clang-tools:all
         args: --severity-threshold=high --file=all/Dockerfile
-    - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v2
