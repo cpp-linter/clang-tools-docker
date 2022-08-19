@@ -4,6 +4,8 @@ ARG DEFAULT_VERSION=12
 
 ENV CLANG_VERSIONS="12 11 10 9 8"
 
+LABEL org.opencontainers.image.source="https://github.com/cpp-linter/clang-tools"
+
 RUN apt-get update \
     && for CLANG_VERSION in ${CLANG_VERSIONS}; do \
         apt-get --no-install-recommends -y install clang-format-$CLANG_VERSION clang-tidy-$CLANG_VERSION; done \
