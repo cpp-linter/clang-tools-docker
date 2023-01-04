@@ -2,7 +2,7 @@
 
 [![Docker Pulls](https://img.shields.io/docker/pulls/xianpengshen/clang-tools)](https://hub.docker.com/r/xianpengshen/clang-tools)
 [![GitHub Repo](https://img.shields.io/badge/GitHub%20Repo-URL-blue?logo=github)](https://github.com/cpp-linter/clang-tools)
-![Maintenance](https://img.shields.io/maintenance/yes/2022)
+![Maintenance](https://img.shields.io/maintenance/yes/2023)
 [![CI](https://github.com/cpp-linter/clang-tools/actions/workflows/build-test-publish.yml/badge.svg)](https://github.com/cpp-linter/clang-tools/actions/workflows/build-test-publish.yml)
 [![Snyk Container](https://github.com/cpp-linter/clang-tools/actions/workflows/snyk-container-analysis.yml/badge.svg)](https://github.com/cpp-linter/clang-tools/actions/workflows/snyk-container-analysis.yml)
 
