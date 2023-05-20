@@ -12,7 +12,8 @@
 
 Docker Hub [registry](https://hub.docker.com/r/xianpengshen/clang-tools)
 
-* [`all`](https://github.com/cpp-linter/clang-tools/blob/master/all/Dockerfile) (include tags `14`, `13`, `12`(default), `11`, `10`, `9`, `8`)
+* [`all`](https://github.com/cpp-linter/clang-tools/blob/master/all/Dockerfile) (include tags `16`, `15`, `14`, `13`, `12`, `11`, `10`, `9`, `8`)
+* [`16`](https://github.com/cpp-linter/clang-tools/blob/master/16/Dockerfile)
 * [`15`](https://github.com/cpp-linter/clang-tools/blob/master/15/Dockerfile)
 * [`14`](https://github.com/cpp-linter/clang-tools/blob/master/14/Dockerfile)
 * [`13`](https://github.com/cpp-linter/clang-tools/blob/master/13/Dockerfile)
@@ -28,7 +29,7 @@ Docker Hub [registry](https://hub.docker.com/r/xianpengshen/clang-tools)
 
 GitHub Packages [registry](https://github.com/cpp-linter/clang-tools/pkgs/container/clang-tools)
 
-* [`all`](https://github.com/cpp-linter/clang-tools/blob/master/all/Dockerfile) (include tags `14`, `13`, `12`(default), `11`, `10`, `9`, `8`)
+* [`all`](https://github.com/cpp-linter/clang-tools/blob/master/all/Dockerfile) (include tags `16`, `15`, `14`, `13`, `12`, `11`, `10`, `9`, `8`)
 
 ## How to use this image
 
