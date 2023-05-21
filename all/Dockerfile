@@ -1,7 +1,8 @@
 FROM ubuntu:20.04
 
-LABEL org.cpp-linter.source="https://github.com/cpp-linter/clang-tools"
-LABEL org.cpp-linter.maitainer="Peter Shen (xianpeng.shen@gmail.com)"
+LABEL org.opencontainers.image.source="https://github.com/cpp-linter/clang-tools"
+LABEL org.opencontainers.image.description="The Clang Tools Docker image includes the clang-format and clang-tidy."
+LABEL org.opencontainers.image.licenses="MIT"
 
 ENV CLANG_VERSIONS="12 11 10 9 8"
 
