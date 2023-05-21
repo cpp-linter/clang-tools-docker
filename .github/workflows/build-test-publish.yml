@@ -32,7 +32,7 @@ jobs:
               echo "start to test ..."
               tag=`dirname $file`
               if [ $tag == "all" ]; then
-                clang_versions="14 13 12 11 10 9 8"
+                clang_versions="16 15 14 13 12 11 10 9 8"
                 for clang_version in ${clang_versions}; do
                   docker run clang-tools:$tag clang-format-$clang_version --version | grep -E "clang-format version $clang_version"
                   docker run clang-tools:$tag clang-tidy-$clang_version --version | grep "LLVM version $clang_version"
