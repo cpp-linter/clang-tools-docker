@@ -1,25 +1,26 @@
-name: Publish image to ghcr.io
+name: Publish images to ghcr.io
 
 on:
   workflow_dispatch:
     inputs:
       tag:
         description: 'which tag to publish'
-        default: 'all'
+        default: 'all 16 15 14 13 12 11 10 9 8'
         required: true
 
 jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
-      - name: Download image
-        run: |
-          docker pull xianpengshen/clang-tools:${{ inputs.tag }}
-          docker tag xianpengshen/clang-tools:${{ inputs.tag }} ghcr.io/cpp-linter/clang-tools:${{ inputs.tag }}
       - name: Login container registry
         run: |
           echo $CR_PAT | docker login ghcr.io -u shenxianpeng --password-stdin
         env:
           CR_PAT: ${{ secrets.CR_PAT }}
-      - name: Push image to container registry
-        run: docker push ghcr.io/cpp-linter/clang-tools:${{ inputs.tag }}
+      - name: Download and push image to ghcr.io
+        run: |
+          for tag in ${{ inputs.tag }}; do
+            docker pull xianpengshen/clang-tools:$tag
+            docker tag xianpengshen/clang-tools:$tag ghcr.io/cpp-linter/clang-tools:$tag
+            docker push ghcr.io/cpp-linter/clang-tools:$tag
+          done

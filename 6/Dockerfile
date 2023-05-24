@@ -1,6 +1,6 @@
 FROM ubuntu:20.04
 
-LABEL org.opencontainers.image.source="https://github.com/cpp-linter/clang-tools"
+LABEL org.opencontainers.image.source="https://github.com/cpp-linter/clang-tools-docker"
 LABEL org.opencontainers.image.description="The Clang Tools Docker image includes the clang-format and clang-tidy."
 LABEL org.opencontainers.image.licenses="MIT"
 
