@@ -20,6 +20,7 @@ jobs:
         uses: tj-actions/changed-files@v18.4
       - name: Build & Test (Publish)
         run: |
+          pip install pre-commit && pre-commit install
           docker login -u '${{ secrets.DOCKER_USERNAME }}' -p '${{ secrets.DOCKER_PASSWORD }}'
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
             if [[ "$file" == *"Dockerfile" ]]; then
@@ -40,7 +41,7 @@ jobs:
               elif [[ "$tag" == *"alpine"* ]]; then
                   docker run clang-tools:$tag clang-format --version | grep -E "clang-format version"
                   docker run clang-tools:$tag clang-tidy --version | grep "LLVM version"
-              else 
+              else
                 docker run clang-tools:$tag clang-format --version | grep -E "clang-format version $tag"
                 docker run clang-tools:$tag clang-tidy --version | grep "LLVM version $tag"
               fi

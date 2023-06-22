@@ -42,7 +42,7 @@ $ docker run -v $PWD:/src xianpengshen/clang-tools:12 clang-format --dry-run -i 
 $ docker run xianpengshen/clang-tools:12 clang-tidy --version
 LLVM (http://llvm.org/):
   LLVM version 12.0.0
-  
+
   Optimized build.
   Default target: x86_64-pc-linux-gnu
   Host CPU: cascadelake
@@ -83,7 +83,7 @@ $ docker run clang-tools clang-tidy helloworld.c \
 -checks=boost-*,bugprone-*,performance-*,readability-*,portability-*,modernize-*,clang-analyzer-cplusplus-*,clang-analyzer-*,cppcoreguidelines-*
 ```
 
-### Use specific tag in `Dockerfile` 
+### Use specific tag in `Dockerfile`
 
 If you want to use a specific tag of clang-tools, you can build image by passing `--build-arg`
 
