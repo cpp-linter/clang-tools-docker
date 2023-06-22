@@ -5,8 +5,9 @@
 
 version: 2
 updates:
+  # https://github.com/dependabot/dependabot-core/issues/1595
   - package-ecosystem: "docker"
-    directory: "/"
+    directory: "all/"
     schedule:
       interval: "weekly"
     commit-message:
