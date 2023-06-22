@@ -70,8 +70,7 @@ prune:  ## clean all that is not actively used
 	@docker system prune -af
 	@echo "== Prune ✅ image(s) Succeeded"
 
-lint: check-file ## Lint the $(DOCKERFILE) content
-	@echo "== Linting $(DOCKERFILE)..."
-	@echo "Output Lint results"
-	@docker run --rm -i -v $$PWD/.hadolint.yaml:/.config/hadolint.yaml hadolint/hadolint hadolint - < $(DOCKERFILE)
+lint: ## Lint code
+	@echo "== Running pre-commit against all-files..."
+	@pre-commit run --all-files
 	@echo "== Lint ✅ Succeeded"

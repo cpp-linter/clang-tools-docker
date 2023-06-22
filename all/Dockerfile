@@ -10,7 +10,7 @@ RUN set -ex \
     && apt-get update \
     && for CLANG_VERSION in $CLANG_VERSIONS; do \
         apt-get --no-install-recommends -y install clang-format-$CLANG_VERSION clang-tidy-$CLANG_VERSION; done \
-    && rm -rf /var/lib/apt/lists/* 
+    && rm -rf /var/lib/apt/lists/*
 
 
 ENV CLANG_VERSIONS="16 15 14 13"
@@ -26,7 +26,7 @@ RUN set -ex \
         ./llvm.sh $CLANG_VERSION \
         && apt-get --no-install-recommends -y install clang-format-$CLANG_VERSION clang-tidy-$CLANG_VERSION; done \
     && rm llvm.sh \
-    && rm -rf /var/lib/apt/lists/* 
+    && rm -rf /var/lib/apt/lists/*
 
 
 # Integrity testing
