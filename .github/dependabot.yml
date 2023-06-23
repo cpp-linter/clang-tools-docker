@@ -5,11 +5,60 @@
 
 version: 2
 updates:
-  # https://github.com/dependabot/dependabot-core/issues/1595
+  # https://github.com/dependabot/dependabot-core/issues/2178
   - package-ecosystem: "docker"
     directory: "all/"
     schedule:
       interval: "weekly"
-    commit-message:
-      # Prefix all commit messages with "[docker] " (no colon, but a trailing whitespace)
-      prefix: "[docker] "
+  - package-ecosystem: "docker"
+    directory: "16/"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "docker"
+    directory: "15/"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "docker"
+    directory: "14/"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "docker"
+    directory: "13/"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "docker"
+    directory: "12-alpine-3.15/"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "docker"
+    directory: "12/"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "docker"
+    directory: "11-alpine-3.14/"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "docker"
+    directory: "11/"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "docker"
+    directory: "10/"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "docker"
+    directory: "9/"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "docker"
+    directory: "8/"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "docker"
+    directory: "7/"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "docker"
+    directory: "6/"
+    schedule:
+      interval: "weekly"
