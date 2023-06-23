@@ -1,4 +1,4 @@
-FROM alpine:3.15
+FROM alpine:3.18
 
 LABEL org.opencontainers.image.source="https://github.com/cpp-linter/clang-tools-docker"
 LABEL org.opencontainers.image.description="The Clang Tools Docker image includes the clang-format and clang-tidy."
