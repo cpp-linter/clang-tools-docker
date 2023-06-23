@@ -1,3 +1,11 @@
+## For Docker <=20.04
+export DOCKER_BUILDKIT=1
+## For Docker <=20.04
+export DOCKER_CLI_EXPERIMENTAL=enabled
+## Required to have docker build output always printed on stdout
+export BUILDKIT_PROGRESS=plain
+## Required to have the commit SHA added as a Docker image label
+
 FILE ?= unknow
 APP_NAME := clang-tools
 DIR_NAME := $(shell dirname $(FILE))
@@ -8,7 +16,7 @@ DOCKERFILE ?= $(DIR_NAME)/Dockerfile
 CONTAINER_BIN ?= docker
 
 ## Image metadatas
-GIT_COMMIT_REV ?= $(shell git log -n 1 --pretty=format:'%h')
+COMMIT_SHA ?= =$(shell git rev-parse HEAD)
 GIT_SCM_URL ?= $(shell git config --get remote.origin.url)
 BUILD_DATE ?= $(shell date --utc '+%Y-%m-%dT%H:%M:%S' 2>/dev/null || gdate --utc '+%Y-%m-%dT%H:%M:%S')
 
@@ -46,11 +54,10 @@ help: ## Show this Makefile's help
 # DOCKER TASKS
 build: check-file lint ## ## Build the Docker Image $(NAME) from $(DOCKERFILE)
 	@echo "== Building $(IMAGE_NAME) from $(DOCKERFILE)..."
-	@export DOCKER_BUILDKIT=1
 	@$(CONTAINER_BIN) build \
 		-t $(IMAGE_NAME) \
 		--label "image.source=$(GIT_SCM_URL)" \
-		--label "image.revision=$(GIT_COMMIT_REV)" \
+		--label "image.revision=$(COMMIT_SHA)" \
 		--label "image.created=$(BUILD_DATE)" \
 		-f $(DOCKERFILE) \
 		$(DIR_NAME)
