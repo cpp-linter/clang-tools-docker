@@ -1,10 +1,15 @@
 FROM ubuntu:22.04
 
-LABEL org.opencontainers.image.source="https://github.com/cpp-linter/clang-tools-docker"
-LABEL org.opencontainers.image.description="The Clang Tools Docker image includes the clang-format and clang-tidy."
-LABEL org.opencontainers.image.licenses="MIT"
-
 ENV CLANG_VERSION 13
+
+LABEL \
+    org.opencontainers.image.vendor="cpp-linter team" \
+    org.opencontainers.image.title="Unofficial Clang Tools Docker image" \
+    org.opencontainers.image.description="The Clang Tools Docker image includes the clang-format and clang-tidy." \
+    org.opencontainers.image.version="clang-tools:${CLANG_VERSION}" \
+    org.opencontainers.image.url="https://hub.docker.com/r/xianpengshen/clang-tools" \
+    org.opencontainers.image.source="https://github.com/cpp-linter/clang-tools-docker" \
+    org.opencontainers.image.licenses="MIT"
 
 RUN mv /etc/apt/sources.list /etc/apt/sources.list.focal
 
