@@ -8,7 +8,7 @@ ENV CLANG_VERSION 14
 
 RUN mv /etc/apt/sources.list /etc/apt/sources.list.focal
 
-COPY sources.list.jammy /etc/apt/sources.list
+COPY 14/sources.list.jammy /etc/apt/sources.list
 
 RUN apt-get update \
     && apt-get --no-install-recommends -y install clang-format-$CLANG_VERSION clang-tidy-$CLANG_VERSION \
