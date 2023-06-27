@@ -17,8 +17,6 @@ CONTAINER_BIN ?= docker
 
 ## Image metadatas
 COMMIT_SHA ?= =$(shell git rev-parse HEAD)
-GIT_SCM_URL ?= $(shell git config --get remote.origin.url)
-BUILD_DATE ?= $(shell date --utc '+%Y-%m-%dT%H:%M:%S' 2>/dev/null || gdate --utc '+%Y-%m-%dT%H:%M:%S')
 
 check-file:
 ifeq ($(FILE), unknow)
@@ -56,9 +54,7 @@ build: check-file lint ## ## Build the Docker Image $(NAME) from $(DOCKERFILE)
 	@echo "== Building $(IMAGE_NAME) from $(DOCKERFILE)..."
 	@$(CONTAINER_BIN) build \
 		-t $(IMAGE_NAME) \
-		--label "image.source=$(GIT_SCM_URL)" \
-		--label "image.revision=$(COMMIT_SHA)" \
-		--label "image.created=$(BUILD_DATE)" \
+		--label "org.opencontainers.image.revision=$(COMMIT_SHA)" \
 		-f $(DOCKERFILE) \
 		$(DIR_NAME)
 	@echo "== Build ✅ image $(IMAGE_NAME) Succeeded."
