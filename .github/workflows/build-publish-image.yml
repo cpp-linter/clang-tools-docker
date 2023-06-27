@@ -2,6 +2,8 @@ name: Build and publish all images
 
 on:
   workflow_dispatch:
+  pull_request:
+    branches: [ master ]
 
 jobs:
   publish:
