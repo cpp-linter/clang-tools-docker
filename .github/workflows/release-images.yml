@@ -1,0 +1,21 @@
+name: Release Images
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Login container registry
+        run: |
+          echo $CR_PAT | docker login ghcr.io -u shenxianpeng --password-stdin
+        env:
+          CR_PAT: ${{ secrets.CR_PAT }}
+      - name: Docker Buildx Bake
+        run: |
+          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+          docker buildx bake --file docker-bake.hcl --push linux

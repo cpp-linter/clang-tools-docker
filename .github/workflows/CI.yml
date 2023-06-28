@@ -1,0 +1,63 @@
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - '**Dockerfile'
+  pull_request:
+    branches: [ master ]
+    paths:
+      - '**Dockerfile'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run pre-commit to check all files
+        run: |
+          pip install pre-commit
+          pre-commit install
+          pre-commit run --all-files
+      - name: Login container registry
+        run: |
+          echo $CR_PAT | docker login ghcr.io -u shenxianpeng --password-stdin
+        env:
+          CR_PAT: ${{ secrets.CR_PAT }}
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v18.4
+      - name: Build & Test (Publish) image
+        run: |
+          docker login -u '${{ secrets.DOCKER_USERNAME }}' -p '${{ secrets.DOCKER_PASSWORD }}'
+          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+            if [[ "$file" == *"Dockerfile" ]]; then
+              set -e
+              echo "start to build ..."
+              make prune
+              make build TARGET=clang-tools-`dirname $file`
+              docker images
+
+              echo "start to test ..."
+              tag=`dirname $file`
+              if [ $tag == "all" ]; then
+                clang_versions="16 15 14 13 12 11 10 9 8"
+                for clang_version in ${clang_versions}; do
+                  docker run ghcr.io/cpp-linter/clang-tools:$tag clang-format-$clang_version --version | grep -E "clang-format version $clang_version"
+                  docker run ghcr.io/cpp-linter/clang-tools:$tag clang-tidy-$clang_version --version | grep "LLVM version $clang_version"
+                done
+              elif [[ "$tag" == *"alpine"* ]]; then
+                  docker run ghcr.io/cpp-linter/clang-tools:$tag-3.18 clang-format --version | grep -E "clang-format version"
+                  docker run ghcr.io/cpp-linter/clang-tools:$tag-3.18 clang-tidy --version | grep "LLVM version"
+              else
+                docker run ghcr.io/cpp-linter/clang-tools:$tag clang-format --version | grep -E "clang-format version $tag"
+                docker run ghcr.io/cpp-linter/clang-tools:$tag clang-tidy --version | grep "LLVM version $tag"
+              fi
+
+              if [[ $GITHUB_EVENT_NAME == 'push' ]]; then
+                echo "start to publish ..."
+                make publish TARGET=clang-tools-`dirname $file`
+              fi
+            fi
+          done

@@ -13,7 +13,7 @@ LABEL \
 
 RUN mv /etc/apt/sources.list /etc/apt/sources.list.focal
 
-COPY sources.list.kinetic /etc/apt/sources.list
+COPY 15/sources.list.kinetic /etc/apt/sources.list
 
 RUN apt-get update \
     && apt-get --no-install-recommends -y install clang-format-$CLANG_VERSION clang-tidy-$CLANG_VERSION \
