@@ -29,7 +29,7 @@ help: ## Show this Makefile's help
 .DEFAULT_GOAL := help
 
 # DOCKER TASKS
-build: ## Build the Docker Image 
+build: ## Build the Docker Image
 	@echo "== Building Image ..."
 	@docker buildx bake --file docker-bake.hcl $(TARGET)
 	@echo "== Build target $(TARGET) succeeded."

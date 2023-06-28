@@ -15,6 +15,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Run pre-commit to check all files
+        run: |
+          pip install pre-commit
+          pre-commit install
+          pre-commit run --all-files
       - name: Login container registry
         run: |
           echo $CR_PAT | docker login ghcr.io -u shenxianpeng --password-stdin
@@ -23,9 +28,8 @@ jobs:
       - name: Get changed files
         id: changed-files
         uses: tj-actions/changed-files@v18.4
-      - name: Build & Test (Publish)
+      - name: Build & Test (Publish) image
         run: |
-          pip install pre-commit && pre-commit install
           docker login -u '${{ secrets.DOCKER_USERNAME }}' -p '${{ secrets.DOCKER_PASSWORD }}'
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
             if [[ "$file" == *"Dockerfile" ]]; then
