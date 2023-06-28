@@ -19,6 +19,10 @@ group "linux" {
 }
 
 # ---- variables ----
+variable "IMAGE_NAME" {
+    default = "clang-tools"
+}
+
 variable "DOCKER_REPO" {
   default = "xianpengshen/clang-tools"
 }
@@ -36,6 +40,7 @@ target "clang-tools-6" {
   dockerfile = "6/Dockerfile"
   context = "."
   tags = [
+    "${IMAGE_NAME}:6",
     "${DOCKER_REPO}:6",
     "${GITHUB_REPO}:6"
     ]
@@ -46,6 +51,7 @@ target "clang-tools-7" {
   dockerfile = "7/Dockerfile"
   context = "."
   tags = [
+    "${IMAGE_NAME}:7",
     "${DOCKER_REPO}:7",
     "${GITHUB_REPO}:7"
   ]
@@ -56,6 +62,7 @@ target "clang-tools-8" {
   dockerfile = "8/Dockerfile"
   context = "."
   tags = [
+    "${IMAGE_NAME}:8",
     "${DOCKER_REPO}:8",
     "${GITHUB_REPO}:8"
   ]
@@ -66,6 +73,7 @@ target "clang-tools-9" {
   dockerfile = "9/Dockerfile"
   context = "."
   tags = [
+    "${IMAGE_NAME}:9",
     "${DOCKER_REPO}:9",
     "${GITHUB_REPO}:9"
   ]
@@ -76,6 +84,7 @@ target "clang-tools-10" {
   dockerfile = "10/Dockerfile"
   context = "."
   tags = [
+    "${IMAGE_NAME}:10",
     "${DOCKER_REPO}:10",
     "${GITHUB_REPO}:10"
   ]
@@ -86,6 +95,7 @@ target "clang-tools-11" {
   dockerfile = "11/Dockerfile"
   context = "."
   tags = [
+    "${IMAGE_NAME}:11",
     "${DOCKER_REPO}:11",
     "${GITHUB_REPO}:11"
   ]
@@ -96,6 +106,7 @@ target "clang-tools-11-alpine" {
   dockerfile = "11-alpine/Dockerfile"
   context = "."
   tags = [
+    "${IMAGE_NAME}:11-alpine-${ALPINE_VERSION}",
     "${DOCKER_REPO}:11-alpine-${ALPINE_VERSION}",
     "${GITHUB_REPO}:11-alpine-${ALPINE_VERSION}"
   ]
@@ -106,6 +117,7 @@ target "clang-tools-12" {
   dockerfile = "12/Dockerfile"
   context = "."
   tags = [
+    "${IMAGE_NAME}:12",
     "${DOCKER_REPO}:12",
     "${GITHUB_REPO}:12"
   ]
@@ -116,6 +128,7 @@ target "clang-tools-12-alpine" {
   dockerfile = "12-alpine/Dockerfile"
   context = "."
   tags = [
+    "${IMAGE_NAME}:12-alpine-${ALPINE_VERSION}",
     "${DOCKER_REPO}:12-alpine-${ALPINE_VERSION}",
     "${GITHUB_REPO}:12-alpine-${ALPINE_VERSION}"
   ]
@@ -126,6 +139,7 @@ target "clang-tools-13" {
   dockerfile = "13/Dockerfile"
   context = "."
   tags = [
+    "${IMAGE_NAME}:13",
     "${DOCKER_REPO}:13",
     "${GITHUB_REPO}:13"
   ]
@@ -136,6 +150,7 @@ target "clang-tools-14" {
   dockerfile = "14/Dockerfile"
   context = "."
   tags = [
+    "${IMAGE_NAME}:14",
     "${DOCKER_REPO}:14",
     "${GITHUB_REPO}:14"
   ]
@@ -146,6 +161,7 @@ target "clang-tools-15" {
   dockerfile = "15/Dockerfile"
   context = "."
   tags = [
+    "${IMAGE_NAME}:15",
     "${DOCKER_REPO}:15",
     "${GITHUB_REPO}:15"
   ]
@@ -156,6 +172,7 @@ target "clang-tools-16" {
   dockerfile = "16/Dockerfile"
   context = "."
   tags = [
+    "${IMAGE_NAME}:16",
     "${DOCKER_REPO}:16",
     "${GITHUB_REPO}:16"
   ]
@@ -166,6 +183,7 @@ target "clang-tools-all" {
   dockerfile = "all/Dockerfile"
   context = "."
   tags = [
+    "${IMAGE_NAME}:all",
     "${DOCKER_REPO}:all",
     "${GITHUB_REPO}:all"
   ]
