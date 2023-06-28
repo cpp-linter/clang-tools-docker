@@ -44,8 +44,8 @@ jobs:
                   docker run clang-tools:$tag clang-tidy-$clang_version --version | grep "LLVM version $clang_version"
                 done
               elif [[ "$tag" == *"alpine"* ]]; then
-                  docker run clang-tools:$tag clang-format --version | grep -E "clang-format version"
-                  docker run clang-tools:$tag clang-tidy --version | grep "LLVM version"
+                  docker run clang-tools:$tag-3.18 clang-format --version | grep -E "clang-format version"
+                  docker run clang-tools:$tag-3.18 clang-tidy --version | grep "LLVM version"
               else
                 docker run clang-tools:$tag clang-format --version | grep -E "clang-format version $tag"
                 docker run clang-tools:$tag clang-tidy --version | grep "LLVM version $tag"
