@@ -44,15 +44,15 @@ jobs:
               if [ $tag == "all" ]; then
                 clang_versions="16 15 14 13 12 11 10 9 8"
                 for clang_version in ${clang_versions}; do
-                  docker run clang-tools:$tag clang-format-$clang_version --version | grep -E "clang-format version $clang_version"
-                  docker run clang-tools:$tag clang-tidy-$clang_version --version | grep "LLVM version $clang_version"
+                  docker run ghcr.io/cpp-linter/clang-tools:$tag clang-format-$clang_version --version | grep -E "clang-format version $clang_version"
+                  docker run ghcr.io/cpp-linter/clang-tools:$tag clang-tidy-$clang_version --version | grep "LLVM version $clang_version"
                 done
               elif [[ "$tag" == *"alpine"* ]]; then
-                  docker run clang-tools:$tag-3.18 clang-format --version | grep -E "clang-format version"
-                  docker run clang-tools:$tag-3.18 clang-tidy --version | grep "LLVM version"
+                  docker run ghcr.io/cpp-linter/clang-tools:$tag-3.18 clang-format --version | grep -E "clang-format version"
+                  docker run ghcr.io/cpp-linter/clang-tools:$tag-3.18 clang-tidy --version | grep "LLVM version"
               else
-                docker run clang-tools:$tag clang-format --version | grep -E "clang-format version $tag"
-                docker run clang-tools:$tag clang-tidy --version | grep "LLVM version $tag"
+                docker run ghcr.io/cpp-linter/clang-tools:$tag clang-format --version | grep -E "clang-format version $tag"
+                docker run ghcr.io/cpp-linter/clang-tools:$tag clang-tidy --version | grep "LLVM version $tag"
               fi
 
               if [[ $GITHUB_EVENT_NAME == 'push' ]]; then
