@@ -1,4 +1,4 @@
-name: Build and push images
+name: Release Images
 
 on:
   workflow_dispatch:
@@ -17,5 +17,5 @@ jobs:
           CR_PAT: ${{ secrets.CR_PAT }}
       - name: Docker Buildx Bake
         run: |
-          # docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
           docker buildx bake --file docker-bake.hcl --push linux
