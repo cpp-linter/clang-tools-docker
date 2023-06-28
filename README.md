@@ -3,8 +3,8 @@
 [![Docker Pulls](https://img.shields.io/docker/pulls/xianpengshen/clang-tools)](https://hub.docker.com/r/xianpengshen/clang-tools)
 [![GitHub Repo](https://img.shields.io/badge/GitHub%20Repo-URL-blue?logo=github)](https://github.com/cpp-linter/clang-tools-docker)
 ![Maintenance](https://img.shields.io/maintenance/yes/2023)
-[![CI](https://github.com/cpp-linter/clang-tools-docker/actions/workflows/build-test-publish.yml/badge.svg)](https://github.com/cpp-linter/clang-tools-docker/actions/workflows/build-test-publish.yml)
-[![Snyk Container](https://github.com/cpp-linter/clang-tools-docker/actions/workflows/snyk-container-analysis.yml/badge.svg)](https://github.com/cpp-linter/clang-tools-docker/actions/workflows/snyk-container-analysis.yml)
+[![CI](https://github.com/cpp-linter/clang-tools-docker/actions/workflows/CI.yml/badge.svg)](https://github.com/cpp-linter/clang-tools-docker/actions/workflows/CI.yml)
+[![Snyk Container](https://github.com/cpp-linter/clang-tools-docker/actions/workflows/snyk-container.yml/badge.svg)](https://github.com/cpp-linter/clang-tools-docker/actions/workflows/snyk-container.yml)
 
 🐳 The Clang Tools Docker image includes the clang-format and clang-tidy.
 
