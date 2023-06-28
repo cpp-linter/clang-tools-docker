@@ -93,7 +93,7 @@ target "clang-tools-11" {
 }
 
 target "clang-tools-11-alpine" {
-  dockerfile = "11-alpine-${ALPINE_VERSION}/Dockerfile"
+  dockerfile = "11-alpine/Dockerfile"
   context = "."
   tags = [
     "${DOCKER_REPO}:11-alpine-${ALPINE_VERSION}",
@@ -113,7 +113,7 @@ target "clang-tools-12" {
 }
 
 target "clang-tools-12-alpine" {
-  dockerfile = "12-alpine-${ALPINE_VERSION}/Dockerfile"
+  dockerfile = "12-alpine/Dockerfile"
   context = "."
   tags = [
     "${DOCKER_REPO}:12-alpine-${ALPINE_VERSION}",
