@@ -27,7 +27,7 @@ jobs:
               set -e
               echo "start to build ..."
               make prune
-              make build FILE=$file
+              make build TARGET=clang-tools-`dirname $file`
               docker images
 
               echo "start to test ..."
@@ -48,7 +48,7 @@ jobs:
 
               if [[ $GITHUB_EVENT_NAME == 'push' ]]; then
                 echo "start to publish ..."
-                make publish FILE=$file
+                make publish TARGET=clang-tools-`dirname $file`
               fi
             fi
           done

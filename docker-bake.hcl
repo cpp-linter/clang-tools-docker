@@ -1,20 +1,20 @@
 # ---- groups ----
 group "linux" {
   targets = [
-    "ubuntu_clang_6",
-    "ubuntu_clang_7",
-    "ubuntu_clang_8",
-    "ubuntu_clang_9",
-    "ubuntu_clang_10",
-    "ubuntu_clang_11",
-    "alpine_clang_11",
-    "ubuntu_clang_12",
-    "alpine_clang_12",
-    "ubuntu_clang_13",
-    "ubuntu_clang_14",
-    "ubuntu_clang_15",
-    "ubuntu_clang_16",
-    "ubuntu_clang_all",
+    "clang-tools-6",
+    "clang-tools-7",
+    "clang-tools-8",
+    "clang-tools-9",
+    "clang-tools-10",
+    "clang-tools-11",
+    "clang-tools-11-alpine-3.18",
+    "clang-tools-12",
+    "clang-tools-12-alpine-3.18",
+    "clang-tools-13",
+    "clang-tools-14",
+    "clang-tools-15",
+    "clang-tools-16",
+    "clang-tools-all",
   ]
 }
 
@@ -32,14 +32,17 @@ variable "ALPINE_VERSION" {
 }
 
 # ---- targets ----
-target "ubuntu_clang_6" {
+target "clang-tools-6" {
   dockerfile = "6/Dockerfile"
   context = "."
-  tags = ["${DOCKER_REPO}:6"]
+  tags = [
+    "${DOCKER_REPO}:6",
+    "${GITHUB_REPO}:6"
+    ]
   platforms = ["linux/amd64"]
 }
 
-target "ubuntu_clang_7" {
+target "clang-tools-7" {
   dockerfile = "7/Dockerfile"
   context = "."
   tags = [
@@ -49,7 +52,7 @@ target "ubuntu_clang_7" {
   platforms = ["linux/amd64"]
 }
 
-target "ubuntu_clang_8" {
+target "clang-tools-8" {
   dockerfile = "8/Dockerfile"
   context = "."
   tags = [
@@ -59,7 +62,7 @@ target "ubuntu_clang_8" {
   platforms = ["linux/amd64"]
 }
 
-target "ubuntu_clang_9" {
+target "clang-tools-9" {
   dockerfile = "9/Dockerfile"
   context = "."
   tags = [
@@ -69,7 +72,7 @@ target "ubuntu_clang_9" {
   platforms = ["linux/amd64"]
 }
 
-target "ubuntu_clang_10" {
+target "clang-tools-10" {
   dockerfile = "10/Dockerfile"
   context = "."
   tags = [
@@ -79,7 +82,7 @@ target "ubuntu_clang_10" {
   platforms = ["linux/amd64"]
 }
 
-target "ubuntu_clang_11" {
+target "clang-tools-11" {
   dockerfile = "11/Dockerfile"
   context = "."
   tags = [
@@ -89,7 +92,7 @@ target "ubuntu_clang_11" {
   platforms = ["linux/amd64"]
 }
 
-target "alpine_clang_11" {
+target "clang-tools-11-alpine-3.18" {
   dockerfile = "11-alpine-${ALPINE_VERSION}/Dockerfile"
   context = "."
   tags = [
@@ -99,7 +102,7 @@ target "alpine_clang_11" {
   platforms = ["linux/amd64"]
 }
 
-target "ubuntu_clang_12" {
+target "clang-tools-12" {
   dockerfile = "12/Dockerfile"
   context = "."
   tags = [
@@ -109,7 +112,7 @@ target "ubuntu_clang_12" {
   platforms = ["linux/amd64"]
 }
 
-target "alpine_clang_12" {
+target "clang-tools-12-alpine-3.18" {
   dockerfile = "12-alpine-${ALPINE_VERSION}/Dockerfile"
   context = "."
   tags = [
@@ -119,7 +122,7 @@ target "alpine_clang_12" {
   platforms = ["linux/amd64"]
 }
 
-target "ubuntu_clang_13" {
+target "clang-tools-13" {
   dockerfile = "13/Dockerfile"
   context = "."
   tags = [
@@ -129,7 +132,7 @@ target "ubuntu_clang_13" {
   platforms = ["linux/amd64"]
 }
 
-target "ubuntu_clang_14" {
+target "clang-tools-14" {
   dockerfile = "14/Dockerfile"
   context = "."
   tags = [
@@ -139,7 +142,7 @@ target "ubuntu_clang_14" {
   platforms = ["linux/amd64"]
 }
 
-target "ubuntu_clang_15" {
+target "clang-tools-15" {
   dockerfile = "15/Dockerfile"
   context = "."
   tags = [
@@ -149,7 +152,7 @@ target "ubuntu_clang_15" {
   platforms = ["linux/amd64"]
 }
 
-target "ubuntu_clang_16" {
+target "clang-tools-16" {
   dockerfile = "16/Dockerfile"
   context = "."
   tags = [
@@ -159,7 +162,7 @@ target "ubuntu_clang_16" {
   platforms = ["linux/amd64"]
 }
 
-target "ubuntu_clang_all" {
+target "clang-tools-all" {
   dockerfile = "all/Dockerfile"
   context = "."
   tags = [
