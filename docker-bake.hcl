@@ -7,9 +7,9 @@ group "linux" {
     "clang-tools-9",
     "clang-tools-10",
     "clang-tools-11",
-    "clang-tools-11-alpine-3.18",
+    "clang-tools-11-alpine",
     "clang-tools-12",
-    "clang-tools-12-alpine-3.18",
+    "clang-tools-12-alpine",
     "clang-tools-13",
     "clang-tools-14",
     "clang-tools-15",
@@ -92,7 +92,7 @@ target "clang-tools-11" {
   platforms = ["linux/amd64"]
 }
 
-target "clang-tools-11-alpine-3.18" {
+target "clang-tools-11-alpine" {
   dockerfile = "11-alpine-${ALPINE_VERSION}/Dockerfile"
   context = "."
   tags = [
@@ -112,7 +112,7 @@ target "clang-tools-12" {
   platforms = ["linux/amd64"]
 }
 
-target "clang-tools-12-alpine-3.18" {
+target "clang-tools-12-alpine" {
   dockerfile = "12-alpine-${ALPINE_VERSION}/Dockerfile"
   context = "."
   tags = [
