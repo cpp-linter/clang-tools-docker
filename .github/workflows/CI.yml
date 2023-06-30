@@ -34,9 +34,7 @@ jobs:
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
             if [[ "$file" == *"Dockerfile" ]]; then
               set -e
-              echo "start to build ..."
-              make prune
-              make build TARGET=clang-tools-`dirname $file`
+              docker buildx bake --file docker-bake.hcl clang-tools-`dirname $file`
               docker images
 
               echo "start to test ..."
@@ -57,7 +55,7 @@ jobs:
 
               if [[ $GITHUB_EVENT_NAME == 'push' ]]; then
                 echo "start to publish ..."
-                make publish TARGET=clang-tools-`dirname $file`
+                docker buildx bake --file docker-bake.hcl --push clang-tools-`dirname $file`
               fi
             fi
           done

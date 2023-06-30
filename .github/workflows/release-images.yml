@@ -18,4 +18,4 @@ jobs:
       - name: Docker Buildx Bake
         run: |
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-          docker buildx bake --file docker-bake.hcl --push linux
+          docker buildx bake --file docker-bake.hcl clang-tools
