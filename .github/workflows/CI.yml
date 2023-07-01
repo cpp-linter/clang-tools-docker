@@ -36,7 +36,7 @@ jobs:
         env:
           CR_PAT: ${{ secrets.CR_PAT }}
 
-      - name: Build & Test & (Publish) image
+      - name: Build & Test Images
         run: |
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
             if [[ "$file" == *"Dockerfile" ]]; then
@@ -59,12 +59,19 @@ jobs:
                 docker run ghcr.io/cpp-linter/clang-tools:$tag clang-format --version | grep -E "clang-format version $tag"
                 docker run ghcr.io/cpp-linter/clang-tools:$tag clang-tidy --version | grep "LLVM version $tag"
               fi
-
-              if [[ $GITHUB_EVENT_NAME == 'push' ]]; then
-                echo "start to publish clang-tools:$tag"
-                docker buildx bake --file docker-bake.hcl --push clang-tools-$tag
-              fi
-            else
-              docker buildx bake --file docker-bake.hcl clang-tools-$tag --print
             fi
           done
+
+      - name: Publish Images
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        run: |
+          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+            if [[ "$file" == *"Dockerfile" ]]; then
+              tag=`dirname $file`
+              docker buildx bake --file docker-bake.hcl --push clang-tools-$tag
+            fi
+          done
+
+      - name: Publish All Images
+        if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/master'
+        run: docker buildx bake --file docker-bake.hcl --push clang-tools
