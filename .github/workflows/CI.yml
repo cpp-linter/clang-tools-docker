@@ -11,38 +11,41 @@ on:
     paths:
       - '**Dockerfile'
       - 'docker-bake.hcl'
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Run pre-commit to check all files
-        run: |
-          pip install pre-commit
-          pre-commit install
-          pre-commit run --all-files
-      - name: Login container registry
-        run: |
-          echo $CR_PAT | docker login ghcr.io -u shenxianpeng --password-stdin
-        env:
-          CR_PAT: ${{ secrets.CR_PAT }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2.8.0
+
+      - name: Check formatting
+        run: make install-deps && make lint
+
       - name: Get changed files
         id: changed-files
         uses: tj-actions/changed-files@v18.4
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2.8.0
-      - name: Build & Test (Publish) image
+
+      - name: Login container registries
         run: |
+          echo $CR_PAT | docker login ghcr.io -u shenxianpeng --password-stdin
           docker login -u '${{ secrets.DOCKER_USERNAME }}' -p '${{ secrets.DOCKER_PASSWORD }}'
+        env:
+          CR_PAT: ${{ secrets.CR_PAT }}
+
+      - name: Build & Test & (Publish) image
+        run: |
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
             if [[ "$file" == *"Dockerfile" ]]; then
               set -e
-              docker buildx bake --file docker-bake.hcl clang-tools-`dirname $file`
-              docker images
-
-              echo "start to test ..."
               tag=`dirname $file`
+              echo "start to build clang-tools:$tag"
+              docker buildx bake --file docker-bake.hcl clang-tools-$tag
+
+              echo "start to test clang-tools:$tag"
               if [ $tag == "all" ]; then
                 clang_versions="16 15 14 13 12 11 10 9 8"
                 for clang_version in ${clang_versions}; do
@@ -58,8 +61,10 @@ jobs:
               fi
 
               if [[ $GITHUB_EVENT_NAME == 'push' ]]; then
-                echo "start to publish ..."
-                docker buildx bake --file docker-bake.hcl --push clang-tools-`dirname $file`
+                echo "start to publish clang-tools:$tag"
+                docker buildx bake --file docker-bake.hcl --push clang-tools-$tag
               fi
+            else
+              docker buildx bake --file docker-bake.hcl clang-tools-$tag --print
             fi
           done

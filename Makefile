@@ -28,6 +28,10 @@ help: ## Show this Makefile's help
 
 .DEFAULT_GOAL := help
 
+.PHONY: .pre-commit  ## Check that pre-commit is installed
+.pre-commit:
+	@pre-commit -V || echo 'Please install pre-commit: https://pre-commit.com/'
+
 # DOCKER TASKS
 build: ## Build the Docker Image
 	@echo "== Building Image ..."
@@ -49,7 +53,11 @@ prune:  ## Clean all that is not actively used
 	@docker system prune -af
 	@echo "== Prune image(s) succeeded"
 
-lint: ## Lint code
+install-deps: ## Install development denpendeces
+	@pip install -U pre-commit
+	@pre-commit install
+
+lint: .pre-commit ## Lint code
 	@echo "== Running pre-commit against all-files..."
 	@pre-commit run --all-files
 	@echo "== Lint succeeded"
