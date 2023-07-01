@@ -5,10 +5,12 @@ on:
     branches: [ master ]
     paths:
       - '**Dockerfile'
+      - 'docker-bake.hcl'
   pull_request:
     branches: [ master ]
     paths:
       - '**Dockerfile'
+      - 'docker-bake.hcl'
 
 jobs:
   build:
@@ -28,15 +30,15 @@ jobs:
       - name: Get changed files
         id: changed-files
         uses: tj-actions/changed-files@v18.4
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2.8.0
       - name: Build & Test (Publish) image
         run: |
           docker login -u '${{ secrets.DOCKER_USERNAME }}' -p '${{ secrets.DOCKER_PASSWORD }}'
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
             if [[ "$file" == *"Dockerfile" ]]; then
               set -e
-              echo "start to build ..."
-              make prune
-              make build TARGET=clang-tools-`dirname $file`
+              docker buildx bake --file docker-bake.hcl clang-tools-`dirname $file`
               docker images
 
               echo "start to test ..."
@@ -57,7 +59,7 @@ jobs:
 
               if [[ $GITHUB_EVENT_NAME == 'push' ]]; then
                 echo "start to publish ..."
-                make publish TARGET=clang-tools-`dirname $file`
+                docker buildx bake --file docker-bake.hcl --push clang-tools-`dirname $file`
               fi
             fi
           done

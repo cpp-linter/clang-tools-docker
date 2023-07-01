@@ -4,6 +4,9 @@ on:
   workflow_dispatch:
   push:
     branches: [ master ]
+    paths:
+      - '**Dockerfile'
+      - 'docker-bake.hcl'
 
 jobs:
   build:
@@ -15,7 +18,9 @@ jobs:
           echo $CR_PAT | docker login ghcr.io -u shenxianpeng --password-stdin
         env:
           CR_PAT: ${{ secrets.CR_PAT }}
-      - name: Docker Buildx Bake
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2.8.0
+      - name: Build and push images
         run: |
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-          docker buildx bake --file docker-bake.hcl --push linux
+          docker buildx bake --file docker-bake.hcl --push clang-tools
