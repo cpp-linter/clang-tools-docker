@@ -15,15 +15,15 @@ Please note that by contributing any code or documentation to this repository (b
 ## Build image with [`docker buildx bake`](https://docs.docker.com/engine/reference/commandline/buildx_bake/)
 
 > **Note**
-> Becasue I used buildx [matrix-builds](https://docs.docker.com/build/bake/configuring-build/#matrix-builds), `buildx` version must be v0.11.0 or above.
+> I used buildx [matrix-builds](https://docs.docker.com/build/bake/configuring-build/#matrix-builds), so `buildx` version must be v0.11.0 or above.
 
 ```bash
-# Build all docker iamges
-docker buildx bake --file docker-bake.hcl clang-tools
+# Build all docker images
+docker buildx bake --file docker-bake.hcl
 
 # Build specific version of clang-tools docker images
-docker buildx bake --file docker-bake.hcl clang-tools:16
+docker buildx bake --file docker-bake.hcl 16
 
 # If want to docker build and push images, add `--push` flag.
-docker buildx bake --file docker-bake.hcl --push clang-tools:16
+docker buildx bake --file docker-bake.hcl --push 16
 ```

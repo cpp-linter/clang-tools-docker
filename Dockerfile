@@ -1,6 +1,7 @@
-FROM ubuntu:22.04
+ARG BASE_IMAGE
+FROM $BASE_IMAGE
 
-ENV CLANG_VERSION 12
+ARG CLANG_VERSION
 
 LABEL \
     org.opencontainers.image.vendor="cpp-linter team" \
@@ -11,16 +12,14 @@ LABEL \
     org.opencontainers.image.source="https://github.com/cpp-linter/clang-tools-docker" \
     org.opencontainers.image.licenses="MIT"
 
-RUN apt-get update \
-    && apt-get --no-install-recommends -y install clang-format-$CLANG_VERSION clang-tidy-$CLANG_VERSION \
-    && ln -s /usr/bin/clang-format-$CLANG_VERSION /usr/bin/clang-format \
-    && ln -s /usr/bin/clang-tidy-$CLANG_VERSION /usr/bin/clang-tidy \
-    && echo "--- Clang-format version ---" \
-    && clang-format --version \
-    && echo "--- Clang-tidy version ---" \
-    && clang-tidy --version \
-    && rm -rf /var/lib/apt/lists/*
-
 WORKDIR /src
+
+COPY install.sh install.sh
+
+RUN apt-get update \
+    && chmod +x install.sh \
+    && ./install.sh "$CLANG_VERSION" \
+    && rm -rf /var/lib/apt/lists/* \
+    && rm install.sh
 
 CMD [""]
