@@ -1,6 +1,5 @@
 #!/bin/bash
 set -e
-set -x
 
 CLANG_VERSION=$1
 # clang-tools:17, clang-tools:16, etc.
