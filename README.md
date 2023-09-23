@@ -12,20 +12,20 @@
 
 You can find clang-tools docker images on Docker Hub [registry](https://hub.docker.com/r/xianpengshen/clang-tools) or GitHub Packages [registry](https://github.com/cpp-linter/clang-tools-docker/pkgs/container/clang-tools)
 
-* [`all`](https://github.com/cpp-linter/clang-tools-docker/blob/master/all/Dockerfile) (include tags `16`, `15`, `14`, `13`, `12`, `11`, `10`, `9`, `8`)
-* [`16`](https://github.com/cpp-linter/clang-tools-docker/blob/master/16/Dockerfile)
-* [`15`](https://github.com/cpp-linter/clang-tools-docker/blob/master/15/Dockerfile)
-* [`14`](https://github.com/cpp-linter/clang-tools-docker/blob/master/14/Dockerfile)
-* [`13`](https://github.com/cpp-linter/clang-tools-docker/blob/master/13/Dockerfile)
-* [`12-alpine-3.18`](https://github.com/cpp-linter/clang-tools-docker/blob/master/12-alpine/Dockerfile)
-* [`12`](https://github.com/cpp-linter/clang-tools-docker/blob/master/12/Dockerfile)
-* [`11-alpine-3.18`](https://github.com/cpp-linter/clang-tools-docker/blob/master/11-alpine/Dockerfile)
-* [`11`](https://github.com/cpp-linter/clang-tools-docker/blob/master/11/Dockerfile)
-* [`10`](https://github.com/cpp-linter/clang-tools-docker/blob/master/10/Dockerfile)
-* [`9`](https://github.com/cpp-linter/clang-tools-docker/blob/master/9/Dockerfile)
-* [`8`](https://github.com/cpp-linter/clang-tools-docker/blob/master/8/Dockerfile)
-* [`7`](https://github.com/cpp-linter/clang-tools-docker/blob/master/7/Dockerfile)
-* [`6`](https://github.com/cpp-linter/clang-tools-docker/blob/master/6/Dockerfile)
+* [`all`](https://github.com/cpp-linter/clang-tools-docker/blob/master/Dockerfile.all) (include tags `17`, `16`, `15`, `14`, `13`, `12`, `11`, `10`, `9`)
+* [`17`](https://github.com/cpp-linter/clang-tools-docker/blob/master/Dockerfile)
+* [`16`](https://github.com/cpp-linter/clang-tools-docker/blob/master/Dockerfile)
+* [`15`](https://github.com/cpp-linter/clang-tools-docker/blob/master/Dockerfile)
+* [`14`](https://github.com/cpp-linter/clang-tools-docker/blob/master/Dockerfile)
+* [`13`](https://github.com/cpp-linter/clang-tools-docker/blob/master/Dockerfile)
+<!-- * [`12-alpine-3.18`](https://github.com/cpp-linter/clang-tools-docker/blob/master/12-alpine/Dockerfile) -->
+* [`12`](https://github.com/cpp-linter/clang-tools-docker/blob/master/Dockerfile)
+<!-- * [`11-alpine-3.18`](https://github.com/cpp-linter/clang-tools-docker/blob/master/11-alpine/Dockerfile) -->
+* [`11`](https://github.com/cpp-linter/clang-tools-docker/blob/master/Dockerfile)
+* [`10`](https://github.com/cpp-linter/clang-tools-docker/blob/master/Dockerfile)
+* [`9`](https://github.com/cpp-linter/clang-tools-docker/blob/master/Dockerfile)
+* [`8`](https://github.com/cpp-linter/clang-tools-docker/blob/master/Dockerfile)
+* [`7`](https://github.com/cpp-linter/clang-tools-docker/blob/master/Dockerfile)
 
 ## How to use this image
 
