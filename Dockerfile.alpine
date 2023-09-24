@@ -1,6 +1,7 @@
-FROM alpine:3.18
+ARG BASE_IMAGE
+FROM $BASE_IMAGE
 
-ENV CLANG_VERSION 11
+ARG CLANG_VERSION
 
 LABEL \
     org.opencontainers.image.vendor="cpp-linter team" \

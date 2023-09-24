@@ -12,14 +12,17 @@ LABEL \
     org.opencontainers.image.source="https://github.com/cpp-linter/clang-tools-docker" \
     org.opencontainers.image.licenses="MIT"
 
+RUN set -ex \
+    && apt-get update \
+    && apt-get --no-install-recommends -y install \
+        clang-format-"$CLANG_VERSION" \
+        clang-tidy-"$CLANG_VERSION" \
+    && ln -s /usr/bin/clang-format-$CLANG_VERSION /usr/bin/clang-format \
+    && ln -s /usr/bin/clang-tidy-$CLANG_VERSION /usr/bin/clang-tidy \
+    && clang-format --version \
+    && clang-tidy --version \
+    && rm -rf /var/lib/apt/lists/*
+
 WORKDIR /src
-
-COPY install.sh install.sh
-
-RUN apt-get update \
-    && chmod +x install.sh \
-    && ./install.sh "$CLANG_VERSION" \
-    && rm -rf /var/lib/apt/lists/* \
-    && rm install.sh
 
 CMD [""]

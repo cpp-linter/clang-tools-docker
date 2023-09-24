@@ -4,6 +4,7 @@ group "default" {
     "all",
     "17",
     "16",
+    "16-alpine",
     "15",
     "14",
     "13",
@@ -25,24 +26,16 @@ variable "GITHUB_REPO" {
     default = "ghcr.io/cpp-linter/clang-tools"
 }
 
-variable "ALPINE_VERSION" {
-  default = "3.18"
-}
-
 # ---- targets ----
-target "clang-tools" {
-  matrix = {
-    tgt = ["all"]
-  }
-  name = "${tgt}"
-  dockerfile = "Dockerfile.${tgt}"
+target "all" {
+  dockerfile = "Dockerfile.all"
   context = "."
   args = {
     BASE_IMAGE="ubuntu:20.04"
   }
   tags = [
-    "${DOCKER_REPO}:${tgt}",
-    "${GITHUB_REPO}:${tgt}"
+    "${DOCKER_REPO}:all",
+    "${GITHUB_REPO}:all"
   ]
   platforms = ["linux/amd64"]
 }
@@ -92,6 +85,24 @@ target "clang-tools" {
   context = "."
   args = {
     BASE_IMAGE="ubuntu:20.04"
+    CLANG_VERSION="${tgt}",
+  }
+  tags = [
+    "${DOCKER_REPO}:${tgt}",
+    "${GITHUB_REPO}:${tgt}"
+  ]
+  platforms = ["linux/amd64"]
+}
+
+target "clang-tools" {
+  matrix = {
+    tgt = ["16-alpine"]
+  }
+  name = "${tgt}"
+  dockerfile = "Dockerfile.alpine"
+  context = "."
+  args = {
+    BASE_IMAGE="alpine:3.18",
     CLANG_VERSION="${tgt}",
   }
   tags = [
