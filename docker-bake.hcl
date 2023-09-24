@@ -1,20 +1,19 @@
 # ---- groups ----
-group "clang-tools" {
+group "default" {
   targets = [
-    "clang-tools-6",
-    "clang-tools-7",
-    "clang-tools-8",
-    "clang-tools-9",
-    "clang-tools-10",
-    "clang-tools-11",
-    "clang-tools-11-alpine",
-    "clang-tools-12",
-    "clang-tools-12-alpine",
-    "clang-tools-13",
-    "clang-tools-14",
-    "clang-tools-15",
-    "clang-tools-16",
-    "clang-tools-all",
+    "all",
+    "17",
+    "16",
+    "16-alpine",
+    "15",
+    "14",
+    "13",
+    "12",
+    "11",
+    "10",
+    "9",
+    "8",
+    "7",
   ]
 }
 
@@ -27,18 +26,85 @@ variable "GITHUB_REPO" {
     default = "ghcr.io/cpp-linter/clang-tools"
 }
 
-variable "ALPINE_VERSION" {
-  default = "3.18"
+# ---- targets ----
+target "all" {
+  dockerfile = "Dockerfile.all"
+  context = "."
+  args = {
+    BASE_IMAGE="ubuntu:20.04"
+  }
+  tags = [
+    "${DOCKER_REPO}:all",
+    "${GITHUB_REPO}:all"
+  ]
+  platforms = ["linux/amd64"]
 }
 
-# ---- targets ----
 target "clang-tools" {
   matrix = {
-    tgt = ["all", "16", "15", "14", "13", "12", "12-alpine", "11", "11-alpine", "10", "9", "8", "7", "6"]
+    tgt = ["17", "16", "15", "14", "13"]
   }
-  name = "clang-tools-${tgt}"
-  dockerfile = "${tgt}/Dockerfile"
+  name = "${tgt}"
+  dockerfile = "Dockerfile"
   context = "."
+  args = {
+    BASE_IMAGE="ubuntu:23.10"
+    CLANG_VERSION="${tgt}",
+  }
+  tags = [
+    "${DOCKER_REPO}:${tgt}",
+    "${GITHUB_REPO}:${tgt}"
+  ]
+  platforms = ["linux/amd64"]
+}
+
+target "clang-tools" {
+  matrix = {
+    tgt = ["12", "11"]
+  }
+  name = "${tgt}"
+  dockerfile = "Dockerfile"
+  context = "."
+  args = {
+    BASE_IMAGE="ubuntu:22.04"
+    CLANG_VERSION="${tgt}",
+  }
+  tags = [
+    "${DOCKER_REPO}:${tgt}",
+    "${GITHUB_REPO}:${tgt}"
+  ]
+  platforms = ["linux/amd64"]
+}
+
+target "clang-tools" {
+  matrix = {
+    tgt = ["10", "9", "8", "7"]
+  }
+  name = "${tgt}"
+  dockerfile = "Dockerfile"
+  context = "."
+  args = {
+    BASE_IMAGE="ubuntu:20.04"
+    CLANG_VERSION="${tgt}",
+  }
+  tags = [
+    "${DOCKER_REPO}:${tgt}",
+    "${GITHUB_REPO}:${tgt}"
+  ]
+  platforms = ["linux/amd64"]
+}
+
+target "clang-tools" {
+  matrix = {
+    tgt = ["16-alpine"]
+  }
+  name = "${tgt}"
+  dockerfile = "Dockerfile.alpine"
+  context = "."
+  args = {
+    BASE_IMAGE="alpine:3.18",
+    CLANG_VERSION="${tgt}",
+  }
   tags = [
     "${DOCKER_REPO}:${tgt}",
     "${GITHUB_REPO}:${tgt}"

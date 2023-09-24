@@ -12,11 +12,11 @@ on:
   push:
     branches: [ master ]
     paths:
-      - '**Dockerfile'
+      - 'Dockerfile*'
   pull_request:
     branches: [ master ]
     paths:
-      - '**Dockerfile'
+      - 'Dockerfile*'
 
 jobs:
   snyk:
@@ -33,7 +33,7 @@ jobs:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       with:
         image: xianpengshen/clang-tools:all
-        args: --severity-threshold=high --file=all/Dockerfile
+        args: --severity-threshold=high --file=Dockerfile.all
 
     - name: Upload result to GitHub Code Scanning
       uses: github/codeql-action/upload-sarif@v2

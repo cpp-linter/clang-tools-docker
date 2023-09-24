@@ -1,4 +1,4 @@
-FROM xianpengshen/clang-tools:12
+FROM xianpengshen/clang-tools:17
 
 WORKDIR /usr/src/app
 
