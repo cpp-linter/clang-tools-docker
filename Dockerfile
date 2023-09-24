@@ -15,8 +15,8 @@ LABEL \
 RUN set -ex \
     && apt-get update \
     && apt-get --no-install-recommends -y install \
-        clang-format-"$CLANG_VERSION" \
-        clang-tidy-"$CLANG_VERSION" \
+        clang-format-$CLANG_VERSION \
+        clang-format-$CLANG_VERSION \
     && ln -s /usr/bin/clang-format-$CLANG_VERSION /usr/bin/clang-format \
     && ln -s /usr/bin/clang-tidy-$CLANG_VERSION /usr/bin/clang-tidy \
     && clang-format --version \
