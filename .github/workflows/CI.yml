@@ -6,11 +6,13 @@ on:
     paths:
       - 'Dockerfile*'
       - 'docker-bake.hcl'
+      - '**.yml'
   pull_request:
     branches: [ master ]
     paths:
       - 'Dockerfile*'
       - 'docker-bake.hcl'
+      - '**.yml'
   workflow_dispatch:
 
 jobs:
@@ -42,22 +44,26 @@ jobs:
       - name: Test all images
         if: github.event_name == 'push' && github.ref == 'refs/heads/master'
         run: |
-          echo "start to test clang-tools:all"
+          echo "start to test clang-tools images"
+          docker images
+
           clang_versions="17 16 15 14 13 12 11 10 9"
           for clang_version in ${clang_versions}; do
+            echo "testing clang_version $clang_version"
             docker run ghcr.io/cpp-linter/clang-tools:all clang-format-$clang_version --version | grep -E "clang-format version $clang_version"
             docker run ghcr.io/cpp-linter/clang-tools:all clang-tidy-$clang_version --version | grep "LLVM version $clang_version"
           done
 
           all_tags="17 16 15 14 13 12 11 10 9 8 7"
           for tag in ${all_tags}; do
-            echo "start to test clang-tools:tag"
+            echo "testing clang-tools:tag"
             docker run ghcr.io/cpp-linter/clang-tools:$tag clang-format --version | grep -E "clang-format version $tag"
             docker run ghcr.io/cpp-linter/clang-tools:$tag clang-tidy --version | grep "LLVM version $tag"
           done
-          # docker run ghcr.io/cpp-linter/clang-tools:$tag-3.18 clang-format --version | grep -E "clang-format version"
-          # docker run ghcr.io/cpp-linter/clang-tools:$tag-3.18 clang-tidy --version | grep "LLVM version"
+          echo "testing clang-tools:16-alpine"
+          docker run ghcr.io/cpp-linter/clang-tools:16-alpine clang-format --version | grep -E "clang-format version"
+          docker run ghcr.io/cpp-linter/clang-tools:16-alpine clang-tidy --version | grep "LLVM version"
 
       - name: Publish all images
-        if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/master'
+        if: github.ref == 'refs/heads/master' || github.event_name == 'workflow_dispatch'
         run: docker buildx bake --file docker-bake.hcl --push
