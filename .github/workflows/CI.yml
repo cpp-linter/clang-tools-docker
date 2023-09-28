@@ -64,5 +64,4 @@ jobs:
 
       - name: Publish all images
         if: github.ref == 'refs/heads/master' || github.event_name == 'workflow_dispatch'
-        needs: ['build'] # need to pass build
         run: docker buildx bake --file docker-bake.hcl --push
