@@ -11,7 +11,7 @@ on:
     paths:
       - 'Dockerfile*'
       - 'docker-bake.hcl'
-      - '*.yml'
+      - '**.yml'
   workflow_dispatch:
 
 jobs:
