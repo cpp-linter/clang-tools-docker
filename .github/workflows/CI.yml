@@ -61,7 +61,7 @@ jobs:
           docker run ghcr.io/cpp-linter/clang-tools:16-alpine clang-format --version | grep -E "clang-format version"
           docker run ghcr.io/cpp-linter/clang-tools:16-alpine clang-tidy --version | grep "LLVM version"
 
-  publish:
-    needs: ['build'] # need to pass build
-    if: github.ref == 'refs/heads/master' || github.event_name == 'workflow_dispatch'
-    run: docker buildx bake --file docker-bake.hcl --push
+      - name: Publish all images
+        if: github.ref == 'refs/heads/master' || github.event_name == 'workflow_dispatch'
+        needs: ['build'] # need to pass build
+        run: docker buildx bake --file docker-bake.hcl --push
