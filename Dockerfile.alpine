@@ -12,12 +12,11 @@ LABEL \
     org.opencontainers.image.source="https://github.com/cpp-linter/clang-tools-docker" \
     org.opencontainers.image.licenses="MIT"
 
+SHELL ["/bin/ash", "-o", "pipefail", "-c"]
 RUN apk update \
     && apk add --no-cache clang-extra-tools \
-    && echo "--- Clang-format version ---" \
-    && clang-format --version \
-    && echo "--- Clang-tidy version ---" \
-    && clang-tidy --version
+    && clang-format --version | grep -E "clang-format version" \
+    && clang-tidy --version | grep "LLVM version"
 
 WORKDIR /src
 

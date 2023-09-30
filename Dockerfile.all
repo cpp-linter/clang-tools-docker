@@ -12,18 +12,17 @@ LABEL \
 
 ENV CLANG_VERSIONS="12 11 10 9"
 
-RUN set -ex \
+RUN set -e \
     && apt-get update \
     && for CLANG_VERSION in $CLANG_VERSIONS; do \
         apt-get --no-install-recommends -y install clang-format-$CLANG_VERSION clang-tidy-$CLANG_VERSION; done \
     && rm -rf /var/lib/apt/lists/*
 
-
 ENV CLANG_VERSIONS="17 16 15 14 13"
 
-WORKDIR /tmp
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-RUN set -ex \
+RUN set -e \
     && apt-get update \
     && apt-get --no-install-recommends -y install lsb-release wget software-properties-common gnupg \
     && wget --quiet https://apt.llvm.org/llvm.sh \
@@ -34,13 +33,13 @@ RUN set -ex \
     && rm llvm.sh \
     && rm -rf /var/lib/apt/lists/*
 
-
-# Integrity testing
 ENV CLANG_VERSIONS="17 16 15 14 13 12 11 10 9"
-RUN set -ex \
+# Integrity testing
+RUN set -e \
     && for VERSION in $CLANG_VERSIONS; do \
-        clang-format-$VERSION --version \
-        clang-tidy-$VERSION --version; done
+        clang-format-$VERSION --version | grep -E "clang-format version $VERSION"; \
+        clang-tidy-$VERSION --version | grep "LLVM version $VERSION"; \
+    done
 
 WORKDIR /src
 
