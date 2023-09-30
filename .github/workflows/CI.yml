@@ -14,6 +14,11 @@ on:
       - 'docker-bake.hcl'
       - '**.yml'
   workflow_dispatch:
+    inputs:
+      tag:
+        description: 'which tag need to publish'
+        default: ''
+        required: false
 
 jobs:
   build:
@@ -38,9 +43,17 @@ jobs:
         run: docker buildx bake --file docker-bake.hcl --print
 
       - name: Build all images
-        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        if: github.ref == 'refs/heads/master' && github.event.inputs.tag == ''
         run: docker buildx bake --file docker-bake.hcl --load
 
+      - name: Publish an image for tag ${{ inputs.tag }}
+        if: github.ref == 'refs/heads/master' && github.event.inputs.tag != ''
+        run: docker buildx bake --file docker-bake.hcl ${{ inputs.tag }} --load
+
       - name: Publish all images
-        if: github.ref == 'refs/heads/master' || github.event_name == 'workflow_dispatch'
+        if: github.ref == 'refs/heads/master' && github.event_name == 'workflow_dispatch' && github.event.inputs.tag == ''
         run: docker buildx bake --file docker-bake.hcl --push
+
+      - name: Publish an image for tag ${{ inputs.tag }}
+        if: github.ref == 'refs/heads/master' && github.event_name == 'workflow_dispatch' && github.event.inputs.tag != ''
+        run: docker buildx bake --file docker-bake.hcl ${{ inputs.tag }} --push
