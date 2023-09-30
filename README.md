@@ -8,11 +8,11 @@
 
 🐳 The Clang Tools Docker image includes the clang-format and clang-tidy.
 
+You can find all the clang-tools Docker images on Docker Hub [registry](https://hub.docker.com/r/xianpengshen/clang-tools) or GitHub Packages [registry](https://github.com/cpp-linter/clang-tools-docker/pkgs/container/clang-tools).
+
 ## Supported tags and respective `Dockerfile` links
 
-You can find clang-tools docker images on Docker Hub [registry](https://hub.docker.com/r/xianpengshen/clang-tools) or GitHub Packages [registry](https://github.com/cpp-linter/clang-tools-docker/pkgs/container/clang-tools)
-
-* [`all`](https://github.com/cpp-linter/clang-tools-docker/blob/master/Dockerfile.all) (include tags `17`, `16`, `15`, `14`, `13`, `12`, `11`, `10`, `9`)
+* [`all`](https://github.com/cpp-linter/clang-tools-docker/blob/master/Dockerfile.all) (Supported versions of clang-tools includes `17`, `16`, `15`, `14`, `13`, `12`, `11`, `10`, `9`)
 * [`17`](https://github.com/cpp-linter/clang-tools-docker/blob/master/Dockerfile)
 * [`16`](https://github.com/cpp-linter/clang-tools-docker/blob/master/Dockerfile)
 * [`16-alpine`](https://github.com/cpp-linter/clang-tools-docker/blob/master/Dockerfile.alpine)
@@ -26,7 +26,7 @@ You can find clang-tools docker images on Docker Hub [registry](https://hub.dock
 * [`8`](https://github.com/cpp-linter/clang-tools-docker/blob/master/Dockerfile)
 * [`7`](https://github.com/cpp-linter/clang-tools-docker/blob/master/Dockerfile)
 
-## How to use this image
+## How to use clang-tools Docker images
 
 ### Docker run image
 
