@@ -7,58 +7,23 @@ version: 2
 updates:
   # https://github.com/dependabot/dependabot-core/issues/2178
   - package-ecosystem: "docker"
-    directory: "all/"
+    directory: /
     schedule:
       interval: "weekly"
-  - package-ecosystem: "docker"
-    directory: "16/"
+    reviewers:
+      - "shenxianpeng"
+    groups:
+      pip:
+        patterns:
+          - "*"
+
+  - package-ecosystem: github-actions
+    directory: /
     schedule:
       interval: "weekly"
-  - package-ecosystem: "docker"
-    directory: "15/"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "docker"
-    directory: "14/"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "docker"
-    directory: "13/"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "docker"
-    directory: "12-alpine-3.18/"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "docker"
-    directory: "12/"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "docker"
-    directory: "11-alpine-3.18/"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "docker"
-    directory: "11/"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "docker"
-    directory: "10/"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "docker"
-    directory: "9/"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "docker"
-    directory: "8/"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "docker"
-    directory: "7/"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "docker"
-    directory: "6/"
-    schedule:
-      interval: "weekly"
+    reviewers:
+      - "shenxianpeng"
+    groups:
+      actions:
+        patterns:
+          - "*"
