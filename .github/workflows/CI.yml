@@ -40,11 +40,11 @@ jobs:
       - name: Check buildx bake
         run: docker buildx bake --file docker-bake.hcl --print
 
-      - name: Publish an image for tag ${{ matrix.target }}
+      - name: Build image for tag ${{ matrix.target }}
         if: github.ref == 'refs/heads/master'
         run: docker buildx bake --file docker-bake.hcl ${{ matrix.target }} --load
 
-      - name: Publish an image for tag ${{ matrix.target }}
+      - name: Publish image for tag ${{ matrix.target }}
         if: github.ref == 'refs/heads/master' && github.event_name == 'workflow_dispatch'
         run: docker buildx bake --file docker-bake.hcl ${{ matrix.target }} --push
 
