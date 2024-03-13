@@ -14,14 +14,12 @@ on:
       - 'docker-bake.hcl'
       - '.github/workflows/CI.yml'
   workflow_dispatch:
-    inputs:
-      tag:
-        description: 'which tag need to publish'
-        default: ''
-        required: false
 
 jobs:
   build:
+    strategy:
+      matrix:
+        target: [ "all", "18", "17", "16", "16-alpine", "15", "14", "13", "12", "11", "10", "9", "8", "7"]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -42,18 +40,14 @@ jobs:
       - name: Check buildx bake
         run: docker buildx bake --file docker-bake.hcl --print
 
-      - name: Build all images
-        if: github.ref == 'refs/heads/master' && github.event.inputs.tag == ''
-        run: docker buildx bake --file docker-bake.hcl --load
+      - name: Publish an image for tag ${{ matrix.target }}
+        if: github.ref == 'refs/heads/master'
+        run: docker buildx bake --file docker-bake.hcl ${{ matrix.target }} --load
 
-      - name: Publish an image for tag ${{ inputs.tag }}
-        if: github.ref == 'refs/heads/master' && github.event.inputs.tag != ''
-        run: docker buildx bake --file docker-bake.hcl ${{ inputs.tag }} --load
+      - name: Publish an image for tag ${{ matrix.target }}
+        if: github.ref == 'refs/heads/master' && github.event_name == 'workflow_dispatch'
+        run: docker buildx bake --file docker-bake.hcl ${{ matrix.target }} --push
 
-      - name: Publish all images
-        if: github.ref == 'refs/heads/master' && github.event_name == 'workflow_dispatch' && github.event.inputs.tag == ''
-        run: docker buildx bake --file docker-bake.hcl --push
-
-      - name: Publish an image for tag ${{ inputs.tag }}
-        if: github.ref == 'refs/heads/master' && github.event_name == 'workflow_dispatch' && github.event.inputs.tag != ''
-        run: docker buildx bake --file docker-bake.hcl ${{ inputs.tag }} --push
+      - name: Remove builder instances
+        if: github.ref == 'refs/heads/master' && github.event_name == 'workflow_dispatch'
+        run: docker buildx rm --all-inactive --force
