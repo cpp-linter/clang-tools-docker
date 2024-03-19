@@ -17,8 +17,8 @@ jobs:
       - name: Update Docker Hub description
         uses: peter-evans/dockerhub-description@v4
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
           enable-url-completion: true
           short-description: ${{ github.event.repository.description }}
           repository: xianpengshen/clang-tools
