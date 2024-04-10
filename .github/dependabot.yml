@@ -13,7 +13,7 @@ updates:
     reviewers:
       - "shenxianpeng"
     groups:
-      pip:
+      docker:
         patterns:
           - "*"
 
