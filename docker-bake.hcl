@@ -2,6 +2,7 @@
 group "default" {
   targets = [
     "all",
+    "19",
     "18",
     "17",
     "16",
@@ -37,6 +38,25 @@ target "all" {
   tags = [
     "${DOCKER_REPO}:all",
     "${GITHUB_REPO}:all"
+  ]
+  platforms = ["linux/amd64"]
+}
+
+target "clang-tools" {
+  matrix = {
+    tgt = ["19"]
+  }
+  name = "${tgt}"
+  dockerfile = "Dockerfile"
+  context = "."
+  args = {
+    # https://packages.ubuntu.com/search?suite=default&section=all&arch=any&keywords=clang-format-19&searchon=names
+    BASE_IMAGE="ubuntu:oracular"
+    CLANG_VERSION="${tgt}",
+  }
+  tags = [
+    "${DOCKER_REPO}:${tgt}",
+    "${GITHUB_REPO}:${tgt}"
   ]
   platforms = ["linux/amd64"]
 }
