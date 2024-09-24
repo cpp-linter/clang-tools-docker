@@ -22,8 +22,8 @@ Please note that by contributing any code or documentation to this repository (b
 docker buildx bake --file docker-bake.hcl
 
 # Build specific version of clang-tools docker images
-docker buildx bake --file docker-bake.hcl 16
+docker buildx bake --file docker-bake.hcl 19
 
 # If want to docker build and push images, add `--push` flag.
-docker buildx bake --file docker-bake.hcl --push 16
+docker buildx bake --file docker-bake.hcl --push 19
 ```

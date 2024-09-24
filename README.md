@@ -6,13 +6,14 @@
 [![CI](https://github.com/cpp-linter/clang-tools-docker/actions/workflows/CI.yml/badge.svg)](https://github.com/cpp-linter/clang-tools-docker/actions/workflows/CI.yml)
 [![Snyk Container](https://github.com/cpp-linter/clang-tools-docker/actions/workflows/snyk-container-analysis.yml/badge.svg)](https://github.com/cpp-linter/clang-tools-docker/actions/workflows/snyk-container-analysis.yml)
 
-🐳 The Clang Tools Docker image includes the clang-format and clang-tidy.
+🐳 **Clang Tools Docker Image**: This Docker image comes pre-installed with essential clang tools, including `clang-format` and `clang-tidy`.
 
-You can find all the clang-tools Docker images on Docker Hub [registry](https://hub.docker.com/r/xianpengshen/clang-tools) or GitHub Packages [registry](https://github.com/cpp-linter/clang-tools-docker/pkgs/container/clang-tools).
+You can access all available  Clang Tools Docker images via [Docker Hub registry](https://hub.docker.com/r/xianpengshen/clang-tools) or [GitHub Packages registry](https://github.com/cpp-linter/clang-tools-docker/pkgs/container/clang-tools).
 
-## Supported tags and respective `Dockerfile` links
+## Supported Tags and Dockerfile links
 
-* [`all`](https://github.com/cpp-linter/clang-tools-docker/blob/master/Dockerfile.all) (Supported versions of clang-tools includes `18`, `17`, `16`, `15`, `14`, `13`, `12`, `11`, `10`, `9`)
+* [`all`](https://github.com/cpp-linter/clang-tools-docker/blob/master/Dockerfile.all) (Supports versions of clang-tools includes `19`, `18`, `17`, `16`, `15`, `14`, `13`, `12`, `11`, `10`, `9`)
+* [`19`](https://github.com/cpp-linter/clang-tools-docker/blob/master/Dockerfile)
 * [`18`](https://github.com/cpp-linter/clang-tools-docker/blob/master/Dockerfile)
 * [`17`](https://github.com/cpp-linter/clang-tools-docker/blob/master/Dockerfile)
 * [`16`](https://github.com/cpp-linter/clang-tools-docker/blob/master/Dockerfile)
