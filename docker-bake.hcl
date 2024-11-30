@@ -82,13 +82,13 @@ target "clang-tools" {
 
 target "clang-tools" {
   matrix = {
-    tgt = ["17", "16", "15", "14", "13"]
+    tgt = ["17", "16", "15", "14"]
   }
   name = "${tgt}"
   dockerfile = "Dockerfile"
   context = "."
   args = {
-    BASE_IMAGE="ubuntu:23.10"
+    BASE_IMAGE="ubuntu:24.10"
     CLANG_VERSION="${tgt}",
   }
   tags = [
@@ -100,7 +100,7 @@ target "clang-tools" {
 
 target "clang-tools" {
   matrix = {
-    tgt = ["12", "11"]
+    tgt = ["13", "12", "11"]
   }
   name = "${tgt}"
   dockerfile = "Dockerfile"
