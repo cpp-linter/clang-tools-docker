@@ -34,25 +34,25 @@ You can access all available  Clang Tools Docker images via [Docker Hub registry
 
 ```bash
 # Check clang-format version
-$ docker run xianpengshen/clang-tools:17 clang-format --version
-Ubuntu clang-format version 17.0.0 (+rc4-1~exp5ubuntu1)
+$ docker run xianpengshen/clang-tools:19 clang-format --version
+Ubuntu clang-format version 19.1.0 (1ubuntu1)
 # Format code (helloworld.c in the demo directory)
-$ docker run -v $PWD:/src xianpengshen/clang-tools:17 clang-format --dry-run -i helloworld.c
+$ docker run -v $PWD:/src xianpengshen/clang-tools:19 clang-format --dry-run -i helloworld.c
 
 # Check clang-tidy version
-$ docker run xianpengshen/clang-tools:17 clang-tidy --version
-Ubuntu LLVM version 17.0.0
+$ docker run xianpengshen/clang-tools:19 clang-tidy --version
+Ubuntu LLVM version 19.1.0
   Optimized build.
 
 # Diagnostic code (helloworld.c in the demo directory)
-$ docker run -v $PWD:/src xianpengshen/clang-tools:17 clang-tidy helloworld.c \
+$ docker run -v $PWD:/src xianpengshen/clang-tools:19 clang-tidy helloworld.c \
 -checks=boost-*,bugprone-*,performance-*,readability-*,portability-*,modernize-*,clang-analyzer-cplusplus-*,clang-analyzer-*,cppcoreguidelines-*
 ```
 
 ### As base image in [`Dockerfile`](https://github.com/cpp-linter/clang-tools-docker/blob/master/demo/Dockerfile)
 
 ```Dockerfile
-FROM xianpengshen/clang-tools:17
+FROM xianpengshen/clang-tools:19
 
 WORKDIR /src
 
@@ -68,13 +68,13 @@ $ docker build -t clang-tools .
 
 # Check clang-format version
 $ docker run clang-tools clang-format --version
-Ubuntu clang-format version 17.0.0 (+rc4-1~exp5ubuntu1)
+Ubuntu clang-format version 17.0.2 (1~exp1ubuntu2.1)
 # Format code
 $ docker run clang-tools clang-format --dry-run -i helloworld.c
 
 # Check clang-tidy version
 $ docker run clang-tools clang-tidy --version
-Ubuntu LLVM version 17.0.0
+Ubuntu LLVM version 19.1.0
   Optimized build.
 # Diagnostic code
 $ docker run clang-tools clang-tidy helloworld.c \
