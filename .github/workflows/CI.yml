@@ -36,10 +36,8 @@ jobs:
 
       - name: Login container registries
         run: |
-          echo $CR_PAT | docker login ghcr.io -u shenxianpeng --password-stdin
+          docker login ghcr.io -u shenxianpeng -p '${{ secrets.CR_PAT }}'
           docker login -u '${{ secrets.DOCKER_USERNAME }}' -p '${{ secrets.DOCKER_PASSWORD }}'
-        env:
-          CR_PAT: ${{ secrets.CR_PAT }}
 
       - name: Check buildx bake
         run: docker buildx bake --file docker-bake.hcl --print
