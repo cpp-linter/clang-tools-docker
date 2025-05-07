@@ -10,8 +10,6 @@ updates:
     directory: /
     schedule:
       interval: "weekly"
-    reviewers:
-      - "shenxianpeng"
     groups:
       docker:
         patterns:
@@ -21,8 +19,6 @@ updates:
     directory: /
     schedule:
       interval: "weekly"
-    reviewers:
-      - "shenxianpeng"
     groups:
       actions:
         patterns:
