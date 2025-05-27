@@ -18,7 +18,7 @@ RUN set -e \
         apt-get --no-install-recommends -y install clang-format-$CLANG_VERSION clang-tidy-$CLANG_VERSION; done \
     && rm -rf /var/lib/apt/lists/*
 
-ENV CLANG_VERSIONS="19 18 17 16 15 14 13"
+ENV CLANG_VERSIONS="20 19 18 17 16 15 14 13"
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
@@ -33,7 +33,7 @@ RUN set -e \
     && rm llvm.sh \
     && rm -rf /var/lib/apt/lists/*
 
-ENV CLANG_VERSIONS="19 18 17 16 15 14 13 12 11 10 9"
+ENV CLANG_VERSIONS="20 19 18 17 16 15 14 13 12 11 10 9"
 # Integrity testing
 RUN set -e \
     && for VERSION in $CLANG_VERSIONS; do \
