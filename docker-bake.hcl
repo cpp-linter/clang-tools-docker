@@ -2,6 +2,7 @@
 group "default" {
   targets = [
     "all",
+    "20",
     "19",
     "18",
     "17",
@@ -44,7 +45,7 @@ target "all" {
 
 target "clang-tools" {
   matrix = {
-    tgt = ["19"]
+    tgt = ["20", "19"]
   }
   name = "${tgt}"
   dockerfile = "Dockerfile"
