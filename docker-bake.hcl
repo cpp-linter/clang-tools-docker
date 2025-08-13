@@ -40,7 +40,7 @@ target "all" {
     "${DOCKER_REPO}:all",
     "${GITHUB_REPO}:all"
   ]
-  platforms = ["linux/amd64"]
+  platforms = ["linux/amd64", "linux/arm64"]
 }
 
 target "clang-tools" {
