@@ -17,6 +17,7 @@ group "default" {
     "8", "8-alpine",
     "7", "7-alpine",
   ]
+}
 # ---- Alpine targets ----
 target "20-alpine" {
   dockerfile = "Dockerfile.alpine"
@@ -198,7 +199,6 @@ target "7-alpine" {
     "${GITHUB_REPO}:7-alpine"
   ]
   platforms = ["linux/amd64", "linux/arm64"]
-}
 }
 
 # ---- variables ----
