@@ -3,9 +3,13 @@ group "default" {
   targets = [
     "all",
     "20",
+    "20-alpine",
     "19",
+    "19-alpine",
     "18",
+    "18-alpine",
     "17",
+    "17-alpine",
     "16",
     "16-alpine",
     "15",
@@ -40,7 +44,8 @@ target "all" {
     "${DOCKER_REPO}:all",
     "${GITHUB_REPO}:all"
   ]
-  platforms = ["linux/amd64"]
+  platforms = ["linux/amd64", "linux/arm64"]
+  output = ["type=registry"]
 }
 
 target "clang-tools" {
@@ -59,7 +64,8 @@ target "clang-tools" {
     "${DOCKER_REPO}:${tgt}",
     "${GITHUB_REPO}:${tgt}"
   ]
-  platforms = ["linux/amd64"]
+  platforms = ["linux/amd64", "linux/arm64"]
+  output = ["type=registry"]
 }
 
 target "clang-tools" {
@@ -78,7 +84,8 @@ target "clang-tools" {
     "${DOCKER_REPO}:${tgt}",
     "${GITHUB_REPO}:${tgt}"
   ]
-  platforms = ["linux/amd64"]
+  platforms = ["linux/amd64", "linux/arm64"]
+  output = ["type=registry"]
 }
 
 target "clang-tools" {
@@ -97,7 +104,8 @@ target "clang-tools" {
     "${DOCKER_REPO}:${tgt}",
     "${GITHUB_REPO}:${tgt}"
   ]
-  platforms = ["linux/amd64"]
+  platforms = ["linux/amd64", "linux/arm64"]
+  output = ["type=registry"]
 }
 
 target "clang-tools" {
@@ -115,7 +123,8 @@ target "clang-tools" {
     "${DOCKER_REPO}:${tgt}",
     "${GITHUB_REPO}:${tgt}"
   ]
-  platforms = ["linux/amd64"]
+  platforms = ["linux/amd64", "linux/arm64"]
+  output = ["type=registry"]
 }
 
 target "clang-tools" {
@@ -133,7 +142,8 @@ target "clang-tools" {
     "${DOCKER_REPO}:${tgt}",
     "${GITHUB_REPO}:${tgt}"
   ]
-  platforms = ["linux/amd64"]
+  platforms = ["linux/amd64", "linux/arm64"]
+  output = ["type=registry"]
 }
 
 target "clang-tools" {
@@ -151,12 +161,13 @@ target "clang-tools" {
     "${DOCKER_REPO}:${tgt}",
     "${GITHUB_REPO}:${tgt}"
   ]
-  platforms = ["linux/amd64"]
+  platforms = ["linux/amd64", "linux/arm64"]
+  output = ["type=registry"]
 }
 
 target "clang-tools" {
   matrix = {
-    tgt = ["16-alpine"]
+    tgt = ["16-alpine", "17-alpine", "18-alpine", "19-alpine", "20-alpine"]
   }
   name = "${tgt}"
   dockerfile = "Dockerfile.alpine"
@@ -169,5 +180,6 @@ target "clang-tools" {
     "${DOCKER_REPO}:${tgt}",
     "${GITHUB_REPO}:${tgt}"
   ]
-  platforms = ["linux/amd64"]
+  platforms = ["linux/amd64", "linux/arm64"]
+  output = ["type=registry"]
 }
