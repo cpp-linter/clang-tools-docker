@@ -20,10 +20,27 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  extract-targets:
+    runs-on: ubuntu-latest
+    outputs:
+      targets: ${{ steps.extract.outputs.targets }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Extract targets as JSON array
+        id: extract
+        uses: dcarbone/install-jq-action@v2
+      - name: Get targets from bake file
+        id: get-targets
+        run: |
+          TARGETS=$(docker buildx bake --file docker-bake.hcl --print | jq -c '[.target | keys[] | select(. != "default")]')
+          echo "targets=$TARGETS" | tee -a ${GITHUB_OUTPUT}
+
   build:
+    needs: extract-targets
+    runs-on: ubuntu-latest
     strategy:
       matrix:
-        target: [ "all", "20", "20-alpine", "19", "19-alpine", "18", "18-alpine", "17", "17-alpine", "16", "16-alpine", "15", "14", "13", "12", "11", "10", "9", "8", "7"]
+        target: ${{ fromJson(needs.extract-targets.outputs.targets) }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
