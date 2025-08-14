@@ -45,7 +45,7 @@ target "all" {
     "${GITHUB_REPO}:all"
   ]
   platforms = ["linux/amd64", "linux/arm64"]
-  output = ["type=registry"]
+  output = ["type=image"]
 }
 
 target "clang-tools" {
@@ -65,7 +65,7 @@ target "clang-tools" {
     "${GITHUB_REPO}:${tgt}"
   ]
   platforms = ["linux/amd64", "linux/arm64"]
-  output = ["type=registry"]
+  output = ["type=image"]
 }
 
 target "clang-tools" {
@@ -85,7 +85,7 @@ target "clang-tools" {
     "${GITHUB_REPO}:${tgt}"
   ]
   platforms = ["linux/amd64", "linux/arm64"]
-  output = ["type=registry"]
+  output = ["type=image"]
 }
 
 target "clang-tools" {
@@ -105,7 +105,7 @@ target "clang-tools" {
     "${GITHUB_REPO}:${tgt}"
   ]
   platforms = ["linux/amd64", "linux/arm64"]
-  output = ["type=registry"]
+  output = ["type=image"]
 }
 
 target "clang-tools" {
@@ -124,7 +124,7 @@ target "clang-tools" {
     "${GITHUB_REPO}:${tgt}"
   ]
   platforms = ["linux/amd64", "linux/arm64"]
-  output = ["type=registry"]
+  output = ["type=image"]
 }
 
 target "clang-tools" {
@@ -143,7 +143,7 @@ target "clang-tools" {
     "${GITHUB_REPO}:${tgt}"
   ]
   platforms = ["linux/amd64", "linux/arm64"]
-  output = ["type=registry"]
+  output = ["type=image"]
 }
 
 target "clang-tools" {
@@ -162,7 +162,7 @@ target "clang-tools" {
     "${GITHUB_REPO}:${tgt}"
   ]
   platforms = ["linux/amd64", "linux/arm64"]
-  output = ["type=registry"]
+  output = ["type=image"]
 }
 
 target "clang-tools" {
@@ -180,6 +180,6 @@ target "clang-tools" {
     "${DOCKER_REPO}:${tgt}",
     "${GITHUB_REPO}:${tgt}"
   ]
-  platforms = ["linux/amd64", "linux/arm64"]
-  output = ["type=registry"]
+  platforms = ["linux/amd64"]
+  output = ["type=image"]
 }
