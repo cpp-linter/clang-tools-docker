@@ -23,11 +23,10 @@ jobs:
   extract-targets:
     runs-on: ubuntu-latest
     outputs:
-      targets: ${{ steps.extract.outputs.targets }}
+      targets: ${{ steps.get-targets.outputs.targets }}
     steps:
       - uses: actions/checkout@v4
       - name: Extract targets as JSON array
-        id: extract
         uses: dcarbone/install-jq-action@v2
       - name: Get targets from bake file
         id: get-targets
