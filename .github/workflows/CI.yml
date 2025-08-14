@@ -33,7 +33,7 @@ jobs:
         id: get-targets
         run: |
           TARGETS=$(docker buildx bake --file docker-bake.hcl --print | jq -c '[.target | keys[] | select(. != "default")]')
-          echo "targets=$TARGETS" | tee -a ${GITHUB_OUTPUT}
+          echo "targets=$TARGETS" >> "$GITHUB_OUTPUT"
 
   build:
     needs: extract-targets
