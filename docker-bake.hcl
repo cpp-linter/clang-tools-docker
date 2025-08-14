@@ -222,6 +222,7 @@ target "all" {
     "${GITHUB_REPO}:all"
   ]
   platforms = ["linux/amd64", "linux/arm64"]
+  output = ["type=registry"]
 }
 
 target "clang-tools" {
@@ -241,6 +242,7 @@ target "clang-tools" {
     "${GITHUB_REPO}:${tgt}"
   ]
   platforms = ["linux/amd64", "linux/arm64"]
+  output = ["type=registry"]
 }
 
 target "clang-tools" {
@@ -260,6 +262,7 @@ target "clang-tools" {
     "${GITHUB_REPO}:${tgt}"
   ]
   platforms = ["linux/amd64", "linux/arm64"]
+  output = ["type=registry"]
 }
 
 target "clang-tools" {
@@ -279,6 +282,7 @@ target "clang-tools" {
     "${GITHUB_REPO}:${tgt}"
   ]
   platforms = ["linux/amd64", "linux/arm64"]
+  output = ["type=registry"]
 }
 
 target "clang-tools" {
@@ -297,6 +301,7 @@ target "clang-tools" {
     "${GITHUB_REPO}:${tgt}"
   ]
   platforms = ["linux/amd64", "linux/arm64"]
+  output = ["type=registry"]
 }
 
 target "clang-tools" {
@@ -315,6 +320,7 @@ target "clang-tools" {
     "${GITHUB_REPO}:${tgt}"
   ]
   platforms = ["linux/amd64", "linux/arm64"]
+  output = ["type=registry"]
 }
 
 target "clang-tools" {
@@ -333,11 +339,12 @@ target "clang-tools" {
     "${GITHUB_REPO}:${tgt}"
   ]
   platforms = ["linux/amd64", "linux/arm64"]
+  output = ["type=registry"]
 }
 
 target "clang-tools" {
   matrix = {
-    tgt = ["16-alpine"]
+    tgt = ["16-alpine", "17-alpine", "18-alpine", "19-alpine", "20-alpine"]
   }
   name = "${tgt}"
   dockerfile = "Dockerfile.alpine"
@@ -350,5 +357,6 @@ target "clang-tools" {
     "${DOCKER_REPO}:${tgt}",
     "${GITHUB_REPO}:${tgt}"
   ]
-  platforms = ["linux/amd64"]
+  platforms = ["linux/amd64", "linux/arm64"]
+  output = ["type=registry"]
 }
