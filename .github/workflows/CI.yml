@@ -25,9 +25,9 @@ jobs:
     outputs:
       targets: ${{ steps.get-targets.outputs.targets }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Extract targets as JSON array
-        uses: dcarbone/install-jq-action@v2
+        uses: dcarbone/install-jq-action@v3
       - name: Get targets from bake file
         id: get-targets
         run: |
@@ -41,7 +41,7 @@ jobs:
       matrix:
         target: ${{ fromJson(needs.extract-targets.outputs.targets) }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3.11.1
