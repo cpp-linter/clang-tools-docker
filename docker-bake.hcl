@@ -2,6 +2,8 @@
 group "default" {
   targets = [
     "all",
+    "21",
+    "21-alpine",
     "20",
     "20-alpine",
     "19",
