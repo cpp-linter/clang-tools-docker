@@ -99,7 +99,7 @@ target "clang-tools" {
   context = "."
   args = {
     # https://packages.ubuntu.com/search?suite=default&section=all&arch=any&keywords=clang-format-19&searchon=names
-    BASE_IMAGE="ubuntu:plucky"
+    BASE_IMAGE="ubuntu:24.10"
     CLANG_VERSION="${tgt}",
   }
   tags = [
