@@ -54,7 +54,6 @@ jobs:
 
       - name: Build image for tag ${{ matrix.target }}
         run: docker buildx bake --file docker-bake.hcl ${{ matrix.target }}
-        continue-on-error: true
 
       - name: Login container registries
         if: github.ref == 'refs/heads/master' && github.event_name == 'workflow_dispatch'
