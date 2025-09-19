@@ -112,7 +112,7 @@ target "clang-tools" {
 
 target "clang-tools" {
   matrix = {
-    tgt = ["18"]
+    tgt = ["18", "17"]
   }
   name = "${tgt}"
   dockerfile = "Dockerfile"
@@ -132,7 +132,7 @@ target "clang-tools" {
 
 target "clang-tools" {
   matrix = {
-    tgt = ["17", "16", "15", "14"]
+    tgt = ["16", "15", "14"]
   }
   name = "${tgt}"
   dockerfile = "Dockerfile"
