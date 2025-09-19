@@ -92,7 +92,7 @@ target "clang-tools" {
 
 target "clang-tools" {
   matrix = {
-    tgt = ["18", "17"]
+    tgt = ["18", "17", "16", "15", "14"]
   }
   name = "${tgt}"
   dockerfile = "Dockerfile"
@@ -100,25 +100,6 @@ target "clang-tools" {
   args = {
     # https://packages.ubuntu.com/search?suite=default&section=all&arch=any&keywords=clang-format-18&searchon=names
     BASE_IMAGE="ubuntu:noble"
-    CLANG_VERSION="${tgt}",
-  }
-  tags = [
-    "${DOCKER_REPO}:${tgt}",
-    "${GITHUB_REPO}:${tgt}"
-  ]
-  platforms = ["linux/amd64", "linux/arm64"]
-  output = ["type=image"]
-}
-
-target "clang-tools" {
-  matrix = {
-    tgt = ["16", "15", "14"]
-  }
-  name = "${tgt}"
-  dockerfile = "Dockerfile"
-  context = "."
-  args = {
-    BASE_IMAGE="ubuntu:24.10"
     CLANG_VERSION="${tgt}",
   }
   tags = [
