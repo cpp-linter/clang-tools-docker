@@ -72,7 +72,7 @@ target "clang-tools" {
 
 target "clang-tools" {
   matrix = {
-    tgt = ["20"]
+    tgt = ["20", "19"]
   }
   name = "${tgt}"
   dockerfile = "Dockerfile"
@@ -80,26 +80,6 @@ target "clang-tools" {
   args = {
     # https://packages.ubuntu.com/search?suite=default&section=all&arch=any&keywords=clang-format-20&searchon=names
     BASE_IMAGE="ubuntu:plucky"
-    CLANG_VERSION="${tgt}",
-  }
-  tags = [
-    "${DOCKER_REPO}:${tgt}",
-    "${GITHUB_REPO}:${tgt}"
-  ]
-  platforms = ["linux/amd64", "linux/arm64"]
-  output = ["type=image"]
-}
-
-target "clang-tools" {
-  matrix = {
-    tgt = ["19"]
-  }
-  name = "${tgt}"
-  dockerfile = "Dockerfile"
-  context = "."
-  args = {
-    # https://packages.ubuntu.com/search?suite=default&section=all&arch=any&keywords=clang-format-19&searchon=names
-    BASE_IMAGE="ubuntu:24.10"
     CLANG_VERSION="${tgt}",
   }
   tags = [
