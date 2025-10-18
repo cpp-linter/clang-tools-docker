@@ -2,6 +2,8 @@
 group "default" {
   targets = [
     "all",
+    "21",
+    "21-alpine",
     "20",
     "20-alpine",
     "19",
@@ -50,7 +52,27 @@ target "all" {
 
 target "clang-tools" {
   matrix = {
-    tgt = ["20"]
+    tgt = ["21"]
+  }
+  name = "${tgt}"
+  dockerfile = "Dockerfile"
+  context = "."
+  args = {
+    # https://packages.ubuntu.com/search?suite=default&section=all&arch=any&keywords=clang-format-21&searchon=names
+    BASE_IMAGE="ubuntu:questing"
+    CLANG_VERSION="${tgt}",
+  }
+  tags = [
+    "${DOCKER_REPO}:${tgt}",
+    "${GITHUB_REPO}:${tgt}"
+  ]
+  platforms = ["linux/amd64", "linux/arm64"]
+  output = ["type=image"]
+}
+
+target "clang-tools" {
+  matrix = {
+    tgt = ["20", "19"]
   }
   name = "${tgt}"
   dockerfile = "Dockerfile"
@@ -70,27 +92,7 @@ target "clang-tools" {
 
 target "clang-tools" {
   matrix = {
-    tgt = ["19"]
-  }
-  name = "${tgt}"
-  dockerfile = "Dockerfile"
-  context = "."
-  args = {
-    # https://packages.ubuntu.com/search?suite=default&section=all&arch=any&keywords=clang-format-19&searchon=names
-    BASE_IMAGE="ubuntu:oracular"
-    CLANG_VERSION="${tgt}",
-  }
-  tags = [
-    "${DOCKER_REPO}:${tgt}",
-    "${GITHUB_REPO}:${tgt}"
-  ]
-  platforms = ["linux/amd64", "linux/arm64"]
-  output = ["type=image"]
-}
-
-target "clang-tools" {
-  matrix = {
-    tgt = ["18"]
+    tgt = ["18", "17", "16", "15", "14"]
   }
   name = "${tgt}"
   dockerfile = "Dockerfile"
@@ -98,25 +100,6 @@ target "clang-tools" {
   args = {
     # https://packages.ubuntu.com/search?suite=default&section=all&arch=any&keywords=clang-format-18&searchon=names
     BASE_IMAGE="ubuntu:noble"
-    CLANG_VERSION="${tgt}",
-  }
-  tags = [
-    "${DOCKER_REPO}:${tgt}",
-    "${GITHUB_REPO}:${tgt}"
-  ]
-  platforms = ["linux/amd64", "linux/arm64"]
-  output = ["type=image"]
-}
-
-target "clang-tools" {
-  matrix = {
-    tgt = ["17", "16", "15", "14"]
-  }
-  name = "${tgt}"
-  dockerfile = "Dockerfile"
-  context = "."
-  args = {
-    BASE_IMAGE="ubuntu:24.10"
     CLANG_VERSION="${tgt}",
   }
   tags = [
@@ -167,7 +150,7 @@ target "clang-tools" {
 
 target "clang-tools" {
   matrix = {
-    tgt = ["16-alpine", "17-alpine", "18-alpine", "19-alpine", "20-alpine"]
+    tgt = ["16-alpine", "17-alpine", "18-alpine", "19-alpine", "20-alpine", "21-alpine"]
   }
   name = "${tgt}"
   dockerfile = "Dockerfile.alpine"
