@@ -13,10 +13,12 @@ on:
     branches: [ master ]
     paths:
       - 'Dockerfile*'
+      - '.github/workflows/snyk-container-analysis.yml'
   pull_request:
     branches: [ master ]
     paths:
       - 'Dockerfile*'
+      - '.github/workflows/snyk-container-analysis.yml'
 
 jobs:
   snyk:
