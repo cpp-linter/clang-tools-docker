@@ -2,6 +2,7 @@
 group "default" {
   targets = [
     "all",
+    "22",
     "21",
     "21-alpine",
     "20",
@@ -45,6 +46,27 @@ target "all" {
   tags = [
     "${DOCKER_REPO}:all",
     "${GITHUB_REPO}:all"
+  ]
+  platforms = ["linux/amd64", "linux/arm64"]
+  output = ["type=image"]
+}
+
+target "clang-tools" {
+  matrix = {
+    tgt = ["22"]
+  }
+  name = "${tgt}"
+  dockerfile = "Dockerfile"
+  context = "."
+  args = {
+    # https://apt.llvm.org/noble/dists/
+    BASE_IMAGE="ubuntu:noble"
+    CLANG_VERSION="${tgt}",
+    USE_LLVM_REPO="true",
+  }
+  tags = [
+    "${DOCKER_REPO}:${tgt}",
+    "${GITHUB_REPO}:${tgt}"
   ]
   platforms = ["linux/amd64", "linux/arm64"]
   output = ["type=image"]
