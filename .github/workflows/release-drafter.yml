@@ -6,8 +6,13 @@ on:
       - "master"
   workflow_dispatch:
 
+permissions: {}
+
 jobs:
   draft-release:
+    permissions:
+      contents: write
+      pull-requests: read
     uses: cpp-linter/.github/.github/workflows/release-drafter.yml@main
     with:
       commitish: master
