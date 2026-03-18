@@ -172,7 +172,7 @@ target "clang-tools" {
 
 target "clang-tools" {
   matrix = {
-    tgt = ["16-alpine", "17-alpine", "18-alpine", "19-alpine", "20-alpine", "21-alpine"]
+    tgt = ["16-alpine", "17-alpine", "18-alpine", "19-alpine", "20-alpine", "21-alpine", "22-alpine"]
   }
   name = "${tgt}"
   dockerfile = "Dockerfile.alpine"
