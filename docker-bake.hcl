@@ -2,6 +2,8 @@
 group "default" {
   targets = [
     "all",
+    "22",
+    "22-alpine",
     "21",
     "21-alpine",
     "20",
@@ -45,6 +47,26 @@ target "all" {
   tags = [
     "${DOCKER_REPO}:all",
     "${GITHUB_REPO}:all"
+  ]
+  platforms = ["linux/amd64", "linux/arm64"]
+  output = ["type=image"]
+}
+
+target "clang-tools" {
+  matrix = {
+    tgt = ["22"]
+  }
+  name = "${tgt}"
+  dockerfile = "Dockerfile"
+  context = "."
+  args = {
+    # https://packages.ubuntu.com/search?suite=default&section=all&arch=any&keywords=clang-format-22&searchon=names
+    BASE_IMAGE="ubuntu:resolute"
+    CLANG_VERSION="${tgt}",
+  }
+  tags = [
+    "${DOCKER_REPO}:${tgt}",
+    "${GITHUB_REPO}:${tgt}"
   ]
   platforms = ["linux/amd64", "linux/arm64"]
   output = ["type=image"]
@@ -150,7 +172,7 @@ target "clang-tools" {
 
 target "clang-tools" {
   matrix = {
-    tgt = ["16-alpine", "17-alpine", "18-alpine", "19-alpine", "20-alpine", "21-alpine"]
+    tgt = ["16-alpine", "17-alpine", "18-alpine", "19-alpine", "20-alpine", "21-alpine", "22-alpine"]
   }
   name = "${tgt}"
   dockerfile = "Dockerfile.alpine"
