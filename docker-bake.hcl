@@ -54,7 +54,27 @@ target "all" {
 
 target "clang-tools" {
   matrix = {
-    tgt = ["21", "22"]
+    tgt = ["22"]
+  }
+  name = "${tgt}"
+  dockerfile = "Dockerfile"
+  context = "."
+  args = {
+    # https://packages.ubuntu.com/search?suite=default&section=all&arch=any&keywords=clang-format-22&searchon=names
+    BASE_IMAGE="ubuntu:resolute"
+    CLANG_VERSION="${tgt}",
+  }
+  tags = [
+    "${DOCKER_REPO}:${tgt}",
+    "${GITHUB_REPO}:${tgt}"
+  ]
+  platforms = ["linux/amd64", "linux/arm64"]
+  output = ["type=image"]
+}
+
+target "clang-tools" {
+  matrix = {
+    tgt = ["21"]
   }
   name = "${tgt}"
   dockerfile = "Dockerfile"
