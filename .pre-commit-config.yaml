@@ -7,10 +7,10 @@ repos:
       - id: trailing-whitespace
       - id: check-added-large-files
       - id: detect-private-key
-  - repo: https://github.com/hadolint/hadolint
-    rev: v2.13.1-beta
+  - repo: https://github.com/shenxianpeng/hadolint-pre-commit
+    rev: v2.14.0.1
     hooks:
-      - id: hadolint-docker
+      - id: hadolint
         args:
           [
             --ignore,DL3006,
