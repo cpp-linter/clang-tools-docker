@@ -20,6 +20,10 @@ on:
       - 'Dockerfile*'
       - '.github/workflows/snyk-container-analysis.yml'
 
+permissions:
+  contents: read
+  security-events: write
+
 jobs:
   snyk:
     runs-on: ubuntu-latest
