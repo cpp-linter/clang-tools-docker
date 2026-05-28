@@ -10,12 +10,12 @@ name: Snyk Container
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
     paths:
       - 'Dockerfile*'
       - '.github/workflows/snyk-container-analysis.yml'
   pull_request:
-    branches: [ master ]
+    branches: [ main ]
     paths:
       - 'Dockerfile*'
       - '.github/workflows/snyk-container-analysis.yml'

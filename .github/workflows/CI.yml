@@ -2,13 +2,13 @@ name: CI
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
     paths:
       - 'Dockerfile*'
       - 'docker-bake.hcl'
       - '.github/workflows/CI.yml'
   pull_request:
-    branches: [ master ]
+    branches: [ main ]
     paths:
       - 'Dockerfile*'
       - 'docker-bake.hcl'
@@ -56,15 +56,15 @@ jobs:
         run: docker buildx bake --file docker-bake.hcl ${{ matrix.target }}
 
       - name: Login container registries
-        if: github.ref == 'refs/heads/master' && github.event_name == 'workflow_dispatch'
+        if: github.ref == 'refs/heads/main' && github.event_name == 'workflow_dispatch'
         run: |
           echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
           echo '${{ secrets.DOCKER_PASSWORD }}' | docker login -u '${{ secrets.DOCKER_USERNAME }}' --password-stdin
 
       - name: Publish image for tag ${{ matrix.target }}
-        if: github.ref == 'refs/heads/master' && github.event_name == 'workflow_dispatch'
+        if: github.ref == 'refs/heads/main' && github.event_name == 'workflow_dispatch'
         run: docker buildx bake --file docker-bake.hcl ${{ matrix.target }} --push
 
       - name: Remove builder instances
-        if: github.ref == 'refs/heads/master' && github.event_name == 'workflow_dispatch'
+        if: github.ref == 'refs/heads/main' && github.event_name == 'workflow_dispatch'
         run: docker buildx rm --all-inactive --force

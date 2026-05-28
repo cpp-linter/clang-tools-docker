@@ -3,7 +3,7 @@ name: Release Drafter
 on:
   push:
     branches:
-      - "master"
+      - "main"
   workflow_dispatch:
 
 permissions: {}
@@ -15,4 +15,4 @@ jobs:
       pull-requests: read
     uses: cpp-linter/.github/.github/workflows/release-drafter.yml@main
     with:
-      commitish: master
+      commitish: main
