@@ -1,0 +1,49 @@
+name: Docker Scout
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'Dockerfile*'
+      - '.github/workflows/docker-scout.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'Dockerfile*'
+      - '.github/workflows/docker-scout.yml'
+
+permissions:
+  contents: read
+  security-events: write
+
+jobs:
+  scout:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@d7f5e7f509e45cec5c76c4d5afdd7de93d0b3df5 # v4.1.0
+
+      - name: Build image
+        uses: docker/build-push-action@10e90e3645eae34f1e60eeb005ba3a3d33f178e8 # v6.19.2
+        with:
+          file: Dockerfile
+          build-args: |
+            BASE_IMAGE=ubuntu:questing
+            CLANG_VERSION=21
+          load: true
+          tags: xianpengshen/clang-tools:21
+
+      - name: Docker Scout CVEs
+        uses: docker/scout-action@bacf462e8d090c09660de30a6ccc718035f961e3 # v1.20.4
+        with:
+          command: cves
+          image: xianpengshen/clang-tools:21
+          sarif-file: scout.sarif
+          only-severities: critical,high
+
+      - name: Upload SARIF to GitHub Code Scanning
+        uses: github/codeql-action/upload-sarif@03e4368ac7daa2bd82b3e85262f3bf87ee112f57 # v3.35.1
+        with:
+          sarif_file: scout.sarif
