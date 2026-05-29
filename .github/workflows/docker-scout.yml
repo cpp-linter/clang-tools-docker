@@ -36,7 +36,7 @@ jobs:
           tags: xianpengshen/clang-tools:21
 
       - name: Login to Docker Hub
-        uses: docker/login-action@a3a8c9d9e7f97974521b036910a300525e05cbb3 # v3.5.0
+        uses: docker/login-action@184bdaa0721073962dff0199f1fb9940f07167d1 # v3.5.0
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
