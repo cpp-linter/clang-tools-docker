@@ -35,6 +35,12 @@ jobs:
           load: true
           tags: xianpengshen/clang-tools:21
 
+      - name: Login to Docker Hub
+        uses: docker/login-action@a3a8c9d9e7f97974521b036910a300525e05cbb3 # v3.5.0
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
       - name: Docker Scout CVEs
         uses: docker/scout-action@bacf462e8d090c09660de30a6ccc718035f961e3 # v1.20.4
         with:
