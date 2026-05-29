@@ -37,12 +37,14 @@ jobs:
           tags: xianpengshen/clang-tools:21
 
       - name: Login to Docker Hub
+        if: github.actor != 'dependabot[bot]'
         uses: docker/login-action@650006c6eb7dba73a995cc03b0b2d7f5ca915bee # v4.2.0
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Docker Scout CVEs
+        if: github.actor != 'dependabot[bot]'
         uses: docker/scout-action@cd72f264beff1cd72735de31148b9d3244a0234a # v1.21.0
         with:
           command: cves
@@ -51,6 +53,7 @@ jobs:
           only-severities: critical,high
 
       - name: Upload SARIF to GitHub Code Scanning
+        if: github.actor != 'dependabot[bot]'
         uses: github/codeql-action/upload-sarif@7211b7c8077ea37d8641b6271f6a365a22a5fbfa # v3.35.1
         with:
           sarif_file: scout.sarif
