@@ -19,6 +19,9 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+permissions:
+  contents: read
+
 jobs:
   extract-targets:
     runs-on: ubuntu-latest
@@ -37,6 +40,10 @@ jobs:
   build:
     needs: extract-targets
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write  # Required for cosign keyless signing
+      packages: write
     strategy:
       matrix:
         target: ${{ fromJson(needs.extract-targets.outputs.targets) }}
@@ -61,9 +68,22 @@ jobs:
           echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
           echo '${{ secrets.DOCKER_PASSWORD }}' | docker login -u '${{ secrets.DOCKER_USERNAME }}' --password-stdin
 
-      - name: Publish image for tag ${{ matrix.target }}
+      - name: Publish image for tag ${{ matrix.target }} (with SBOM + provenance)
         if: github.ref == 'refs/heads/main' && github.event_name == 'workflow_dispatch'
-        run: docker buildx bake --file docker-bake.hcl ${{ matrix.target }} --push
+        run: |
+          docker buildx bake --file docker-bake.hcl ${{ matrix.target }} --push \
+            --set "*.attest=type=sbom" \
+            --set "*.attest=type=provenance,mode=max"
+
+      - name: Install cosign
+        if: github.ref == 'refs/heads/main' && github.event_name == 'workflow_dispatch'
+        uses: sigstore/cosign-installer@7e8b541eb2e61bf99390e1afd4be13a184e9ebc5 # v3.10.1
+
+      - name: Sign images with cosign (keyless)
+        if: github.ref == 'refs/heads/main' && github.event_name == 'workflow_dispatch'
+        run: |
+          cosign sign --yes ghcr.io/cpp-linter/clang-tools:${{ matrix.target }}
+          cosign sign --yes xianpengshen/clang-tools:${{ matrix.target }}
 
       - name: Remove builder instances
         if: github.ref == 'refs/heads/main' && github.event_name == 'workflow_dispatch'
