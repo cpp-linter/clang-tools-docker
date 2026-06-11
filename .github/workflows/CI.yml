@@ -21,8 +21,6 @@ concurrency:
 
 permissions:
   contents: read
-  id-token: write  # Required for cosign keyless signing
-  packages: write
 
 jobs:
   extract-targets:
@@ -42,6 +40,10 @@ jobs:
   build:
     needs: extract-targets
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write  # Required for cosign keyless signing
+      packages: write
     strategy:
       matrix:
         target: ${{ fromJson(needs.extract-targets.outputs.targets) }}
@@ -75,7 +77,7 @@ jobs:
 
       - name: Install cosign
         if: github.ref == 'refs/heads/main' && github.event_name == 'workflow_dispatch'
-        uses: sigstore/cosign-installer@c23eefbfe2b4653e89cd2fe1e09dd3e2a71ee69a # v3.11.0
+        uses: sigstore/cosign-installer@7e8b541eb2e61bf99390e1afd4be13a184e9ebc5 # v3.10.1
 
       - name: Sign images with cosign (keyless)
         if: github.ref == 'refs/heads/main' && github.event_name == 'workflow_dispatch'
