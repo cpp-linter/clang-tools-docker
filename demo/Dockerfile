@@ -1,6 +1,6 @@
 FROM xianpengshen/clang-tools:17
 
-WORKDIR /usr/src/app
+WORKDIR /src
 
 COPY . .
 
