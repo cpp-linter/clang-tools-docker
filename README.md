@@ -9,6 +9,8 @@
 
 🐳 **Clang Tools Docker Image**: This Docker image comes pre-installed with essential clang tools, including `clang-format` and `clang-tidy`.
 
+All images support `linux/amd64` and `linux/arm64` platforms (including Apple Silicon).
+
 You can access all available  Clang Tools Docker images via [Docker Hub registry](https://hub.docker.com/r/xianpengshen/clang-tools) or [GitHub Packages registry](https://github.com/cpp-linter/clang-tools-docker/pkgs/container/clang-tools).
 
 ## Supported Tags and Dockerfile links

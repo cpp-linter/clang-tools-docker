@@ -185,6 +185,6 @@ target "clang-tools" {
     "${DOCKER_REPO}:${tgt}",
     "${GITHUB_REPO}:${tgt}"
   ]
-  platforms = ["linux/amd64"]
+  platforms = ["linux/amd64", "linux/arm64"]
   output = ["type=image"]
 }
