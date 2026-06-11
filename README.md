@@ -6,6 +6,9 @@
 [![CI](https://github.com/cpp-linter/clang-tools-docker/actions/workflows/CI.yml/badge.svg)](https://github.com/cpp-linter/clang-tools-docker/actions/workflows/CI.yml)
 [![Docker Scout](https://github.com/cpp-linter/clang-tools-docker/actions/workflows/docker-scout.yml/badge.svg)](https://github.com/cpp-linter/clang-tools-docker/actions/workflows/docker-scout.yml)
 [![cpp-linter hub](https://img.shields.io/badge/%F0%9F%8F%A0_cpp--linter_hub-%E2%86%90_home-22863a)](https://cpp-linter.github.io/)
+[![Cosign Signed](https://img.shields.io/badge/cosign-signed-brightgreen?logo=sigstore)](https://github.com/sigstore/cosign)
+[![SBOM](https://img.shields.io/badge/SBOM-SPDX-blue)](https://www.cisa.gov/sbom)
+[![SLSA 3](https://img.shields.io/badge/SLSA-3-yellow)](https://slsa.dev)
 
 🐳 **Clang Tools Docker Image**: This Docker image comes pre-installed with essential clang tools, including `clang-format` and `clang-tidy`.
 
