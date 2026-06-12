@@ -15,6 +15,24 @@ All images support `linux/amd64` and `linux/arm64` platforms.
 
 You can access all available  Clang Tools Docker images via [Docker Hub registry](https://hub.docker.com/r/xianpengshen/clang-tools) or [GitHub Packages registry](https://github.com/cpp-linter/clang-tools-docker/pkgs/container/clang-tools).
 
+## Used By
+
+<p align="center">
+  <a href="https://github.com/LLNL"><img src="https://avatars.githubusercontent.com/u/5921419?s=200&v=4" alt="LLNL" width="28"/></a>
+  <strong>LLNL</strong>&nbsp;&nbsp;
+  <a href="https://github.com/CLEARSY"><img src="https://avatars.githubusercontent.com/u/24246225?s=200&v=4" alt="CLEARSY" width="28"/></a>
+  <strong>CLEARSY</strong>&nbsp;&nbsp;
+  <a href="https://github.com/mumble-voip"><img src="https://avatars.githubusercontent.com/u/639008?s=200&v=4" alt="Mumble" width="28"/></a>
+  <strong>Mumble</strong>&nbsp;&nbsp;
+  <a href="https://github.com/AutoBleem-NG"><img src="https://avatars.githubusercontent.com/u/249499926?s=200&v=4" alt="AutoBleem" width="28"/></a>
+  <strong>AutoBleem</strong>&nbsp;&nbsp;
+  <a href="https://github.com/ValeevGroup"><img src="https://avatars.githubusercontent.com/u/5217762?s=200&v=4" alt="ValeevGroup" width="28"/></a>
+  <strong>ValeevGroup</strong>&nbsp;&nbsp;
+  <a href="https://github.com/ada-url"><img src="https://avatars.githubusercontent.com/u/120840559?s=200&v=4" alt="ada-url" width="28"/></a>
+  <strong>ada-url</strong>&nbsp;&nbsp;
+  <strong> and <a href="https://github.com/search?q=xianpengshen%2Fclang-tools&type=code">many more</a>.</strong>
+</p>
+
 ## Supported Tags and Dockerfile links
 
 * [`all`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile.all) (Supports versions of clang-tools includes `21`, `20`, `19`, `18`, `17`, `16`, `15`, `14`, `13`, `12`, `11`, `10`, `9`)
