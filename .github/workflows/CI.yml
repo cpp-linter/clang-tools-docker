@@ -30,7 +30,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7.0.0
       - name: Extract targets as JSON array
-        uses: dcarbone/install-jq-action@v3
+        uses: dcarbone/install-jq-action@v4
       - name: Get targets from bake file
         id: get-targets
         run: |
