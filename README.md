@@ -36,6 +36,7 @@ You can access all available  Clang Tools Docker images via [Docker Hub registry
 ## Supported Tags and Dockerfile links
 
 * [`all`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile.all) (Supports versions of clang-tools includes `21`, `20`, `19`, `18`, `17`, `16`, `15`, `14`, `13`, `12`, `11`, `10`, `9`)
+* [`23`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile.llvm-apt) (installed from [apt.llvm.org](https://apt.llvm.org), since no released Ubuntu version packages it yet)
 * [`22`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
 * [`22-alpine`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile.alpine)
 * [`21`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
