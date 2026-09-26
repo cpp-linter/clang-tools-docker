@@ -1,0 +1,19 @@
+Dockerfile.all
+  s_c94df379a3476c::t_925b8d1efe56c1 28,30-31,33-40
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "c279f236428142036fdd91f7c7b03288e3ca2305",
+  "prompts": {},
+  "sessions": {
+    "s_c94df379a3476c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f97da0f3-5cba-47d1-9521-352c0f0065d7",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Xianpeng Shen <xianpeng.shen@gmail.com>"
+    }
+  }
+}
