@@ -125,13 +125,13 @@ $ docker build -t clang-tools .
 
 # Check clang-format version
 $ docker run clang-tools clang-format --version
-Ubuntu clang-format version 17.0.2 (1~exp1ubuntu2.1)
+Ubuntu clang-format version 17.0.6 (9ubuntu1)
 # Format code
 $ docker run clang-tools clang-format -i helloworld.c
 
 # Check clang-tidy version
 $ docker run clang-tools clang-tidy --version
-Ubuntu LLVM version 19.1.0
+Ubuntu LLVM version 17.0.6
   Optimized build.
 # Diagnostic code
 $ docker run clang-tools clang-tidy helloworld.c \
