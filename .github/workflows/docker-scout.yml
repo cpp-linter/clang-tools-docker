@@ -35,7 +35,7 @@ jobs:
         with:
           file: Dockerfile
           build-args: |
-            BASE_IMAGE=ubuntu:questing
+            BASE_IMAGE=ubuntu:resolute
             CLANG_VERSION=21
           load: true
           tags: xianpengshen/clang-tools:21
