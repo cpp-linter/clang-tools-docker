@@ -1,0 +1,23 @@
+Dockerfile
+  s_66212c309e21f0::t_f8b60d68acb0d0 1-2
+Dockerfile.all
+  s_66212c309e21f0::t_e7cb1dd14eaded 1-2
+Dockerfile.alpine
+  s_66212c309e21f0::t_de64222a834d73 1-2,18
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "39615ddd18a5156bd9a0a828ab20a35331053f8b",
+  "prompts": {},
+  "sessions": {
+    "s_66212c309e21f0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "8763d161-5362-48a1-ae9b-11f7bcd83469",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Xianpeng Shen <xianpeng.shen@gmail.com>"
+    }
+  }
+}

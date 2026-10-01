@@ -1,0 +1,26 @@
+.github/workflows/docker-scout.yml
+  s_66212c309e21f0::t_e27aacc6c2bacb 27-28
+.github/workflows/dockerhub-description.yml
+  s_66212c309e21f0::t_63dc45147a9af7 12-14,19-21
+.github/workflows/CI.yml
+  s_66212c309e21f0::t_244cecc51443af 26-36,42-45,53,63-65,68,74-76,80-84,86-87,92-93,95,115
+  s_66212c309e21f0::t_d16a4aaab2d247 90,97-105,111-112,116,118-119
+.github/dependabot.yml
+  s_66212c309e21f0::t_db39a59fafe8fa 13-14,24-25
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "14856801bcbcd2df3e4eea1e55aeeffa472da79a",
+  "prompts": {},
+  "sessions": {
+    "s_66212c309e21f0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "8763d161-5362-48a1-ae9b-11f7bcd83469",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Xianpeng Shen <xianpeng.shen@gmail.com>"
+    }
+  }
+}
