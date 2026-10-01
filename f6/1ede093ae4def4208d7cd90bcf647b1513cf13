@@ -1,0 +1,24 @@
+.github/workflows/docker-scout.yml
+  s_66212c309e21f0::t_0fd08653b3cd62 38
+  s_66212c309e21f0::t_be860c2a33363f 21-24
+README.md
+  s_66212c309e21f0::t_f177f6a3d483a3 27
+docker-bake.hcl
+  s_66212c309e21f0::t_ce2263b1c31c7c 84,104
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "f61ede093ae4def4208d7cd90bcf647b1513cf13",
+  "prompts": {},
+  "sessions": {
+    "s_66212c309e21f0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "8763d161-5362-48a1-ae9b-11f7bcd83469",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Xianpeng Shen <xianpeng.shen@gmail.com>"
+    }
+  }
+}
