@@ -7,10 +7,10 @@ Thank you for investing your time in contributing to our project! We welcome fee
 For pull requests, please stick to the following guidelines
 
 * Put a reasonable amount of comments into the code.
-* Fork clang-tools-docker on your GitHub user account, do your changes there and then create a PR against `master` branch of cpp-linter-action repository.
+* Fork clang-tools-docker on your GitHub user account, do your changes there and then create a PR against the `main` branch of this repository.
 * Separate unrelated changes into multiple pull requests.
 
-Please note that by contributing any code or documentation to this repository (by raising pull requests, or otherwise) you explicitly agree to the [License Agreement](https://github.com/cpp-linter/clang-tools-docker/blob/master/LICENSE).
+Please note that by contributing any code or documentation to this repository (by raising pull requests, or otherwise) you explicitly agree to the [License Agreement](https://github.com/cpp-linter/clang-tools-docker/blob/main/LICENSE).
 
 ## Build image with [`docker buildx bake`](https://docs.docker.com/engine/reference/commandline/buildx_bake/)
 

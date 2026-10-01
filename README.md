@@ -1,112 +1,43 @@
-# 🐳 Clang Tools Docker image
+# clang-tools-docker
 
-[![Docker Pulls](https://img.shields.io/docker/pulls/xianpengshen/clang-tools)](https://hub.docker.com/r/xianpengshen/clang-tools)
-[![Docker Image Size](https://img.shields.io/docker/image-size/xianpengshen/clang-tools/22)](https://hub.docker.com/r/xianpengshen/clang-tools/tags)
-[![CI](https://github.com/cpp-linter/clang-tools-docker/actions/workflows/CI.yml/badge.svg)](https://github.com/cpp-linter/clang-tools-docker/actions/workflows/CI.yml)
-[![Docker Scout](https://github.com/cpp-linter/clang-tools-docker/actions/workflows/docker-scout.yml/badge.svg)](https://github.com/cpp-linter/clang-tools-docker/actions/workflows/docker-scout.yml)
-[![slsa-badge](https://slsa.dev/images/gh-badge-level3.svg?color=blue)](https://slsa.dev)
-[![cpp-linter hub](https://img.shields.io/badge/%F0%9F%8F%A0_cpp--linter_hub-%E2%86%90_home-22863a)](https://cpp-linter.github.io/)
+[![ci](https://img.shields.io/github/actions/workflow/status/cpp-linter/clang-tools-docker/CI.yml?branch=main&label=ci&labelColor=454a63)](https://github.com/cpp-linter/clang-tools-docker/actions/workflows/CI.yml)
+[![part of cpp-linter](https://img.shields.io/badge/part%20of-cpp--linter-ffc20a?labelColor=454a63)](https://cpp-linter.github.io/)
 
-<!--[![GitHub Repo](https://img.shields.io/badge/GitHub%20Repo-URL-blue?logo=github)](https://github.com/cpp-linter/clang-tools-docker)-->
+Docker images with Ubuntu's clang-format and clang-tidy packages, tagged by LLVM major version.
 
-This Docker image comes pre-installed with essential clang tools, including `clang-format` and `clang-tidy`.
+[Website](https://cpp-linter.github.io/) · [Docker Hub](https://hub.docker.com/r/xianpengshen/clang-tools) · [Get started](https://cpp-linter.github.io/getting-started/#just-the-clang-tools) · [Discussions](https://github.com/orgs/cpp-linter/discussions)
 
-All images support `linux/amd64` and `linux/arm64` platforms.
-
-You can access all available  Clang Tools Docker images via [Docker Hub registry](https://hub.docker.com/r/xianpengshen/clang-tools) or [GitHub Packages registry](https://github.com/cpp-linter/clang-tools-docker/pkgs/container/clang-tools).
-
-## Used By
-
-<p align="center">
-  <a href="https://github.com/LLNL"><img src="https://avatars.githubusercontent.com/u/5921419?s=200&v=4" alt="LLNL" width="28"/></a>
-  <strong>LLNL</strong>&nbsp;&nbsp;
-  <a href="https://github.com/CLEARSY"><img src="https://avatars.githubusercontent.com/u/24246225?s=200&v=4" alt="CLEARSY" width="28"/></a>
-  <strong>CLEARSY</strong>&nbsp;&nbsp;
-  <a href="https://github.com/mumble-voip"><img src="https://avatars.githubusercontent.com/u/639008?s=200&v=4" alt="Mumble" width="28"/></a>
-  <strong>Mumble</strong>&nbsp;&nbsp;
-  <a href="https://github.com/AutoBleem-NG"><img src="https://avatars.githubusercontent.com/u/249499926?s=200&v=4" alt="AutoBleem" width="28"/></a>
-  <strong>AutoBleem</strong>&nbsp;&nbsp;
-  <a href="https://github.com/ValeevGroup"><img src="https://avatars.githubusercontent.com/u/5217762?s=200&v=4" alt="ValeevGroup" width="28"/></a>
-  <strong>ValeevGroup</strong>&nbsp;&nbsp;
-  <a href="https://github.com/ada-url"><img src="https://avatars.githubusercontent.com/u/120840559?s=200&v=4" alt="ada-url" width="28"/></a>
-  <strong>ada-url</strong>&nbsp;&nbsp;
-  <strong> and <a href="https://github.com/search?q=xianpengshen%2Fclang-tools&type=code">many more</a>.</strong>
-</p>
-
-## Supported Tags and Dockerfile links
-
-* [`all`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile.all) (Supports versions of clang-tools includes `21`, `20`, `19`, `18`, `17`, `16`, `15`, `14`, `13`, `12`, `11`, `10`, `9`)
-* [`22`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
-* [`22-alpine`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile.alpine)
-* [`21`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
-* [`21-alpine`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile.alpine)
-* [`20`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
-* [`20-alpine`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile.alpine)
-* [`19`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
-* [`19-alpine`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile.alpine)
-* [`18`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
-* [`18-alpine`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile.alpine)
-* [`17`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
-* [`17-alpine`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile.alpine)
-* [`16`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
-* [`16-alpine`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile.alpine)
-* [`15`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
-* [`14`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
-* [`13`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
-* [`12`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
-* [`11`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
-* [`10`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
-* [`9`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
-* [`8`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
-* [`7`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
-
-## Supply Chain Security
-
-All images are signed with [cosign](https://github.com/sigstore/cosign) (keyless, via GitHub Actions OIDC) and come with an [SBOM](https://www.cisa.gov/sbom) (Software Bill of Materials, SPDX format) generated by [Syft](https://github.com/anchore/syft).
-
-### Verify image signature
+## Quick start
 
 ```bash
-cosign verify \
-  --certificate-identity-regexp 'https://github.com/cpp-linter/clang-tools-docker/.github/workflows/CI.yml@refs/heads/main' \
-  --certificate-oidc-issuer 'https://token.actions.githubusercontent.com' \
-  xianpengshen/clang-tools:22
+docker pull xianpengshen/clang-tools:21
+docker run --rm -v "$PWD":/src xianpengshen/clang-tools:21 clang-format --dry-run --Werror /src/main.cpp
 ```
 
-### Download SBOM
-
-```bash
-cosign download sbom xianpengshen/clang-tools:22
-```
-
-Or use `docker buildx imagetools inspect`:
-
-```bash
-docker buildx imagetools inspect xianpengshen/clang-tools:22 --format '{{ json .SBOM }}'
-```
-
-## How to use clang-tools Docker images
+## Usage
 
 ### Docker run image
 
 ```bash
 # Check clang-format version
 $ docker run xianpengshen/clang-tools:19 clang-format --version
-Ubuntu clang-format version 19.1.0 (1ubuntu1)
+Ubuntu clang-format version 19.1.7 (3ubuntu1)
 # Format code (helloworld.c in the demo directory)
 $ docker run -v $PWD:/src xianpengshen/clang-tools:19 clang-format -i helloworld.c
 
 # Check clang-tidy version
 $ docker run xianpengshen/clang-tools:19 clang-tidy --version
-Ubuntu LLVM version 19.1.0
+Ubuntu LLVM version 19.1.7
   Optimized build.
 
 # Diagnostic code (helloworld.c in the demo directory)
 $ docker run -v $PWD:/src xianpengshen/clang-tools:19 clang-tidy helloworld.c \
--checks=boost-*,bugprone-*,performance-*,readability-*,portability-*,modernize-*,clang-analyzer-cplusplus-*,clang-analyzer-*,cppcoreguidelines-*
+'-checks=boost-*,bugprone-*,performance-*,readability-*,portability-*,modernize-*,clang-analyzer-cplusplus-*,clang-analyzer-*,cppcoreguidelines-*'
 ```
 
-### As base image in [`Dockerfile`](https://github.com/cpp-linter/clang-tools-docker/blob/main/demo/Dockerfile)
+### As base image in a Dockerfile
+
+[`demo/Dockerfile`](https://github.com/cpp-linter/clang-tools-docker/blob/main/demo/Dockerfile):
 
 ```Dockerfile
 FROM xianpengshen/clang-tools:17
@@ -135,13 +66,58 @@ Ubuntu LLVM version 17.0.6
   Optimized build.
 # Diagnostic code
 $ docker run clang-tools clang-tidy helloworld.c \
--checks=boost-*,bugprone-*,performance-*,readability-*,portability-*,modernize-*,clang-analyzer-cplusplus-*,clang-analyzer-*,cppcoreguidelines-*
+'-checks=boost-*,bugprone-*,performance-*,readability-*,portability-*,modernize-*,clang-analyzer-cplusplus-*,clang-analyzer-*,cppcoreguidelines-*'
 ```
 
-## Have question or feedback?
+## Supported tags and Dockerfile links
 
-To provide feedback (requesting a feature or reporting a bug) please post to [issues](https://github.com/cpp-linter/clang-tools-docker/issues).
+All images listed here support `linux/amd64` and `linux/arm64` platforms.
+
+You can access all available Clang Tools Docker images via [Docker Hub registry](https://hub.docker.com/r/xianpengshen/clang-tools) or [GitHub Packages registry](https://github.com/cpp-linter/clang-tools-docker/pkgs/container/clang-tools).
+
+* [`all`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile.all) (versions `21`, `20`, `19`, `18`, `17`, `16`, `15`, `14`, `13`, `12`, `11`, `10`, `9`; run them as `clang-format-21`, `clang-tidy-21` and so on)
+* [`22`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
+* [`21`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
+* [`20`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
+* [`19`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
+* [`18`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
+* [`17`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
+* [`16`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
+* [`15`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
+* [`14`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
+* [`13`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
+* [`12`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
+* [`11`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
+* [`10`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
+* [`9`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
+* [`8`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
+* [`7`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
+* [`16-alpine` to `22-alpine`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile.alpine): all seven carry clang-format and clang-tidy 16.0.6 from Alpine 3.18, whatever the number in the tag. For any other version, use the tag without `-alpine`.
+
+## Supply chain security
+
+All images are signed with [cosign](https://github.com/sigstore/cosign) (keyless, via GitHub Actions OIDC) and come with an [SBOM](https://www.cisa.gov/sbom) (Software Bill of Materials, SPDX format) generated by [Syft](https://github.com/anchore/syft). They also carry a [SLSA provenance](https://docs.docker.com/build/metadata/attestations/slsa-provenance/) attestation from the build.
+
+### Verify image signature
+
+```bash
+cosign verify \
+  --certificate-identity-regexp 'https://github.com/cpp-linter/clang-tools-docker/.github/workflows/CI.yml@refs/heads/main' \
+  --certificate-oidc-issuer 'https://token.actions.githubusercontent.com' \
+  xianpengshen/clang-tools:22
+```
+
+### Download SBOM and provenance
+
+```bash
+docker buildx imagetools inspect xianpengshen/clang-tools:22 --format '{{ json .SBOM }}'
+docker buildx imagetools inspect xianpengshen/clang-tools:22 --format '{{ json .Provenance }}'
+```
+
+## Contributing
+
+See the [contributing guide](https://github.com/cpp-linter/clang-tools-docker/blob/main/CONTRIBUTING.md) and [open an issue](https://github.com/cpp-linter/clang-tools-docker/issues) for bugs and feature requests.
 
 ## License
 
-[Apache License](https://github.com/cpp-linter/clang-tools-docker/blob/main/LICENSE)
+This project is licensed under the [Apache License 2.0 with LLVM Exceptions](https://github.com/cpp-linter/clang-tools-docker/blob/main/LICENSE).
