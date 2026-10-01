@@ -10,7 +10,7 @@ LABEL \
     org.opencontainers.image.version="clang-tools:all" \
     org.opencontainers.image.url="https://hub.docker.com/r/xianpengshen/clang-tools" \
     org.opencontainers.image.source="https://github.com/cpp-linter/clang-tools-docker" \
-    org.opencontainers.image.licenses="MIT"
+    org.opencontainers.image.licenses="Apache-2.0 WITH LLVM-exception"
 
 ENV CLANG_VERSIONS="12 11 10 9"
 

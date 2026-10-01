@@ -12,7 +12,7 @@ LABEL \
     org.opencontainers.image.version="clang-tools:${CLANG_VERSION}" \
     org.opencontainers.image.url="https://hub.docker.com/r/xianpengshen/clang-tools" \
     org.opencontainers.image.source="https://github.com/cpp-linter/clang-tools-docker" \
-    org.opencontainers.image.licenses="MIT"
+    org.opencontainers.image.licenses="Apache-2.0 WITH LLVM-exception"
 
 RUN set -e \
     && apt-get update \
