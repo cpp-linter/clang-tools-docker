@@ -1,5 +1,8 @@
 # clang-tools-docker
 
+[![Docker Pulls](https://img.shields.io/docker/pulls/xianpengshen/clang-tools)](https://hub.docker.com/r/xianpengshen/clang-tools)
+[![Docker Image Size](https://img.shields.io/docker/image-size/xianpengshen/clang-tools/22)](https://hub.docker.com/r/xianpengshen/clang-tools/tags)
+[![Docker Scout](https://github.com/cpp-linter/clang-tools-docker/actions/workflows/docker-scout.yml/badge.svg)](https://github.com/cpp-linter/clang-tools-docker/actions/workflows/docker-scout.yml)
 [![ci](https://img.shields.io/github/actions/workflow/status/cpp-linter/clang-tools-docker/CI.yml?branch=main&label=ci&labelColor=454a63)](https://github.com/cpp-linter/clang-tools-docker/actions/workflows/CI.yml)
 [![part of cpp-linter](https://img.shields.io/badge/part%20of-cpp--linter-ffc20a?labelColor=454a63)](https://cpp-linter.github.io/)
 
