@@ -1,3 +1,5 @@
+# check=skip=InvalidDefaultArgInFrom
+# BASE_IMAGE has no default on purpose: docker-bake.hcl sets it for every target.
 ARG BASE_IMAGE
 FROM $BASE_IMAGE
 

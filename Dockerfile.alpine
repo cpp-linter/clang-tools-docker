@@ -1,3 +1,5 @@
+# check=skip=InvalidDefaultArgInFrom
+# BASE_IMAGE has no default on purpose: docker-bake.hcl sets it for every target.
 ARG BASE_IMAGE
 FROM $BASE_IMAGE
 
@@ -13,8 +15,7 @@ LABEL \
     org.opencontainers.image.licenses="MIT"
 
 SHELL ["/bin/ash", "-o", "pipefail", "-c"]
-RUN apk update \
-    && apk add --no-cache clang-extra-tools \
+RUN apk add --no-cache clang-extra-tools \
     && clang-format --version | grep -E "clang-format version" \
     && clang-tidy --version | grep "LLVM version"
 
