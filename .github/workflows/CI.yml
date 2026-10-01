@@ -87,25 +87,36 @@ jobs:
           printf '%s\n' "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 
       - name: Publish image for tag ${{ matrix.target }} (with SBOM + provenance)
+        id: publish
         if: github.ref == 'refs/heads/main' && github.event_name == 'workflow_dispatch'
         env:
           TARGET: ${{ matrix.target }}
         run: |
           docker buildx bake --file docker-bake.hcl "$TARGET" --push \
             --set "*.attest=type=sbom" \
-            --set "*.attest=type=provenance,mode=max"
+            --set "*.attest=type=provenance,mode=max" \
+            --metadata-file "$RUNNER_TEMP/bake-metadata.json"
+          # Both registries receive the same image index, so one digest covers both tags.
+          DIGEST=$(jq -r --arg target "$TARGET" '.[$target]["containerimage.digest"] // empty' "$RUNNER_TEMP/bake-metadata.json")
+          if [[ "$DIGEST" != sha256:* ]]; then
+            echo "::error::No pushed image digest found for target $TARGET"
+            exit 1
+          fi
+          echo "digest=$DIGEST" >> "$GITHUB_OUTPUT"
 
       - name: Install cosign
         if: github.ref == 'refs/heads/main' && github.event_name == 'workflow_dispatch'
         uses: sigstore/cosign-installer@6f9f17788090df1f26f669e9d70d6ae9567deba6 # v4.1.2
 
+      # Sign the digest that was just pushed, not the tag, so the signature cannot
+      # land on a different image if the tag moves in between.
       - name: Sign images with cosign (keyless)
         if: github.ref == 'refs/heads/main' && github.event_name == 'workflow_dispatch'
         env:
-          TARGET: ${{ matrix.target }}
+          DIGEST: ${{ steps.publish.outputs.digest }}
         run: |
-          cosign sign --yes "ghcr.io/cpp-linter/clang-tools:$TARGET"
-          cosign sign --yes "xianpengshen/clang-tools:$TARGET"
+          cosign sign --yes "ghcr.io/cpp-linter/clang-tools@$DIGEST"
+          cosign sign --yes "xianpengshen/clang-tools@$DIGEST"
 
       - name: Remove builder instances
         if: github.ref == 'refs/heads/main' && github.event_name == 'workflow_dispatch'
