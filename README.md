@@ -24,7 +24,7 @@ docker run --rm -v "$PWD":/src xianpengshen/clang-tools:21 clang-format --dry-ru
 ```bash
 # Check clang-format version
 $ docker run xianpengshen/clang-tools:19 clang-format --version
-Ubuntu clang-format version 19.1.7 (3ubuntu1)
+Ubuntu clang-format version 19.1.7 (20ubuntu4)
 # Format code (helloworld.c in the demo directory)
 $ docker run -v $PWD:/src xianpengshen/clang-tools:19 clang-format -i helloworld.c
 

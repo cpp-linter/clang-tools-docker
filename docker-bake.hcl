@@ -81,7 +81,7 @@ target "clang-tools" {
   context = "."
   args = {
     # https://packages.ubuntu.com/search?suite=default&section=all&arch=any&keywords=clang-format-21&searchon=names
-    BASE_IMAGE="ubuntu:questing"
+    BASE_IMAGE="ubuntu:resolute"
     CLANG_VERSION="${tgt}",
   }
   tags = [
@@ -101,7 +101,7 @@ target "clang-tools" {
   context = "."
   args = {
     # https://packages.ubuntu.com/search?suite=default&section=all&arch=any&keywords=clang-format-20&searchon=names
-    BASE_IMAGE="ubuntu:plucky"
+    BASE_IMAGE="ubuntu:resolute"
     CLANG_VERSION="${tgt}",
   }
   tags = [

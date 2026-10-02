@@ -14,14 +14,18 @@ on:
 
 permissions:
   contents: read
-  pull-requests: write
-  security-events: write
 
 jobs:
   scout:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write  # docker/scout-action posts the CVE summary on pull requests
+      security-events: write  # upload the SARIF report to code scanning
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069 # v4.4.1
@@ -31,7 +35,7 @@ jobs:
         with:
           file: Dockerfile
           build-args: |
-            BASE_IMAGE=ubuntu:questing
+            BASE_IMAGE=ubuntu:resolute
             CLANG_VERSION=21
           load: true
           tags: xianpengshen/clang-tools:21
@@ -45,7 +49,7 @@ jobs:
 
       - name: Docker Scout CVEs
         if: github.actor != 'dependabot[bot]'
-        uses: docker/scout-action@7c6b6c3f7844478ace1ffd4e7aef649053d1f87d # v1.24.0
+        uses: docker/scout-action@221e7f4860634eeb1579e3bd7ca232e577bd1864 # v1.26.0
         with:
           command: cves
           image: xianpengshen/clang-tools:21
