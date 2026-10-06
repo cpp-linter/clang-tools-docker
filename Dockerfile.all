@@ -1,3 +1,5 @@
+# check=skip=InvalidDefaultArgInFrom
+# BASE_IMAGE has no default on purpose: docker-bake.hcl sets it for every target.
 ARG BASE_IMAGE
 FROM $BASE_IMAGE
 
@@ -8,7 +10,7 @@ LABEL \
     org.opencontainers.image.version="clang-tools:all" \
     org.opencontainers.image.url="https://hub.docker.com/r/xianpengshen/clang-tools" \
     org.opencontainers.image.source="https://github.com/cpp-linter/clang-tools-docker" \
-    org.opencontainers.image.licenses="MIT"
+    org.opencontainers.image.licenses="Apache-2.0 WITH LLVM-exception"
 
 ENV CLANG_VERSIONS="12 11 10 9"
 
@@ -25,11 +27,19 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN set -e \
     && apt-get update \
     && apt-get --no-install-recommends -y install gnupg lsb-release software-properties-common wget \
-    && wget --quiet https://apt.llvm.org/llvm.sh \
+    && wget --quiet --tries=5 --retry-connrefused https://apt.llvm.org/llvm.sh \
     && chmod +x llvm.sh \
+    # apt.llvm.org is flaky: retry llvm.sh, and exit explicitly because set -e
+    # does not apply inside a loop that is part of an && list.
     && for CLANG_VERSION in $CLANG_VERSIONS; do \
-        ./llvm.sh $CLANG_VERSION \
-        && apt-get --no-install-recommends -y install clang-format-$CLANG_VERSION clang-tidy-$CLANG_VERSION; done \
+        for ATTEMPT in 1 2 3; do \
+            ./llvm.sh $CLANG_VERSION && break; \
+            [ $ATTEMPT -lt 3 ] || { echo "llvm.sh $CLANG_VERSION failed after $ATTEMPT attempts" >&2; exit 1; }; \
+            echo "llvm.sh $CLANG_VERSION failed (attempt $ATTEMPT), retrying in 15s" >&2; \
+            sleep 15; \
+        done; \
+        apt-get --no-install-recommends -y install clang-format-$CLANG_VERSION clang-tidy-$CLANG_VERSION || exit 1; \
+    done \
     && rm llvm.sh \
     && rm -rf /var/lib/apt/lists/*
 
