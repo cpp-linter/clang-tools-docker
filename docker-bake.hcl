@@ -2,6 +2,7 @@
 group "default" {
   targets = [
     "all",
+    "23",
     "22",
     "22-alpine",
     "21",
@@ -47,6 +48,26 @@ target "all" {
   tags = [
     "${DOCKER_REPO}:all",
     "${GITHUB_REPO}:all"
+  ]
+  platforms = ["linux/amd64", "linux/arm64"]
+  output = ["type=image"]
+}
+
+target "clang-tools" {
+  matrix = {
+    tgt = ["23"]
+  }
+  name = "${tgt}"
+  dockerfile = "Dockerfile.llvm-apt"
+  context = "."
+  args = {
+    # LLVM 23 is not yet packaged by a released Ubuntu version; install from apt.llvm.org instead.
+    BASE_IMAGE="ubuntu:24.04"
+    CLANG_VERSION="${tgt}",
+  }
+  tags = [
+    "${DOCKER_REPO}:${tgt}",
+    "${GITHUB_REPO}:${tgt}"
   ]
   platforms = ["linux/amd64", "linux/arm64"]
   output = ["type=image"]
