@@ -6,7 +6,7 @@
 [![ci](https://img.shields.io/github/actions/workflow/status/cpp-linter/clang-tools-docker/CI.yml?branch=main&label=ci&labelColor=454a63)](https://github.com/cpp-linter/clang-tools-docker/actions/workflows/CI.yml)
 [![part of cpp-linter](https://img.shields.io/badge/part%20of-cpp--linter-ffc20a?labelColor=454a63)](https://cpp-linter.github.io/)
 
-Docker images with Ubuntu's clang-format and clang-tidy packages, tagged by LLVM major version.
+Docker images with Ubuntu's clang-format and clang-tidy packages (Debian unstable's for versions Ubuntu does not package yet), tagged by LLVM major version.
 
 [Website](https://cpp-linter.github.io/) · [Docker Hub](https://hub.docker.com/r/xianpengshen/clang-tools) · [Get started](https://cpp-linter.github.io/getting-started/#just-the-clang-tools) · [Discussions](https://github.com/orgs/cpp-linter/discussions)
 
@@ -79,6 +79,7 @@ All images listed here support `linux/amd64` and `linux/arm64` platforms.
 You can access all available Clang Tools Docker images via [Docker Hub registry](https://hub.docker.com/r/xianpengshen/clang-tools) or [GitHub Packages registry](https://github.com/cpp-linter/clang-tools-docker/pkgs/container/clang-tools).
 
 * [`all`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile.all) (versions `21`, `20`, `19`, `18`, `17`, `16`, `15`, `14`, `13`, `12`, `11`, `10`, `9`; run them as `clang-format-21`, `clang-tidy-21` and so on)
+* [`23`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile): Ubuntu does not package LLVM 23 yet, so this image is built on Debian unstable (`debian:sid`), which does.
 * [`22`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
 * [`21`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
 * [`20`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
