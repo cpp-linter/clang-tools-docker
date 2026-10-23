@@ -8,14 +8,21 @@
 
 Docker images with Ubuntu's clang-format and clang-tidy packages (Debian unstable's for versions Ubuntu does not package yet), tagged by LLVM major version.
 
-[Website](https://cpp-linter.github.io/) · [Docker Hub](https://hub.docker.com/r/xianpengshen/clang-tools) · [Get started](https://cpp-linter.github.io/getting-started/#just-the-clang-tools) · [Discussions](https://github.com/orgs/cpp-linter/discussions)
+[Website](https://cpp-linter.github.io/) · [GitHub Packages](https://github.com/cpp-linter/clang-tools-docker/pkgs/container/clang-tools) · [Docker Hub](https://hub.docker.com/r/xianpengshen/clang-tools) · [Get started](https://cpp-linter.github.io/getting-started/#just-the-clang-tools) · [Discussions](https://github.com/orgs/cpp-linter/discussions)
 
 ## Quick start
 
 ```bash
-docker pull xianpengshen/clang-tools:21
-docker run --rm -v "$PWD":/src xianpengshen/clang-tools:21 clang-format --dry-run --Werror /src/main.cpp
+docker pull ghcr.io/cpp-linter/clang-tools:21
+docker run --rm -v "$PWD":/src ghcr.io/cpp-linter/clang-tools:21 clang-format --dry-run --Werror /src/main.cpp
 ```
+
+## Registries
+
+Every image is pushed to two registries, with the same digest, and both copies are signed:
+
+* `ghcr.io/cpp-linter/clang-tools` on [GitHub Packages](https://github.com/cpp-linter/clang-tools-docker/pkgs/container/clang-tools) is the recommended address. It belongs to the cpp-linter organization and is not subject to Docker Hub's pull rate limits.
+* `xianpengshen/clang-tools` on [Docker Hub](https://hub.docker.com/r/xianpengshen/clang-tools) keeps receiving every image, so pipelines that already use it do not need to change.
 
 ## Usage
 
@@ -23,18 +30,18 @@ docker run --rm -v "$PWD":/src xianpengshen/clang-tools:21 clang-format --dry-ru
 
 ```bash
 # Check clang-format version
-$ docker run xianpengshen/clang-tools:19 clang-format --version
+$ docker run ghcr.io/cpp-linter/clang-tools:19 clang-format --version
 Ubuntu clang-format version 19.1.7 (20ubuntu4)
 # Format code (helloworld.c in the demo directory)
-$ docker run -v $PWD:/src xianpengshen/clang-tools:19 clang-format -i helloworld.c
+$ docker run -v $PWD:/src ghcr.io/cpp-linter/clang-tools:19 clang-format -i helloworld.c
 
 # Check clang-tidy version
-$ docker run xianpengshen/clang-tools:19 clang-tidy --version
+$ docker run ghcr.io/cpp-linter/clang-tools:19 clang-tidy --version
 Ubuntu LLVM version 19.1.7
   Optimized build.
 
 # Diagnostic code (helloworld.c in the demo directory)
-$ docker run -v $PWD:/src xianpengshen/clang-tools:19 clang-tidy helloworld.c \
+$ docker run -v $PWD:/src ghcr.io/cpp-linter/clang-tools:19 clang-tidy helloworld.c \
 '-checks=boost-*,bugprone-*,performance-*,readability-*,portability-*,modernize-*,clang-analyzer-cplusplus-*,clang-analyzer-*,cppcoreguidelines-*'
 ```
 
@@ -43,7 +50,7 @@ $ docker run -v $PWD:/src xianpengshen/clang-tools:19 clang-tidy helloworld.c \
 [`demo/Dockerfile`](https://github.com/cpp-linter/clang-tools-docker/blob/main/demo/Dockerfile):
 
 ```Dockerfile
-FROM xianpengshen/clang-tools:17
+FROM ghcr.io/cpp-linter/clang-tools:17
 
 WORKDIR /src
 
@@ -76,7 +83,7 @@ $ docker run clang-tools clang-tidy helloworld.c \
 
 All images listed here support `linux/amd64` and `linux/arm64` platforms.
 
-You can access all available Clang Tools Docker images via [Docker Hub registry](https://hub.docker.com/r/xianpengshen/clang-tools) or [GitHub Packages registry](https://github.com/cpp-linter/clang-tools-docker/pkgs/container/clang-tools).
+Each tag below exists in both registries (see [Registries](https://github.com/cpp-linter/clang-tools-docker#registries)).
 
 * [`all`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile.all) (versions `21`, `20`, `19`, `18`, `17`, `16`, `15`, `14`, `13`, `12`, `11`, `10`, `9`; run them as `clang-format-21`, `clang-tidy-21` and so on)
 * [`23`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile): Ubuntu does not package LLVM 23 yet, so this image is built on Debian unstable (`debian:sid`), which does.
@@ -108,14 +115,14 @@ All images are signed with [cosign](https://github.com/sigstore/cosign) (keyless
 cosign verify \
   --certificate-identity-regexp 'https://github.com/cpp-linter/clang-tools-docker/.github/workflows/CI.yml@refs/heads/main' \
   --certificate-oidc-issuer 'https://token.actions.githubusercontent.com' \
-  xianpengshen/clang-tools:22
+  ghcr.io/cpp-linter/clang-tools:22
 ```
 
 ### Download SBOM and provenance
 
 ```bash
-docker buildx imagetools inspect xianpengshen/clang-tools:22 --format '{{ json .SBOM }}'
-docker buildx imagetools inspect xianpengshen/clang-tools:22 --format '{{ json .Provenance }}'
+docker buildx imagetools inspect ghcr.io/cpp-linter/clang-tools:22 --format '{{ json .SBOM }}'
+docker buildx imagetools inspect ghcr.io/cpp-linter/clang-tools:22 --format '{{ json .Provenance }}'
 ```
 
 ## Contributing

@@ -1,4 +1,4 @@
-FROM xianpengshen/clang-tools:17
+FROM ghcr.io/cpp-linter/clang-tools:17
 
 WORKDIR /src
 
