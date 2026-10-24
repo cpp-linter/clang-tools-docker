@@ -59,7 +59,7 @@ jobs:
       - name: Check static-binaries pins
         run: |
           docker buildx bake --file docker-bake.hcl --print > "$RUNNER_TEMP/bake.json"
-          if ! curl -fsSL --retry 3 -o "$RUNNER_TEMP/index.json" https://cpp-linter.github.io/clang-tools-static-binaries/index.json; then
+          if ! curl --proto =https --tlsv1.2 -fsSL --retry 3 -o "$RUNNER_TEMP/index.json" https://cpp-linter.github.io/clang-tools-static-binaries/index.json; then
             echo "::warning::Could not download index.json; skipping the pin check."
             exit 0
           fi

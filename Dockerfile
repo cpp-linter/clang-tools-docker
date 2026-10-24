@@ -14,12 +14,12 @@ SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
 RUN apk add --no-cache curl
 WORKDIR /dl
 RUN base="https://github.com/cpp-linter/clang-tools-static-binaries/releases/download/${RELEASE_TAG}" \
-    && curl -fsSL --retry 5 -O "$base/SHA512SUMS" \
+    && curl --proto =https --tlsv1.2 -fsSL --retry 5 -O "$base/SHA512SUMS" \
     && tools="clang-format clang-tidy clang-apply-replacements clang-query clang-scan-deps" \
     && if [ "$LLVM_MAJOR" -ge 18 ]; then tools="$tools clang-include-cleaner"; fi \
     && files="clang-resource-headers-${LLVM_MAJOR}.tar.gz" \
     && for tool in $tools; do files="$files ${tool}-${LLVM_MAJOR}_linux-${TARGETARCH}"; done \
-    && for f in $files; do curl -fsSL --retry 5 -O "$base/$f"; done \
+    && for f in $files; do curl --proto =https --tlsv1.2 -fsSL --retry 5 -O "$base/$f"; done \
     && for f in $files; do grep -E "  ${f}\$" SHA512SUMS; done > checksums \
     && [ "$(wc -l < checksums)" -eq "$(echo "$files" | wc -w)" ] \
     && sha512sum -c checksums \
@@ -36,10 +36,10 @@ RUN base="https://github.com/cpp-linter/clang-tools-static-binaries/releases/dow
 # from the same LLVM release as the binaries.
 RUN src="https://raw.githubusercontent.com/llvm/llvm-project/llvmorg-${LLVM_VERSION}" \
     && bin="/out/usr/lib/llvm-${LLVM_MAJOR}/bin" \
-    && curl -fsSL --retry 5 -o "$bin/run-clang-tidy" "$src/clang-tools-extra/clang-tidy/tool/run-clang-tidy.py" \
-    && curl -fsSL --retry 5 -o "$bin/clang-tidy-diff.py" "$src/clang-tools-extra/clang-tidy/tool/clang-tidy-diff.py" \
-    && curl -fsSL --retry 5 -o "$bin/clang-format-diff.py" "$src/clang/tools/clang-format/clang-format-diff.py" \
-    && curl -fsSL --retry 5 -o "$bin/git-clang-format" "$src/clang/tools/clang-format/git-clang-format" \
+    && curl --proto =https --tlsv1.2 -fsSL --retry 5 -o "$bin/run-clang-tidy" "$src/clang-tools-extra/clang-tidy/tool/run-clang-tidy.py" \
+    && curl --proto =https --tlsv1.2 -fsSL --retry 5 -o "$bin/clang-tidy-diff.py" "$src/clang-tools-extra/clang-tidy/tool/clang-tidy-diff.py" \
+    && curl --proto =https --tlsv1.2 -fsSL --retry 5 -o "$bin/clang-format-diff.py" "$src/clang/tools/clang-format/clang-format-diff.py" \
+    && curl --proto =https --tlsv1.2 -fsSL --retry 5 -o "$bin/git-clang-format" "$src/clang/tools/clang-format/git-clang-format" \
     && chmod 0755 "$bin/run-clang-tidy" "$bin/clang-tidy-diff.py" "$bin/clang-format-diff.py" "$bin/git-clang-format" \
     && ln -s "../lib/llvm-${LLVM_MAJOR}/bin/run-clang-tidy" "/out/usr/bin/run-clang-tidy-${LLVM_MAJOR}" \
     && ln -s "../lib/llvm-${LLVM_MAJOR}/bin/clang-tidy-diff.py" "/out/usr/bin/clang-tidy-diff-${LLVM_MAJOR}.py" \
