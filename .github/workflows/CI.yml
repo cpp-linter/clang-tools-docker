@@ -54,6 +54,26 @@ jobs:
           TARGETS=$(docker buildx bake --file docker-bake.hcl --print | jq -c '[.target | keys[] | select(. != "default")]')
           echo "targets=$TARGETS" >> "$GITHUB_OUTPUT"
 
+      # Warn (without failing) when a static-binaries release pinned in
+      # docker-bake.hcl is behind index.json, or a new LLVM major is missing.
+      - name: Check static-binaries pins
+        run: |
+          docker buildx bake --file docker-bake.hcl --print > "$RUNNER_TEMP/bake.json"
+          if ! curl -fsSL --retry 3 -o "$RUNNER_TEMP/index.json" https://cpp-linter.github.io/clang-tools-static-binaries/index.json; then
+            echo "::warning::Could not download index.json; skipping the pin check."
+            exit 0
+          fi
+          jq -r --slurpfile bake "$RUNNER_TEMP/bake.json" '
+            ($bake[0].target | [.[] | .args | select(.RELEASE_TAG)]) as $pins
+            | ($pins | map({key: .LLVM_MAJOR, value: .RELEASE_TAG}) | from_entries) as $pinned
+            | .versions | to_entries[]
+            | if $pinned[.key] == null then
+                "::warning file=docker-bake.hcl::LLVM \(.key) has a static-binaries release (\(.value.tag)) but no image target."
+              elif $pinned[.key] != .value.tag then
+                "::warning file=docker-bake.hcl::LLVM \(.key) is pinned to \($pinned[.key]); index.json has \(.value.tag)."
+              else empty end
+          ' "$RUNNER_TEMP/index.json"
+
   build:
     needs: [lint, extract-targets]
     runs-on: ubuntu-latest

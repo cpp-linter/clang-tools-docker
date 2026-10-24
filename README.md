@@ -6,7 +6,7 @@
 [![ci](https://img.shields.io/github/actions/workflow/status/cpp-linter/clang-tools-docker/CI.yml?branch=main&label=ci&labelColor=454a63)](https://github.com/cpp-linter/clang-tools-docker/actions/workflows/CI.yml)
 [![part of cpp-linter](https://img.shields.io/badge/part%20of-cpp--linter-ffc20a?labelColor=454a63)](https://cpp-linter.github.io/)
 
-Docker images with Ubuntu's clang-format and clang-tidy packages (Debian unstable's for versions Ubuntu does not package yet), tagged by LLVM major version.
+Docker images with clang-format, clang-tidy and the other clang tools, tagged by LLVM version. LLVM 12 and later come from the [cpp-linter static binaries](https://github.com/cpp-linter/clang-tools-static-binaries), so every image of a version carries exactly the same release.
 
 [Website](https://cpp-linter.github.io/) · [GitHub Packages](https://github.com/cpp-linter/clang-tools-docker/pkgs/container/clang-tools) · [Docker Hub](https://hub.docker.com/r/xianpengshen/clang-tools) · [Get started](https://cpp-linter.github.io/getting-started/#just-the-clang-tools) · [Discussions](https://github.com/orgs/cpp-linter/discussions)
 
@@ -31,13 +31,14 @@ Every image is pushed to two registries, with the same digest, and both copies a
 ```bash
 # Check clang-format version
 $ docker run ghcr.io/cpp-linter/clang-tools:19 clang-format --version
-Ubuntu clang-format version 19.1.7 (20ubuntu4)
+clang-format version 19.1.7
 # Format code (helloworld.c in the demo directory)
 $ docker run -v $PWD:/src ghcr.io/cpp-linter/clang-tools:19 clang-format -i helloworld.c
 
 # Check clang-tidy version
 $ docker run ghcr.io/cpp-linter/clang-tools:19 clang-tidy --version
-Ubuntu LLVM version 19.1.7
+LLVM (http://llvm.org/):
+  LLVM version 19.1.7
   Optimized build.
 
 # Diagnostic code (helloworld.c in the demo directory)
@@ -66,13 +67,14 @@ $ docker build -t clang-tools .
 
 # Check clang-format version
 $ docker run clang-tools clang-format --version
-Ubuntu clang-format version 17.0.6 (9ubuntu1)
+clang-format version 17.0.6
 # Format code
 $ docker run clang-tools clang-format -i helloworld.c
 
 # Check clang-tidy version
 $ docker run clang-tools clang-tidy --version
-Ubuntu LLVM version 17.0.6
+LLVM (http://llvm.org/):
+  LLVM version 17.0.6
   Optimized build.
 # Diagnostic code
 $ docker run clang-tools clang-tidy helloworld.c \
@@ -85,25 +87,37 @@ All images listed here support `linux/amd64` and `linux/arm64` platforms.
 
 Each tag below exists in both registries (see [Registries](https://github.com/cpp-linter/clang-tools-docker#registries)).
 
-* [`all`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile.all) (versions `21`, `20`, `19`, `18`, `17`, `16`, `15`, `14`, `13`, `12`, `11`, `10`, `9`; run them as `clang-format-21`, `clang-tidy-21` and so on)
-* [`23`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile): Ubuntu does not package LLVM 23 yet, so this image is built on Debian unstable (`debian:sid`), which does.
-* [`22`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
-* [`21`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
-* [`20`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
-* [`19`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
-* [`18`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
-* [`17`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
-* [`16`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
-* [`15`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
-* [`14`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
-* [`13`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
-* [`12`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
-* [`11`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
-* [`10`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
-* [`9`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
-* [`8`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
-* [`7`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
+* [`all`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile.all) (versions `21`, `20`, `19`, `18`, `17`, `16`, `15`, `14`, `13`, `12`, `11`, `10`, `9` from Ubuntu's packages; run them as `clang-format-21`, `clang-tidy-21` and so on)
+* [`23`, `23.1.3`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
+* [`22`, `22.1.8`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
+* [`21`, `21.1.8`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
+* [`20`, `20.1.8`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
+* [`19`, `19.1.7`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
+* [`18`, `18.1.8`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
+* [`17`, `17.0.6`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
+* [`16`, `16.0.6`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
+* [`15`, `15.0.7`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
+* [`14`, `14.0.6`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
+* [`13`, `13.0.1`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
+* [`12`, `12.0.1`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
+* [`11`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile.apt)
+* [`10`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile.apt)
+* [`9`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile.apt)
+* [`8`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile.apt)
+* [`7`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile.apt)
 * [`16-alpine` to `22-alpine`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile.alpine): all seven carry clang-format and clang-tidy 16.0.6 from Alpine 3.18, whatever the number in the tag. For any other version, use the tag without `-alpine`.
+
+A major-version tag such as `22` moves to each new patch release; a full-version tag such as `22.1.8` always carries that LLVM release. Every tag is rebuilt each week to pick up the base image's security updates, so pin a digest if you need a byte-for-byte identical image.
+
+### What is in the images
+
+Tags `12` to `23` (Ubuntu 22.04 for 12 and 13, Ubuntu 24.04 for 14 to 18, Ubuntu 26.04 for 19 and later) contain:
+
+* `clang-format`, `clang-tidy`, `clang-apply-replacements`, `clang-query`, `clang-scan-deps` and, from LLVM 18, `clang-include-cleaner`, each also as `<tool>-<major>` (for example `clang-tidy-22`);
+* clang's builtin headers, plus the C and C++ standard library headers (`libc6-dev` and the distribution's default `libstdc++-dev`), so clang-tidy can parse code;
+* `run-clang-tidy`, `clang-tidy-diff-<major>.py`, `clang-format-diff-<major>` and `git-clang-format` from the same LLVM release, with Python 3 to run them.
+
+They do not contain the clang compiler or git. Tags `7` to `11` and `all` still install Ubuntu's `clang-format-N` and `clang-tidy-N` packages.
 
 ## Supply chain security
 
