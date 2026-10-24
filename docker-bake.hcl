@@ -4,28 +4,16 @@ group "default" {
     "all",
     "23",
     "22",
-    "22-alpine",
     "21",
-    "21-alpine",
     "20",
-    "20-alpine",
     "19",
-    "19-alpine",
     "18",
-    "18-alpine",
     "17",
-    "17-alpine",
     "16",
-    "16-alpine",
     "15",
     "14",
     "13",
     "12",
-    "11",
-    "10",
-    "9",
-    "8",
-    "7",
   ]
 }
 
@@ -92,60 +80,5 @@ target "clang-tools" {
   output = ["type=image"]
 }
 
-# LLVM 11 and older: Ubuntu's apt packages.
-target "clang-tools" {
-  matrix = {
-    tgt = ["11"]
-  }
-  name = "${tgt}"
-  dockerfile = "Dockerfile.apt"
-  context = "."
-  args = {
-    BASE_IMAGE="ubuntu:22.04"
-    CLANG_VERSION="${tgt}",
-  }
-  tags = [
-    "${DOCKER_REPO}:${tgt}",
-    "${GITHUB_REPO}:${tgt}"
-  ]
-  platforms = ["linux/amd64", "linux/arm64"]
-  output = ["type=image"]
-}
-
-target "clang-tools" {
-  matrix = {
-    tgt = ["10", "9", "8", "7"]
-  }
-  name = "${tgt}"
-  dockerfile = "Dockerfile.apt"
-  context = "."
-  args = {
-    BASE_IMAGE="ubuntu:20.04"
-    CLANG_VERSION="${tgt}",
-  }
-  tags = [
-    "${DOCKER_REPO}:${tgt}",
-    "${GITHUB_REPO}:${tgt}"
-  ]
-  platforms = ["linux/amd64", "linux/arm64"]
-  output = ["type=image"]
-}
-
-target "clang-tools" {
-  matrix = {
-    tgt = ["16-alpine", "17-alpine", "18-alpine", "19-alpine", "20-alpine", "21-alpine", "22-alpine"]
-  }
-  name = "${tgt}"
-  dockerfile = "Dockerfile.alpine"
-  context = "."
-  args = {
-    BASE_IMAGE="alpine:3.18",
-    CLANG_VERSION="${tgt}",
-  }
-  tags = [
-    "${DOCKER_REPO}:${tgt}",
-    "${GITHUB_REPO}:${tgt}"
-  ]
-  platforms = ["linux/amd64", "linux/arm64"]
-  output = ["type=image"]
-}
+# Tags 7 to 11 and 16-alpine to 22-alpine are no longer built; the images
+# already published stay in the registries. See README.md.
