@@ -100,14 +100,17 @@ Each tag below exists in both registries (see [Registries](https://github.com/cp
 * [`14`, `14.0.6`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
 * [`13`, `13.0.1`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
 * [`12`, `12.0.1`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
-* [`11`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile.apt)
-* [`10`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile.apt)
-* [`9`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile.apt)
-* [`8`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile.apt)
-* [`7`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile.apt)
-* [`16-alpine` to `22-alpine`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile.alpine): all seven carry clang-format and clang-tidy 16.0.6 from Alpine 3.18, whatever the number in the tag. For any other version, use the tag without `-alpine`.
 
 A major-version tag such as `22` moves to each new patch release; a full-version tag such as `22.1.8` always carries that LLVM release. Every tag is rebuilt each week to pick up the base image's security updates, so pin a digest if you need a byte-for-byte identical image.
+
+### Tags no longer updated
+
+These tags stay in both registries and can still be pulled, but they are no longer rebuilt and get no security updates:
+
+* `11`, `10`, `9`, `8`, `7` (Ubuntu's `clang-format-N` and `clang-tidy-N` packages; 7 to 10 on Ubuntu 20.04, which has reached end of standard support).
+* `16-alpine` to `22-alpine`: all seven carry clang-format and clang-tidy 16.0.6 from Alpine 3.18, whatever the number in the tag.
+
+Use a tag from the list above instead, such as `22` in place of `22-alpine`.
 
 ### What is in the images
 
@@ -117,7 +120,7 @@ Tags `12` to `23` (Ubuntu 22.04 for 12 and 13, Ubuntu 24.04 for 14 to 18, Ubuntu
 * clang's builtin headers, plus the C and C++ standard library headers (`libc6-dev` and the distribution's default `libstdc++-dev`), so clang-tidy can parse code;
 * `run-clang-tidy`, `clang-tidy-diff-<major>.py`, `clang-format-diff-<major>` and `git-clang-format` from the same LLVM release, with Python 3 to run them.
 
-They do not contain the clang compiler or git. Tags `7` to `11` and `all` still install Ubuntu's `clang-format-N` and `clang-tidy-N` packages.
+They do not contain the clang compiler or git. The `all` tag still installs Ubuntu's `clang-format-N` and `clang-tidy-N` packages.
 
 ## Supply chain security
 
