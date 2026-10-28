@@ -5,7 +5,7 @@
 ARG BASE_IMAGE
 
 # ---- fetch: download and verify the binaries for the target platform ----
-FROM --platform=$BUILDPLATFORM alpine:3.22 AS fetch
+FROM --platform=$BUILDPLATFORM alpine:3.24 AS fetch
 ARG LLVM_MAJOR
 ARG LLVM_VERSION
 ARG RELEASE_TAG
