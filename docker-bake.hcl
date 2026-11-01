@@ -47,7 +47,7 @@ target "all" {
 target "clang-tools" {
   matrix = {
     item = [
-      { major = "23", version = "23.1.3", release = "llvm-23.1.3-3", base = "ubuntu:resolute" },
+      { major = "23", version = "23.1.4", release = "llvm-23.1.4", base = "ubuntu:resolute" },
       { major = "22", version = "22.1.8", release = "llvm-22.1.8-3", base = "ubuntu:resolute" },
       { major = "21", version = "21.1.8", release = "llvm-21.1.8", base = "ubuntu:resolute" },
       { major = "20", version = "20.1.8", release = "llvm-20.1.8", base = "ubuntu:resolute" },

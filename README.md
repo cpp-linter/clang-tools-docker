@@ -88,7 +88,7 @@ All images listed here support `linux/amd64` and `linux/arm64` platforms.
 Each tag below exists in both registries (see [Registries](https://github.com/cpp-linter/clang-tools-docker#registries)).
 
 * [`all`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile.all) (versions `21`, `20`, `19`, `18`, `17`, `16`, `15`, `14`, `13`, `12`, `11`, `10`, `9` from Ubuntu's packages; run them as `clang-format-21`, `clang-tidy-21` and so on)
-* [`23`, `23.1.3`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
+* [`23`, `23.1.4`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
 * [`22`, `22.1.8`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
 * [`21`, `21.1.8`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
 * [`20`, `20.1.8`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
