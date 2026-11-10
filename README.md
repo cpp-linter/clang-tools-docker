@@ -17,6 +17,12 @@ docker pull ghcr.io/cpp-linter/clang-tools:21
 docker run --rm -v "$PWD":/src ghcr.io/cpp-linter/clang-tools:21 clang-format --dry-run --Werror /src/main.cpp
 ```
 
+In a git repository, check only the lines your branch changes:
+
+```bash
+docker run --rm -v "$PWD":/src ghcr.io/cpp-linter/clang-tools:21 git clang-format --diff origin/main
+```
+
 ## Registries
 
 Every image is pushed to two registries, with the same digest, and both copies are signed:
@@ -87,8 +93,9 @@ All images listed here support `linux/amd64` and `linux/arm64` platforms.
 
 Each tag below exists in both registries (see [Registries](https://github.com/cpp-linter/clang-tools-docker#registries)).
 
-* [`all`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile.all) (versions `21`, `20`, `19`, `18`, `17`, `16`, `15`, `14`, `13`, `12`, `11`, `10`, `9` from Ubuntu's packages; run them as `clang-format-21`, `clang-tidy-21` and so on)
-* [`23`, `23.1.5`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
+* [`all`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile.all) (every version below in one image; run them as `clang-format-21`, `clang-tidy-21` and so on)
+<!-- tags:start -->
+* [`23`, `23.1.5`, `latest`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
 * [`22`, `22.1.8`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
 * [`21`, `21.1.8`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
 * [`20`, `20.1.8`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
@@ -100,6 +107,9 @@ Each tag below exists in both registries (see [Registries](https://github.com/cp
 * [`14`, `14.0.6`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
 * [`13`, `13.0.1`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
 * [`12`, `12.0.1`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
+<!-- tags:end -->
+
+`latest` is the newest LLVM version, so it moves to the next major when one is released. Use a version tag in CI.
 
 A major-version tag such as `22` moves to each new patch release; a full-version tag such as `22.1.8` always carries that LLVM release. Every tag is rebuilt each week to pick up the base image's security updates, so pin a digest if you need a byte-for-byte identical image.
 
@@ -114,13 +124,17 @@ Use a tag from the list above instead, such as `22` in place of `22-alpine`.
 
 ### What is in the images
 
-Tags `12` to `23` (Ubuntu 22.04 for 12 and 13, Ubuntu 24.04 for 14 to 18, Ubuntu 26.04 for 19 and later) contain:
+Tags `12` and later (Ubuntu 22.04 for 12 and 13, Ubuntu 24.04 for 14 to 18, Ubuntu 26.04 for 19 and later) contain:
 
 * `clang-format`, `clang-tidy`, `clang-apply-replacements`, `clang-query`, `clang-scan-deps` and, from LLVM 18, `clang-include-cleaner`, each also as `<tool>-<major>` (for example `clang-tidy-22`);
 * clang's builtin headers, plus the C and C++ standard library headers (`libc6-dev` and the distribution's default `libstdc++-dev`), so clang-tidy can parse code;
 * `run-clang-tidy`, `clang-tidy-diff-<major>.py`, `clang-format-diff-<major>` and `git-clang-format` from the same LLVM release, with Python 3 to run them.
 
-They do not contain the clang compiler or git. The `all` tag still installs Ubuntu's `clang-format-N` and `clang-tidy-N` packages.
+* git, which `git-clang-format` needs, and which produces the diffs that `clang-format-diff` and `clang-tidy-diff` read. git is set up to trust every directory (`safe.directory = *`), because a repository mounted from the host belongs to another user than the container's root.
+
+They do not contain the clang compiler.
+
+The `all` tag (Ubuntu 22.04) contains `clang-format-<major>`, `clang-tidy-<major>` and `clang-apply-replacements-<major>` for every version above, with the same headers, helper scripts (`run-clang-tidy-<major>`, `clang-tidy-diff-<major>.py`, `clang-format-diff-<major>`, `git-clang-format-<major>`), Python 3 and git. It has no unversioned `clang-format` or `clang-tidy`. Until November 2026 it carried Ubuntu's packages for LLVM 9 to 21; LLVM 9, 10 and 11 are no longer in it, and 22 and 23 are new.
 
 ## Supply chain security
 

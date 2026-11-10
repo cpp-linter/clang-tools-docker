@@ -67,13 +67,17 @@ LABEL \
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # The C and C++ standard library headers clang-tidy needs to parse code (the
-# libstdc++ of the distribution's default GCC), and Python for run-clang-tidy
-# and the other helper scripts.
+# libstdc++ of the distribution's default GCC), Python for run-clang-tidy and
+# the other helper scripts, and git for git-clang-format and for the diffs that
+# clang-format-diff and clang-tidy-diff read.
+# A repository mounted from the host belongs to another user than the
+# container's root, so git would refuse to read it; safe.directory allows it.
 RUN apt-get update \
     && gcc_major="$(apt-cache show g++ | sed -n 's/^Depends:.* g++-\([0-9][0-9]*\).*/\1/p' | head -n 1)" \
     && [ -n "$gcc_major" ] \
-    && apt-get --no-install-recommends -y install libc6-dev "libstdc++-${gcc_major}-dev" python3 \
-    && rm -rf /var/lib/apt/lists/*
+    && apt-get --no-install-recommends -y install git libc6-dev "libstdc++-${gcc_major}-dev" python3 \
+    && rm -rf /var/lib/apt/lists/* \
+    && git config --system --add safe.directory '*'
 
 COPY --from=fetch /out/ /
 
@@ -83,7 +87,9 @@ RUN clang-format --version | grep -F "clang-format version ${LLVM_VERSION}" \
     && clang-tidy --version | grep -F "LLVM version ${LLVM_VERSION}" \
     && printf '#include <stddef.h>\n#include <string>\nint main() { std::string s; return static_cast<int>(s.size() + sizeof(size_t)); }\n' > /tmp/check.cpp \
     && clang-tidy --checks='-*,bugprone-*' --warnings-as-errors='*' /tmp/check.cpp -- -std=c++17 \
-    && rm /tmp/check.cpp
+    && rm /tmp/check.cpp \
+    && git --version \
+    && git-clang-format -h > /dev/null
 
 WORKDIR /src
 
