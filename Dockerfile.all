@@ -92,11 +92,14 @@ RUN printf '#include <stddef.h>\n#include <string>\nint main() { std::string s; 
         "clang-format-${major}" --version | grep -F "clang-format version ${version}" \
         && "clang-tidy-${major}" --version | grep -F "LLVM version ${version}" \
         && "clang-tidy-${major}" --checks='-*,bugprone-*' --warnings-as-errors='*' /tmp/check.cpp -- -std=c++17 \
-        && "run-clang-tidy-${major}" -h > /dev/null \
-        && "clang-tidy-diff-${major}.py" -h > /dev/null \
-        && "clang-format-diff-${major}" -h > /dev/null \
-        && "git-clang-format-${major}" -h > /dev/null \
         || exit 1; \
+        # The scripts are started with python3 and their first line is only
+        # read, as in Dockerfile.
+        for script in "run-clang-tidy-${major}" "clang-tidy-diff-${major}.py" "clang-format-diff-${major}" "git-clang-format-${major}"; do \
+            head -n 1 "$(command -v "$script")" | grep -Fx '#!/usr/bin/env python3' > /dev/null \
+            && python3 "$(command -v "$script")" -h > /dev/null \
+            || exit 1; \
+        done; \
     done \
     && rm /tmp/check.cpp
 

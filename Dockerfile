@@ -93,10 +93,14 @@ RUN clang-format --version | grep -F "clang-format version ${LLVM_VERSION}" \
     && clang-tidy --checks='-*,bugprone-*' --warnings-as-errors='*' /tmp/check.cpp -- -std=c++17 \
     && rm /tmp/check.cpp \
     && git --version \
-    && run-clang-tidy -h > /dev/null \
-    && "clang-tidy-diff-${LLVM_MAJOR}.py" -h > /dev/null \
-    && "clang-format-diff-${LLVM_MAJOR}" -h > /dev/null \
-    && git-clang-format -h > /dev/null
+    # The scripts are started with python3 and their first line is only read:
+    # in the emulated part of a multi-platform build, the env of Ubuntu 26.04
+    # refuses to start a script.
+    && for script in run-clang-tidy "clang-tidy-diff-${LLVM_MAJOR}.py" "clang-format-diff-${LLVM_MAJOR}" git-clang-format; do \
+        head -n 1 "$(command -v "$script")" | grep -Fx '#!/usr/bin/env python3' > /dev/null \
+        && python3 "$(command -v "$script")" -h > /dev/null \
+        || exit 1; \
+    done
 
 WORKDIR /src
 
