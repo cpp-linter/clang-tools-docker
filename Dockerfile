@@ -41,6 +41,10 @@ RUN src="https://raw.githubusercontent.com/llvm/llvm-project/llvmorg-${LLVM_VERS
     && curl --proto =https --tlsv1.2 -fsSL --retry 5 -o "$bin/clang-format-diff.py" "$src/clang/tools/clang-format/clang-format-diff.py" \
     && curl --proto =https --tlsv1.2 -fsSL --retry 5 -o "$bin/git-clang-format" "$src/clang/tools/clang-format/git-clang-format" \
     && chmod 0755 "$bin/run-clang-tidy" "$bin/clang-tidy-diff.py" "$bin/clang-format-diff.py" "$bin/git-clang-format" \
+    # Up to LLVM 16 some of them start with "#!/usr/bin/env python", a command Ubuntu does not have.
+    && for script in run-clang-tidy clang-tidy-diff.py clang-format-diff.py git-clang-format; do \
+        sed -i '1s|^#!/usr/bin/env python$|#!/usr/bin/env python3|' "$bin/$script"; \
+    done \
     && ln -s "../lib/llvm-${LLVM_MAJOR}/bin/run-clang-tidy" "/out/usr/bin/run-clang-tidy-${LLVM_MAJOR}" \
     && ln -s "../lib/llvm-${LLVM_MAJOR}/bin/clang-tidy-diff.py" "/out/usr/bin/clang-tidy-diff-${LLVM_MAJOR}.py" \
     && ln -s "../lib/llvm-${LLVM_MAJOR}/bin/clang-format-diff.py" "/out/usr/bin/clang-format-diff-${LLVM_MAJOR}" \
@@ -67,23 +71,36 @@ LABEL \
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # The C and C++ standard library headers clang-tidy needs to parse code (the
-# libstdc++ of the distribution's default GCC), and Python for run-clang-tidy
-# and the other helper scripts.
+# libstdc++ of the distribution's default GCC), Python for run-clang-tidy and
+# the other helper scripts, and git for git-clang-format and for the diffs that
+# clang-format-diff and clang-tidy-diff read.
+# A repository mounted from the host belongs to another user than the
+# container's root, so git would refuse to read it; safe.directory allows it.
 RUN apt-get update \
     && gcc_major="$(apt-cache show g++ | sed -n 's/^Depends:.* g++-\([0-9][0-9]*\).*/\1/p' | head -n 1)" \
     && [ -n "$gcc_major" ] \
-    && apt-get --no-install-recommends -y install libc6-dev "libstdc++-${gcc_major}-dev" python3 \
-    && rm -rf /var/lib/apt/lists/*
+    && apt-get --no-install-recommends -y install git libc6-dev "libstdc++-${gcc_major}-dev" python3 \
+    && rm -rf /var/lib/apt/lists/* \
+    && git config --system --add safe.directory '*'
 
 COPY --from=fetch /out/ /
 
-# Integrity testing: the right version, and clang-tidy finds both clang's
-# builtin headers and the C++ standard library.
+# Integrity testing: the right version, clang-tidy finds both clang's builtin
+# headers and the C++ standard library, and the helper scripts start.
 RUN clang-format --version | grep -F "clang-format version ${LLVM_VERSION}" \
     && clang-tidy --version | grep -F "LLVM version ${LLVM_VERSION}" \
     && printf '#include <stddef.h>\n#include <string>\nint main() { std::string s; return static_cast<int>(s.size() + sizeof(size_t)); }\n' > /tmp/check.cpp \
     && clang-tidy --checks='-*,bugprone-*' --warnings-as-errors='*' /tmp/check.cpp -- -std=c++17 \
-    && rm /tmp/check.cpp
+    && rm /tmp/check.cpp \
+    && git --version \
+    # The scripts are started with python3 and their first line is only read:
+    # in the emulated part of a multi-platform build, the env of Ubuntu 26.04
+    # refuses to start a script.
+    && for script in run-clang-tidy "clang-tidy-diff-${LLVM_MAJOR}.py" "clang-format-diff-${LLVM_MAJOR}" git-clang-format; do \
+        head -n 1 "$(command -v "$script")" | grep -Fx '#!/usr/bin/env python3' > /dev/null \
+        && python3 "$(command -v "$script")" -h > /dev/null \
+        || exit 1; \
+    done
 
 WORKDIR /src
 

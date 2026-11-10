@@ -27,3 +27,13 @@ docker buildx bake --file docker-bake.hcl 19
 # If want to docker build and push images, add `--push` flag.
 docker buildx bake --file docker-bake.hcl --push 19
 ```
+
+## New LLVM releases
+
+`RELEASES` in `docker-bake.hcl` pins one [static-binaries](https://github.com/cpp-linter/clang-tools-static-binaries) release for each LLVM version. The [Update pins](https://github.com/cpp-linter/clang-tools-docker/actions/workflows/update-pins.yml) workflow runs daily and opens a pull request when the static binaries' index has a newer release. To do the same by hand:
+
+```bash
+python3 scripts/update-pins.py
+```
+
+The script also rewrites the list of tags in `README.md`. A new LLVM version starts on the base image of the version before it; change `base` on its line if that version needs another one.
