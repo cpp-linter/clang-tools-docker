@@ -37,7 +37,7 @@ LINE = re.compile(
     r'release = "(?P<release>[^"]+)", base = "(?P<base>[^"]+)" \},\n',
     re.MULTILINE,
 )
-LATEST = re.compile(r'(variable "LATEST" \{\n  default = ")\d+(")')
+LATEST = re.compile(r'(variable "LATEST" \{\n {2}default = ")\d+(")')
 TAGS = re.compile(r"(<!-- tags:start -->\n).*?(<!-- tags:end -->)", re.DOTALL)
 
 

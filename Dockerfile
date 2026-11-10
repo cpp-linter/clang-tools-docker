@@ -41,6 +41,10 @@ RUN src="https://raw.githubusercontent.com/llvm/llvm-project/llvmorg-${LLVM_VERS
     && curl --proto =https --tlsv1.2 -fsSL --retry 5 -o "$bin/clang-format-diff.py" "$src/clang/tools/clang-format/clang-format-diff.py" \
     && curl --proto =https --tlsv1.2 -fsSL --retry 5 -o "$bin/git-clang-format" "$src/clang/tools/clang-format/git-clang-format" \
     && chmod 0755 "$bin/run-clang-tidy" "$bin/clang-tidy-diff.py" "$bin/clang-format-diff.py" "$bin/git-clang-format" \
+    # Up to LLVM 16 some of them start with "#!/usr/bin/env python", a command Ubuntu does not have.
+    && for script in run-clang-tidy clang-tidy-diff.py clang-format-diff.py git-clang-format; do \
+        sed -i '1s|^#!/usr/bin/env python$|#!/usr/bin/env python3|' "$bin/$script"; \
+    done \
     && ln -s "../lib/llvm-${LLVM_MAJOR}/bin/run-clang-tidy" "/out/usr/bin/run-clang-tidy-${LLVM_MAJOR}" \
     && ln -s "../lib/llvm-${LLVM_MAJOR}/bin/clang-tidy-diff.py" "/out/usr/bin/clang-tidy-diff-${LLVM_MAJOR}.py" \
     && ln -s "../lib/llvm-${LLVM_MAJOR}/bin/clang-format-diff.py" "/out/usr/bin/clang-format-diff-${LLVM_MAJOR}" \
@@ -81,14 +85,17 @@ RUN apt-get update \
 
 COPY --from=fetch /out/ /
 
-# Integrity testing: the right version, and clang-tidy finds both clang's
-# builtin headers and the C++ standard library.
+# Integrity testing: the right version, clang-tidy finds both clang's builtin
+# headers and the C++ standard library, and the helper scripts start.
 RUN clang-format --version | grep -F "clang-format version ${LLVM_VERSION}" \
     && clang-tidy --version | grep -F "LLVM version ${LLVM_VERSION}" \
     && printf '#include <stddef.h>\n#include <string>\nint main() { std::string s; return static_cast<int>(s.size() + sizeof(size_t)); }\n' > /tmp/check.cpp \
     && clang-tidy --checks='-*,bugprone-*' --warnings-as-errors='*' /tmp/check.cpp -- -std=c++17 \
     && rm /tmp/check.cpp \
     && git --version \
+    && run-clang-tidy -h > /dev/null \
+    && "clang-tidy-diff-${LLVM_MAJOR}.py" -h > /dev/null \
+    && "clang-format-diff-${LLVM_MAJOR}" -h > /dev/null \
     && git-clang-format -h > /dev/null
 
 WORKDIR /src

@@ -41,6 +41,10 @@ RUN mkdir -p /out/usr/bin \
         && curl --proto =https --tlsv1.2 -fsSL --retry 5 -o "$prefix/bin/clang-format-diff.py" "$src/clang/tools/clang-format/clang-format-diff.py" \
         && curl --proto =https --tlsv1.2 -fsSL --retry 5 -o "$prefix/bin/git-clang-format" "$src/clang/tools/clang-format/git-clang-format" \
         && chmod 0755 "$prefix/bin/run-clang-tidy" "$prefix/bin/clang-tidy-diff.py" "$prefix/bin/clang-format-diff.py" "$prefix/bin/git-clang-format" \
+        # Up to LLVM 16 some of them start with "#!/usr/bin/env python", a command Ubuntu does not have.
+        && for script in run-clang-tidy clang-tidy-diff.py clang-format-diff.py git-clang-format; do \
+            sed -i '1s|^#!/usr/bin/env python$|#!/usr/bin/env python3|' "$prefix/bin/$script"; \
+        done \
         && ln -s "../lib/llvm-${major}/bin/run-clang-tidy" "/out/usr/bin/run-clang-tidy-${major}" \
         && ln -s "../lib/llvm-${major}/bin/clang-tidy-diff.py" "/out/usr/bin/clang-tidy-diff-${major}.py" \
         && ln -s "../lib/llvm-${major}/bin/clang-format-diff.py" "/out/usr/bin/clang-format-diff-${major}" \
@@ -79,8 +83,9 @@ RUN apt-get update \
 
 COPY --from=fetch /out/ /
 
-# Integrity testing: the right version of every tool, and every clang-tidy
-# finds both clang's builtin headers and the C++ standard library.
+# Integrity testing: the right version of every tool, every clang-tidy finds
+# both clang's builtin headers and the C++ standard library, and the helper
+# scripts start.
 RUN printf '#include <stddef.h>\n#include <string>\nint main() { std::string s; return static_cast<int>(s.size() + sizeof(size_t)); }\n' > /tmp/check.cpp \
     && for item in $RELEASES; do \
         major="${item%%=*}"; rest="${item#*=}"; version="${rest%%=*}"; \
@@ -88,6 +93,8 @@ RUN printf '#include <stddef.h>\n#include <string>\nint main() { std::string s; 
         && "clang-tidy-${major}" --version | grep -F "LLVM version ${version}" \
         && "clang-tidy-${major}" --checks='-*,bugprone-*' --warnings-as-errors='*' /tmp/check.cpp -- -std=c++17 \
         && "run-clang-tidy-${major}" -h > /dev/null \
+        && "clang-tidy-diff-${major}.py" -h > /dev/null \
+        && "clang-format-diff-${major}" -h > /dev/null \
         && "git-clang-format-${major}" -h > /dev/null \
         || exit 1; \
     done \
