@@ -24,18 +24,18 @@ variable "LATEST" {
 # result, so keep one release per line in this shape.
 variable "RELEASES" {
   default = [
-    { major = "23", version = "23.1.5", release = "llvm-23.1.5", base = "ubuntu:resolute" },
-    { major = "22", version = "22.1.8", release = "llvm-22.1.8-3", base = "ubuntu:resolute" },
-    { major = "21", version = "21.1.8", release = "llvm-21.1.8", base = "ubuntu:resolute" },
-    { major = "20", version = "20.1.8", release = "llvm-20.1.8", base = "ubuntu:resolute" },
-    { major = "19", version = "19.1.7", release = "llvm-19.1.7", base = "ubuntu:resolute" },
-    { major = "18", version = "18.1.8", release = "llvm-18.1.8", base = "ubuntu:noble" },
-    { major = "17", version = "17.0.6", release = "llvm-17.0.6-2", base = "ubuntu:noble" },
-    { major = "16", version = "16.0.6", release = "llvm-16.0.6", base = "ubuntu:noble" },
-    { major = "15", version = "15.0.7", release = "llvm-15.0.7", base = "ubuntu:noble" },
-    { major = "14", version = "14.0.6", release = "llvm-14.0.6", base = "ubuntu:noble" },
-    { major = "13", version = "13.0.1", release = "llvm-13.0.1", base = "ubuntu:22.04" },
-    { major = "12", version = "12.0.1", release = "llvm-12.0.1-2", base = "ubuntu:22.04" },
+    { major = "23", version = "23.1.5", release = "llvm-23.1.5-2", base = "ubuntu:resolute" },
+    { major = "22", version = "22.1.8", release = "llvm-22.1.8-4", base = "ubuntu:resolute" },
+    { major = "21", version = "21.1.8", release = "llvm-21.1.8-2", base = "ubuntu:resolute" },
+    { major = "20", version = "20.1.8", release = "llvm-20.1.8-2", base = "ubuntu:resolute" },
+    { major = "19", version = "19.1.7", release = "llvm-19.1.7-2", base = "ubuntu:resolute" },
+    { major = "18", version = "18.1.8", release = "llvm-18.1.8-2", base = "ubuntu:noble" },
+    { major = "17", version = "17.0.6", release = "llvm-17.0.6-3", base = "ubuntu:noble" },
+    { major = "16", version = "16.0.6", release = "llvm-16.0.6-2", base = "ubuntu:noble" },
+    { major = "15", version = "15.0.7", release = "llvm-15.0.7-2", base = "ubuntu:noble" },
+    { major = "14", version = "14.0.6", release = "llvm-14.0.6-2", base = "ubuntu:noble" },
+    { major = "13", version = "13.0.1", release = "llvm-13.0.1-2", base = "ubuntu:22.04" },
+    { major = "12", version = "12.0.1", release = "llvm-12.0.1-3", base = "ubuntu:22.04" },
   ]
 }
 
