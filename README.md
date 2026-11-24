@@ -95,7 +95,7 @@ Each tag below exists in both registries (see [Registries](https://github.com/cp
 
 * [`all`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile.all) (every version below in one image; run them as `clang-format-21`, `clang-tidy-21` and so on)
 <!-- tags:start -->
-* [`23`, `23.1.5`, `latest`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
+* [`23`, `23.1.6`, `latest`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
 * [`22`, `22.1.8`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
 * [`21`, `21.1.8`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
 * [`20`, `20.1.8`](https://github.com/cpp-linter/clang-tools-docker/blob/main/Dockerfile)
