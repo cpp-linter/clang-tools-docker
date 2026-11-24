@@ -24,7 +24,7 @@ variable "LATEST" {
 # result, so keep one release per line in this shape.
 variable "RELEASES" {
   default = [
-    { major = "23", version = "23.1.5", release = "llvm-23.1.5-2", base = "ubuntu:resolute" },
+    { major = "23", version = "23.1.6", release = "llvm-23.1.6", base = "ubuntu:resolute" },
     { major = "22", version = "22.1.8", release = "llvm-22.1.8-4", base = "ubuntu:resolute" },
     { major = "21", version = "21.1.8", release = "llvm-21.1.8-2", base = "ubuntu:resolute" },
     { major = "20", version = "20.1.8", release = "llvm-20.1.8-2", base = "ubuntu:resolute" },
